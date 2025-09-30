@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KjeldCinema - Your Ultimate Movie Experience</title>
+    <title>RowanCinema - Your Ultimate Movie Experience</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -44,7 +44,7 @@
                 <div class="flex items-center">
                     <a href="#" class="text-2xl font-bold text-amber-500 flex items-center">
                         <i data-feather="film" class="mr-2"></i>
-                        KjeldCinema
+                        RowanCinema
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
@@ -450,7 +450,7 @@
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold text-amber-400 mb-4">CineVerse</h3>
+                    <h3 class="text-xl font-bold text-amber-400 mb-4">RowanCinema</h3>
                     <p class="text-gray-400 mb-4">
                         Your ultimate destination for premium cinematic experiences.
                     </p>
@@ -499,13 +499,13 @@
                             <i data-feather="phone" class="mr-2"></i> (123) 456-7890
                         </li>
                         <li class="flex items-center text-gray-400">
-                            <i data-feather="mail" class="mr-2"></i> info@cineverse.com
+                            <i data-feather="mail" class="mr-2"></i> info@RowanCinema.com
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-                <p>© 2023 CineVerse. All rights reserved.</p>
+                <p>© 2025 RowanCinema. All rights reserved.</p>
             </div>
         </div>
     </footer>
