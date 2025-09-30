@@ -49,9 +49,8 @@
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#" class="text-white hover:text-amber-400 transition">Home</a>
-                    <a href="#" class="text-white hover:text-amber-400 transition">Movies</a>
-                    <a href="#" class="text-white hover:text-amber-400 transition">Cinemas</a>
-                    <a href="#" class="text-white hover:text-amber-400 transition">Promotions</a>
+                    <!-- <a href="#" class="text-white hover:text-amber-400 transition">Movies</a> -->
+                    <a href="#" class="text-white hover:text-amber-400 transition">Venues</a>
                     <a href="#" class="text-white hover:text-amber-400 transition">Contact</a>
                 </div>
                 <div class="flex items-center space-x-4">
