@@ -43,7 +43,8 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <a href="#" class="text-2xl font-bold text-amber-500 flex items-center">
-                        <i data-feather="film" class="mr-2"></i>
+                    <!-- <i class="mr-2"> </i> -->
+                    <img src="img/mr_bean_icon.png" alt="icon" class="w-8 h-8 mr-1">
                         RowanCinema
                     </a>
                 </div>
@@ -186,11 +187,11 @@
                         <div>
                             <h4 class="font-medium mb-3">Showtimes</h4>
                             <div class="flex flex-wrap gap-3">
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:00 AM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:30 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">4:45 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:00 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:00 AM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:30 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">4:45 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:00 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 PM</a>
                             </div>
                         </div>
                     </div>
@@ -220,10 +221,10 @@
                         <div>
                             <h4 class="font-medium mb-3">Showtimes</h4>
                             <div class="flex flex-wrap gap-3">
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:00 AM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">2:15 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:30 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:45 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:00 AM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">2:15 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:30 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:45 PM</a>
                             </div>
                         </div>
                     </div>
@@ -254,11 +255,11 @@
                         <div>
                             <h4 class="font-medium mb-3">Showtimes</h4>
                             <div class="flex flex-wrap gap-3">
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 AM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:45 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:00 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:15 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:30 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 AM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:45 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:00 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:15 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:30 PM</a>
                             </div>
                         </div>
                     </div>
@@ -289,10 +290,10 @@
                         <div>
                             <h4 class="font-medium mb-3">Showtimes</h4>
                             <div class="flex flex-wrap gap-3">
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">12:00 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">3:30 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">7:00 PM</a>
-                                <a href="#" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:15 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">12:00 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">3:30 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">7:00 PM</a>
+                                <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:15 PM</a>
                             </div>
                         </div>
                     </div>

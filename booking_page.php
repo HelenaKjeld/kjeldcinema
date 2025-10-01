@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineMax - Book Your Seats</title>
+    <title>RowanCinema - Book Your Seats</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -76,7 +76,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <i data-feather="film" class="text-red-500"></i>
-                    <h1 class="text-2xl font-bold">CineMax</h1>
+                    <h1 class="text-2xl font-bold">RowanCinema</h1>
                 </div>
                 <nav>
                     <ul class="flex space-x-6">
@@ -168,9 +168,9 @@
                             <p class="text-gray-600">Total</p>
                             <h3 class="text-2xl font-bold" id="total-price">$0</h3>
                         </div>
-                        <button id="proceed-btn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <a href="index"><button id="proceed-btn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                             Proceed to Payment
-                        </button>
+                        </button></a>
                     </div>
                 </div>
             </div>
