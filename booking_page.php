@@ -9,8 +9,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src= "style.css"></script>
     <style>
-        body {
+        .booking_page_body {
             background-color: #f5f5f5;
             font-family: 'Arial', sans-serif;
         }
@@ -69,9 +70,59 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
     </style>
-</head>
+</head> 
+
+
+    
+
+
+
 <body class="bg-gray-100">
-    <header class="bg-black text-white py-6 shadow-lg">
+
+<!-- Navigation -->
+    <nav class="bg-black bg-opacity-90 backdrop-blur-md w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-amber-500 flex items-center">
+                    <!-- <i class="mr-2"> </i> -->
+                    <img src="img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
+                        RowanCinema
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-white hover:text-amber-400 transition">Home</a>
+                    <!-- <a href="#" class="text-white hover:text-amber-400 transition">Movies</a> -->
+                    <a href="#" class="text-white hover:text-amber-400 transition">Venues</a>
+                    <a href="#" class="text-white hover:text-amber-400 transition">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        Sign In
+                    </button>
+                    <button class="md:hidden text-white" id="mobile-menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-black bg-opacity-90 z-40 hidden" id="mobile-menu">
+        <div class="container mx-auto px-6 py-20">
+            <div class="flex flex-col space-y-8 text-center">
+                <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Home</a>
+                <!-- <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Movies</a> -->
+                <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Venues</a>
+                <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Contact</a>
+                <button class="bg-amber-500 hover:bg-amber-600 text-black px-6 py-3 rounded-full font-medium text-xl mx-auto w-48 transition">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <header class="bg-black text-white py-6 shadow-lg">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
@@ -87,11 +138,14 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div> -->
     </header>
 
     <main class="container mx-auto px-4 py-8">
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <a href="index"><button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
+                            Back to Movies
+                        </button></a>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="md:w-1/3">
                     <img src="http://static.photos/movie/640x360/42" alt="Movie Poster" class="rounded-lg w-full">

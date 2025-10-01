@@ -9,34 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
-        .movie-card {
-            transition: all 0.3s ease;
-        }
-        .movie-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .ticket-button {
-            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-            transition: all 0.3s ease;
-        }
-        .ticket-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
-        }
-    </style>
+    <link href="style.css" rel="stylesheet">
+  
 </head>
-<body class="min-h-screen">
+<body class="index min-h-screen">
     <!-- Navigation -->
     <nav class="bg-black bg-opacity-90 backdrop-blur-md fixed w-full z-50">
         <div class="container mx-auto px-6 py-4">
@@ -44,7 +20,7 @@
                 <div class="flex items-center">
                     <a href="#" class="text-2xl font-bold text-amber-500 flex items-center">
                     <!-- <i class="mr-2"> </i> -->
-                    <img src="img/mr_bean_icon.png" alt="icon" class="w-8 h-8 mr-1">
+                    <img src="img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
                         RowanCinema
                     </a>
                 </div>
