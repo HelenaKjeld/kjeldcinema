@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <section class="hero-gradient flex-grow flex items-center justify-center pt-32 pb-20 px-6">
     <div class="bg-slate-800 bg-opacity-80 p-10 rounded-2xl shadow-2xl w-full max-w-md">
       <div class="text-center mb-6">
-        <img src="img/mr_bean_face.png" alt="Mr Bean" class="w-20 h-20 mx-auto mb-4 rounded-full border-4 border-amber-400">
+        <img src="img/Tedyy.webp" alt="Mr Bean" class="w-20 h-20 mx-auto mb-4 >
         <h2 class="text-3xl font-bold mb-2">
           Welcome Back, <span class="text-amber-400">Movie Bean!</span>
         </h2>

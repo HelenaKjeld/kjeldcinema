@@ -30,7 +30,7 @@
                         <div class="flex flex-col md:flex-row items-center h-full">
                             <div class="md:w-1/2 mb-10 md:mb-0">
                                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                                    Experience Movies <br> <span class="text-amber-400">Like Never Before</span>
+                                    Experience Rowan <br> <span class="text-amber-400">Like Never Before</span>
                                 </h1>
                                 <p class="text-lg text-gray-300 mb-8 max-w-lg">
                                     Immerse yourself in stunning 4K projections with Dolby Atmos sound in our premium theaters.
@@ -403,7 +403,7 @@
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-10 md:mb-0">
                     <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                        <span class="text-amber-400">Premium</span> Cinema Experience
+                        <span class="text-amber-400">Premium</span> Rowan Experience
                     </h2>
                     <p class="text-lg text-gray-300 mb-8 max-w-lg">
                         Indulge in our luxury theaters featuring reclining leather seats, gourmet food service, and state-of-the-art sound systems for the ultimate movie night.
@@ -447,7 +447,7 @@
         </div>
     </section>
 
-    <!-- Newsletter Section -->
+    <!-- Newsletter Section
     <section class="py-16 px-6 bg-slate-900">
         <div class="container mx-auto max-w-4xl text-center">
             <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Stay Updated</h2>
@@ -461,7 +461,7 @@
                 </button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
     <footer class="bg-black text-white py-12 px-6">
