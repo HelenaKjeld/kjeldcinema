@@ -447,7 +447,8 @@
         </div>
     </section>
 
-    <!-- Newsletter Section
+
+ <!-- Newsletter Section -->
     <section class="py-16 px-6 bg-slate-900">
         <div class="container mx-auto max-w-4xl text-center">
             <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Stay Updated</h2>
@@ -461,7 +462,7 @@
                 </button>
             </div>
         </div>
-    </section> -->
+    </section> 
 
     <!-- Footer -->
     <footer class="bg-black text-white py-12 px-6">
