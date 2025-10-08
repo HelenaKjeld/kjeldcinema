@@ -33,12 +33,13 @@ CREATE TABLE User (
     -- Role ENUM('admin', 'customer') DEFAULT 'customer', maybe?!?!?
 );
 
-CREATE TABLE WalkIn (
-    WalkIn INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Email VARCHAR(100) NOT NULL,
-    PRIMARY KEY (TicketsID),
-    FOREIGN KEY (TicketsID) REFERENCES TicketsID(TicketsID), 
-)
+-- CREATE TABLE WalkIn (
+--     WalkInDI INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     Email VARCHAR(100) NOT NULL,
+--     TicketsID INT NOT NULL,
+--     PRIMARY KEY (TicketsID),
+--     FOREIGN KEY (TicketsID) REFERENCES TicketsID(TicketsID), 
+-- )
 
 
 CREATE TABLE Movie (
@@ -47,7 +48,7 @@ CREATE TABLE Movie (
     Decscription TEXT,
     Poster VARCHAR(255), -- URL TO IMAGE ?!?!?!?!
     ageRating INT,
-    Duration INT, -- in minutes
+    Duration INT, -- in minutes and hour (1.30 = 1 hour and 30 minutes)
 );
 
 
@@ -64,7 +65,27 @@ CREATE TABLE Seating (
     SeatingID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     RowLetters VARCHAR(2) NOT NULL,
     SeatNumber VARCHAR(2) NOT NULL,
-    -- IsAvailable BOOLEAN DEFAULT TRUE,
+    IsAvailable BOOLEAN DEFAULT TRUE, -- is the seat available for booking
     ShowingID INT NOT NULL,
     FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID)
+);
+
+CREATE TABLE Tickets(
+    TicketsID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    PurchaseDate DATE,
+    TotalPrice DECIMAL(10, 2),
+    ShowingID INT NOT NULL,
+    UserID INT, -- can be null if walk-in
+    WalkInID INT, -- can be null if registered user
+    FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (WalkInID) REFERENCES WalkIn(WalkInID)   
+);
+
+CREATE TABLE Tickets_has_a_seating (
+    TicketsID INT NOT NULL,
+    SeatingID INT NOT NULL,
+    PRIMARY KEY (TicketsID, SeatingID),
+    FOREIGN KEY (TicketsID) REFERENCES Tickets(TicketsID),
+    FOREIGN KEY (SeatingID) REFERENCES Seating(SeatingID)
 );
