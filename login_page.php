@@ -1,21 +1,21 @@
+<?php require_once("includes/connection.php");?>
+<?php require_once("includes/session.php"); ?>
+<?php require_once("includes/functions.php"); ?>
 <?php
-// login.php
-session_start();
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    // Replace with your own authentication logic
-    if ($email === "bean@rowancinema.com" && $password === "teddy123") {
-        $_SESSION['user'] = $email;
-        header("Location: index.php");
-        exit;
-    } else {
-        $error = "Oops! Mr. Bean dropped your login details. Try again!";
+		if (logged_in()) 
+    {
+		  redirect_to("index.php");
+	  }
+    else
+    {
+      if (isset($_POST['submit'])) { // Form has been submitted.
+		    $email = trim($_POST['email']);
+		    $password = trim($_POST['password']);
+        authenticate($email, $password);
+      }
     }
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

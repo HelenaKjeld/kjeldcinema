@@ -6,7 +6,7 @@ SET default_storage_engine=InnoDB;
 CREATE TABLE CompanyInfo (
     CompanyInfoID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100),
-    Decscription TEXT,
+    Description TEXT,
     Email VARCHAR(100),
     PhoneNumber VARCHAR(30),
     OpeningHours VARCHAR(20),
@@ -27,28 +27,18 @@ CREATE TABLE User (
     Firstname VARCHAR(50),
     Lastname VARCHAR(50),
     Email VARCHAR(100) NOT NULL UNIQUE,
-    Password VARCHAR(100) NOT NULL,
-    TicketsID INT NOT NULL 
-    FOREIGN KEY (TicketsID) REFERENCES TicketsID(TicketsID),
+    Password VARCHAR(100) NOT NULL
+  
     -- Role ENUM('admin', 'customer') DEFAULT 'customer', maybe?!?!?
 );
-
--- CREATE TABLE WalkIn (
---     WalkInDI INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---     Email VARCHAR(100) NOT NULL,
---     TicketsID INT NOT NULL,
---     PRIMARY KEY (TicketsID),
---     FOREIGN KEY (TicketsID) REFERENCES TicketsID(TicketsID), 
--- )
-
 
 CREATE TABLE Movie (
     MovieID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Titel VARCHAR(100),
-    Decscription TEXT,
+    Description TEXT,
     Poster VARCHAR(255), -- URL TO IMAGE ?!?!?!?!
     ageRating INT,
-    Duration INT, -- in minutes and hour (1.30 = 1 hour and 30 minutes)
+    Duration INT -- in minutes and hour (90 = 1 hour and 30 minutes)
 );
 
 
@@ -61,6 +51,18 @@ CREATE TABLE Showing (
     FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
 );
 
+
+CREATE TABLE Ticket(
+    TicketID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    PurchaseDate DATE,
+    TotalPrice DECIMAL(10, 2),
+    ShowingID INT NOT NULL,
+    UserID INT, 
+    FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+     
+);
+
 CREATE TABLE Seating (
     SeatingID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     RowLetters VARCHAR(2) NOT NULL,
@@ -70,22 +72,12 @@ CREATE TABLE Seating (
     FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID)
 );
 
-CREATE TABLE Tickets(
-    TicketsID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    PurchaseDate DATE,
-    TotalPrice DECIMAL(10, 2),
-    ShowingID INT NOT NULL,
-    UserID INT, -- can be null if walk-in
-    WalkInID INT, -- can be null if registered user
-    FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
-    FOREIGN KEY (WalkInID) REFERENCES WalkIn(WalkInID)   
-);
 
-CREATE TABLE Tickets_has_a_seating (
-    TicketsID INT NOT NULL,
+
+CREATE TABLE Ticket_has_a_seating (
+    TicketID INT NOT NULL,
     SeatingID INT NOT NULL,
-    PRIMARY KEY (TicketsID, SeatingID),
-    FOREIGN KEY (TicketsID) REFERENCES Tickets(TicketsID),
+    PRIMARY KEY (TicketID, SeatingID),
+    FOREIGN KEY (TicketID) REFERENCES Ticket(TicketID),
     FOREIGN KEY (SeatingID) REFERENCES Seating(SeatingID)
 );

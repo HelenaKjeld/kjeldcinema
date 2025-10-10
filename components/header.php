@@ -1,3 +1,6 @@
+<?php require_once("includes/session.php"); ?>
+
+ 
  <nav class="bg-black bg-opacity-90 backdrop-blur-md w-full z-50">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
@@ -15,9 +18,18 @@
                     <a href="#" class="text-white hover:text-amber-400 transition">Contact</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="login_page"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                    <?php 
+                      if (logged_in()) {
+                        echo ' <a href="logout_page"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        Sign out
+                    </button></a>';
+                      } else {
+                        echo '<a href="login_page"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Sign In
-                    </button></a>
+                    </button></a>';
+                      }
+                   
+                    ?>
                     <button class="md:hidden text-white" id="mobile-menu-button">
                         <i data-feather="menu"></i>
                     </button>
