@@ -50,7 +50,7 @@
         </div>
       <?php endif; ?>
 
-      <form action="login.php" method="POST" class="space-y-5">
+      <form action="login_page.php" method="POST" class="space-y-5">
         <!-- Email -->
         <div>
           <label class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
@@ -95,7 +95,7 @@
 
       <p class="text-center text-gray-400 mt-6 text-sm">
         Don’t have an account?
-        <a href="signup.php" class="text-amber-400 hover:underline">Sign Up</a>
+        <a href="signup_page.php" class="text-amber-400 hover:underline">Sign Up</a>
       </p>
     </div>
   </section>
