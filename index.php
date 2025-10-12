@@ -124,13 +124,12 @@ include 'components/header.php';
             </a>
         </div>
 
-        <!-- Date Picker -->
         <div class="mb-8">
             <div class="relative max-w-md">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <i data-feather="calendar" class="text-gray-400 w-5 h-5"></i>
                 </div>
-                <input datepicker type="text"
+                <input id="dateInput" datepicker type="text"
                     class="bg-slate-700 border border-slate-600 text-white text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
                     placeholder="Select date">
             </div>
@@ -138,169 +137,63 @@ include 'components/header.php';
 
         <!-- Week Calendar -->
         <div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
-            <div class="flex space-x-2">
-                <button class="bg-amber-500 text-black px-4 py-2 rounded-md font-medium min-w-[100px]">
-                    Today
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Tomorrow
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Wed, Jun 14
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Thu, Jun 15
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Fri, Jun 16
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Sat, Jun 17
-                </button>
-                <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]">
-                    Sun, Jun 18
-                </button>
-            </div>
+            <div id="weekButtons" class="flex space-x-2"></div>
         </div>
 
-        <!-- Movie 1 -->
-        <div class="bg-slate-800 rounded-xl overflow-hidden mb-12">
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/4">
-                    <img src="http://static.photos/movie/640x360/1" alt="Movie Poster" class="w-full h-full object-cover">
-                </div>
-                <div class="md:w-3/4 p-6">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <h3 class="text-2xl font-bold">The Last Adventure</h3>
-                        <div class="flex items-center text-amber-400">
-                            <i data-feather="star" class="mr-1"></i>
-                            <span>4.8/5</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Action</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Adventure</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Sci-Fi</span>
-                    </div>
-                    <p class="text-gray-300 mb-6">An epic journey through uncharted territories as a group of explorers search for a lost civilization.</p>
+        <script>
+            function generateWeekButtons() {
+                const container = document.getElementById('weekButtons');
+                container.innerHTML = '';
 
-                    <div>
-                        <h4 class="font-medium mb-3">Showtimes</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:00 AM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:30 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">4:45 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:00 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 PM</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                const today = new Date();
+                const options = {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric'
+                };
 
-        <!-- Movie 2 -->
-        <div class="bg-slate-800 rounded-xl overflow-hidden mb-12">
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/4">
-                    <img src="http://static.photos/movie/640x360/2" alt="Movie Poster" class="w-full h-full object-cover">
-                </div>
-                <div class="md:w-3/4 p-6">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <h3 class="text-2xl font-bold">Midnight Dreams</h3>
-                        <div class="flex items-center text-amber-400">
-                            <i data-feather="star" class="mr-1"></i>
-                            <span>4.5/5</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Drama</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Romance</span>
-                    </div>
-                    <p class="text-gray-300 mb-6">A poignant love story that unfolds under the stars, exploring the boundaries between dreams and reality.</p>
+                for (let i = 0; i < 7; i++) {
+                    const date = new Date(today);
+                    date.setDate(today.getDate() + i);
 
-                    <div>
-                        <h4 class="font-medium mb-3">Showtimes</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:00 AM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">2:15 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:30 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:45 PM</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    const button = document.createElement('button');
+                    button.className =
+                        i === 0 ?
+                        'bg-amber-500 text-black px-4 py-2 rounded-md font-medium min-w-[100px]' :
+                        'bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md min-w-[100px]';
 
-        <!-- Movie 3 -->
-        <div class="bg-slate-800 rounded-xl overflow-hidden mb-12">
-            <div class="flex flexocol md:flex-row">
-                <div class="md:w-1/4">
-                    <img src="http://static.photos/movie/640x360/3" alt="Movie Poster" class="w-full h-full object-cover">
-                </div>
-                <div class="md:w-3/4 p-6">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <h3 class="text-2xl font-bold">Cosmic Warriors</h3>
-                        <div class="flex items-center text-amber-400">
-                            <i data-feather="star" class="mr-1"></i>
-                            <span>4.9/5</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Sci-Fi</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Action</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Fantasy</span>
-                    </div>
-                    <p class="text-gray-300 mb-6">An intergalactic battle for survival as warriors from different planets unite against a common enemy.</p>
+                    if (i === 0) {
+                        button.textContent = 'Today';
+                    } else if (i === 1) {
+                        button.textContent = 'Tomorrow';
+                    } else {
+                        button.textContent = date.toLocaleDateString('en-US', options);
+                    }
 
-                    <div>
-                        <h4 class="font-medium mb-3">Showtimes</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:30 AM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">1:45 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">5:00 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">8:15 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">11:30 PM</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    // Optional: clicking a date fills the date input
+                    button.addEventListener('click', () => {
+                        document.getElementById('dateInput').value = date.toLocaleDateString();
+                    });
 
-        <!-- Movie 4 -->
-        <div class="bg-slate-800 rounded-xl overflow-hidden">
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/4">
-                    <img src="http://static.photos/movie/640x360/4" alt="Movie Poster" class="w-full h-full object-cover">
-                </div>
-                <div class="md:w-3/4 p-6">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <h3 class="text-2xl font-bold">The Heist</h3>
-                        <div class="flex items-center text-amber-400">
-                            <i data-feather="star" class="mr-1"></i>
-                            <span>4.7/5</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Thriller</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Crime</span>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Action</span>
-                    </div>
-                    <p class="text-gray-300 mb-6">A high-stakes robbery turns deadly as the thieves discover they've stolen more than they bargained for.</p>
+                    container.appendChild(button);
+                }
 
-                    <div>
-                        <h4 class="font-medium mb-3">Showtimes</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">12:00 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">3:30 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">7:00 PM</a>
-                            <a href="booking_page" class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">10:15 PM</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                // Set date picker placeholder to today's date
+                document.getElementById('dateInput').placeholder = today.toLocaleDateString();
+            }
+
+            generateWeekButtons();
+        </script>
+
+
+
+        <?php
+        include 'components/movie_card.php';
+        ?>
+
     </div>
 </section>
+
 
 <!-- Coming Soon Section -->
 <section class="py-16 px-6 bg-slate-800">
