@@ -1,29 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RowanCinema - Book Your Seats</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <link href="style.css" rel="stylesheet">
-    
-    
-
-<body class="bg-gray-100">
-
-<?php 
-  include 'components/header.php';
+<?php
+include 'components/header.php';
 ?>
+
+
 
     <main class="container mx-auto px-4 py-8">
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
             <a href="index"><button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
-                            Back to Movies
-                        </button></a>
+                    Back to Movies
+                </button></a>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="md:w-1/3">
                     <img src="http://static.photos/movie/640x360/42" alt="Movie Poster" class="rounded-lg w-full">
@@ -101,8 +86,8 @@
                             <h3 class="text-2xl font-bold" id="total-price">$0</h3>
                         </div>
                         <a href="index"><button id="proceed-btn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                            Proceed to Payment
-                        </button></a>
+                                Proceed to Payment
+                            </button></a>
                     </div>
                 </div>
             </div>
@@ -147,7 +132,7 @@
                         if (seat.classList.contains('booked')) return;
 
                         seat.classList.toggle('selected');
-                        
+
                         if (seat.classList.contains('selected')) {
                             selectedSeats.push(seatId);
                         } else {
@@ -165,7 +150,7 @@
 
             function updateSelectedSeatsDisplay() {
                 selectedSeatsContainer.innerHTML = '';
-                
+
                 if (selectedSeats.length === 0) {
                     selectedSeatsContainer.innerHTML = '<span class="text-gray-500">No seats selected</span>';
                     return;
@@ -228,5 +213,7 @@
             });
         });
     </script>
-</body>
-</html>
+
+    <?php
+    include 'components/footer.php';
+    ?>
