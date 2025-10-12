@@ -14,6 +14,9 @@
         authenticate($email, $password);
       }
     }
+
+    $email = isset($email) ? $email : "";
+    $password = "";
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@
         </div>
       <?php endif; ?>
 
-      <form action="login_page.php" method="POST" class="space-y-5">
+      <form action="" method="POST" class="space-y-5">
         <!-- Email -->
         <div>
           <label class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
@@ -85,12 +88,13 @@
         </div>
 
         <!-- Submit Button -->
-        <button 
+        <input 
+          name="submit"
           type="submit" 
           class="ticket-button w-full py-3 rounded-full font-bold text-white text-center"
         >
           Sign In
-        </button>
+      </input>
       </form>
 
       <p class="text-center text-gray-400 mt-6 text-sm">

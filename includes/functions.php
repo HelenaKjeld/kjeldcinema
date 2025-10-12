@@ -1,4 +1,8 @@
 <?php
+require_once("connection.php");
+
+
+
 	function redirect_to($location) {
 			header("Location: {$location}");
 			exit;
@@ -9,7 +13,7 @@
 		try {
 			// Prepare the SQL query using PDO
 			$query = "SELECT UserID, Email, password FROM user WHERE Email = :Email LIMIT 1";
-			$stmt = $connection->prepare($query);
+			$stmt = dbCon()->prepare($query);
 			
 			// Bind the Eamil parameter
 			$stmt->bindParam(':Email', $email);
