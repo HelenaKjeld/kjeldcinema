@@ -27,8 +27,6 @@ include 'components/news_section.php';
             </div>
         </div>
 
-
-
         <?php
         include 'components/week_calender.php';
         ?>
@@ -100,11 +98,11 @@ include 'components/coming_soon.php';
 <!-- Newsletter Section -->
 <section class="py-16 px-6 bg-slate-900">
     <div class="container mx-auto max-w-4xl text-center">
-        <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Stay Updated</h2>
+        <h2 class="text-3xl font-bold mb-6" >Stay Updated</h2>
         <p class="text-lg text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="100">
             Subscribe to our newsletter for exclusive offers, movie updates, and special events.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"  data-aos-delay="200">
             <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-full bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
             <button class="ticket-button px-8 py-3 rounded-full font-bold text-white whitespace-nowrap">
                 Subscribe
