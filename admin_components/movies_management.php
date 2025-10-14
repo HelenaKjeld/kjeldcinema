@@ -1,44 +1,11 @@
-<?php require_once("includes/connection.php"); ?>
-<?php require_once("includes/session.php"); ?>
-<?php require_once("includes/functions.php"); ?>
-<?php
-include 'components/header.php';
-?>
+<?php include 'sql/Table.sql'; ?>
+<?php include 'components/header.php'; ?>
 
-<div class="p-6">
-
-    <h2 class="text-3xl font-bold mb-6">Welcome, Admin!</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <a href="movies_management.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
-            <h3 class="text-xl font-semibold text-slate-800"> Manage Movies</h3>
-            <p class="text-gray-600 mt-2">Add, edit, or remove movies currently showing.</p>
-        </a>
-
-        <a href="news.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
-            <h3 class="text-xl font-semibold text-slate-800"> Manage News</h3>
-            <p class="text-gray-600 mt-2">Create and edit latest cinema news.</p>
-        </a>
-
-        <a href="comingsoon.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
-            <h3 class="text-xl font-semibold text-slate-800"> Coming Soon</h3>
-            <p class="text-gray-600 mt-2">Preview and manage upcoming releases.</p>
-        </a>
-
-        <a href="companyinfo.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
-            <h3 class="text-xl font-semibold text-slate-800"> Company Info</h3>
-            <p class="text-gray-600 mt-2">Update company details and contact info.</p>
-        </a>
-
-        <a href="users.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
-            <h3 class="text-xl font-semibold text-slate-800"> Manage Users</h3>
-            <p class="text-gray-600 mt-2">View all registered users.</p>
-        </a>
-    </div>
-</div>
+<h2 class="text-2xl font-bold mb-6"> Manage Movies</h2>
 
 <!-- Add Movie Form -->
 <form action="" method="POST" class="bg-white p-6 rounded-lg shadow mb-8">
-    <h3 class="text-xl font-semibold mb-4 text-slate-800">Add New Movie</h3>
+    <h3 class="text-xl font-semibold mb-4">Add New Movie</h3>
     <input type="text" name="Titel" placeholder="Title" class="border p-2 w-full mb-3" required>
     <textarea name="Description" placeholder="Description" class="border p-2 w-full mb-3" required></textarea>
     <input type="text" name="Poster" placeholder="Poster URL" class="border p-2 w-full mb-3">
@@ -71,11 +38,11 @@ if (isset($_POST['addMovie'])) {
 <table class="w-full bg-white border-collapse shadow rounded-lg">
     <thead class="bg-gray-200 text-left">
         <tr>
-            <th class="p-3 text-slate-800">ID</th>
-            <th class="p-3 text-slate-800">Title</th>
-            <th class="p-3 text-slate-800">Age</th>
-            <th class="p-3 text-slate-800">Duration</th>
-            <th class="p-3 text-slate-800">Poster</th>
+            <th class="p-3">ID</th>
+            <th class="p-3">Title</th>
+            <th class="p-3">Age</th>
+            <th class="p-3">Duration</th>
+            <th class="p-3">Poster</th>
         </tr>
     </thead>
     <tbody>
@@ -94,6 +61,4 @@ if (isset($_POST['addMovie'])) {
     </tbody>
 </table>
 
-<?php
-include 'components/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>
