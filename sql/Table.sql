@@ -51,6 +51,14 @@ CREATE TABLE Showing (
     FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
 );
 
+CREATE TABLE Showroom(
+    ShowroomID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    ShowingID INT NOT NULL,
+    FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID)
+     
+);
+
 
 CREATE TABLE Ticket(
     TicketID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -68,8 +76,8 @@ CREATE TABLE Seating (
     RowLetters VARCHAR(2) NOT NULL,
     SeatNumber VARCHAR(2) NOT NULL,
     IsAvailable BOOLEAN DEFAULT TRUE, -- is the seat available for booking
-    ShowingID INT NOT NULL,
-    FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID)
+    ShowroomID INT NOT NULL,
+    FOREIGN KEY (ShowroomID) REFERENCES Showroom(ShowroomID)
 );
 
 
