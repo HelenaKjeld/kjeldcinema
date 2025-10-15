@@ -67,6 +67,7 @@ if (isset($_POST['updateMovie'])) {
             <tr>
                 <th class="p-3 text-slate-800">ID</th>
                 <th class="p-3 text-slate-800">Title</th>
+                <th class="p-3 text-slate-800">Description</th>
                 <th class="p-3 text-slate-800">Age</th>
                 <th class="p-3 text-slate-800">Duration</th>
                 <th class="p-3 text-slate-800">Poster</th>
@@ -81,6 +82,7 @@ if (isset($_POST['updateMovie'])) {
                 <tr class="border-b hover:bg-gray-50">
                     <td class="p-3 text-slate-800"><?= $row['MovieID'] ?></td>
                     <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Titel']) ?></td>
+                    <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Description']) ?></td>
                     <td class="p-3 text-slate-800"><?= $row['ageRating'] ?></td>
                     <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
                     <td class="p-3 text-slate-800">
@@ -104,7 +106,6 @@ if (isset($_POST['updateMovie'])) {
                         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input type="hidden" name="MovieID" value="<?= $row['MovieID'] ?>">
                             <input type="hidden" name="oldPoster" value="<?= htmlspecialchars($row['Poster']) ?>">
-
                             <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
                             <input type="number" name="ageRating" value="<?= $row['ageRating'] ?>" class="border p-2 rounded w-full text-slate-800">
                             <input type="number" name="Duration" value="<?= $row['Duration'] ?>" class="border p-2 rounded w-full text-slate-800">
@@ -112,7 +113,7 @@ if (isset($_POST['updateMovie'])) {
 
                             <div class="col-span-2">
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
-                                <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full">
+                                <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if ($row['Poster']): ?>
                                     <img src="<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded text-slate-800">
                                 <?php endif; ?>
