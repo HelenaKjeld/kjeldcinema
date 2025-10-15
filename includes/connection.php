@@ -1,5 +1,5 @@
 <?php
-require("constants.php");
+require(__DIR__ . "/constants.php");
 
 function dbCon()
 {

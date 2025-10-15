@@ -1,8 +1,8 @@
 <?php
-include 'includes/functions.php';
-require_once __DIR__ . '/includes/connection.php';
+include '../../includes/functions.php';
+require_once __DIR__ . '/../../includes/connection.php';
 $db = dbCon();
-include 'components/header.php';
+include '../../components/header.php';
 
 //  Handle Delete Request
 if (isset($_GET['delete'])) {
@@ -87,7 +87,7 @@ if (isset($_POST['updateMovie'])) {
                     <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
                     <td class="p-3 text-slate-800">
                         <?php if ($row['Poster']): ?>
-                            <img src="<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
+                            <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No poster</span>
                         <?php endif; ?>
@@ -115,7 +115,7 @@ if (isset($_POST['updateMovie'])) {
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
                                 <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if ($row['Poster']): ?>
-                                    <img src="<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded text-slate-800">
+                                    <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded text-slate-800">
                                 <?php endif; ?>
                             </div>
 
@@ -135,4 +135,4 @@ if (isset($_POST['updateMovie'])) {
     }
 </script>
 
-<?php include 'components/footer.php'; ?>
+<?php include '../../components/footer.php'; ?>

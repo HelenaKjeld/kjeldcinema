@@ -1,4 +1,4 @@
-<?php require_once("includes/session.php"); ?>
+<?php require_once(__DIR__ . "/../includes/session.php"); ?>
 
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <link href="style.css" rel="stylesheet">
+    <link href="/kjeldcinema/style.css" rel="stylesheet">
 
 </head>
 
@@ -28,9 +28,9 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <a href="index" class="text-2xl font-bold text-amber-500 flex items-center">
+                    <a href="/kjeldcinema/index" class="text-2xl font-bold text-amber-500 flex items-center">
                         <!-- <i class="mr-2"> </i> -->
-                        <img src="img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
+                        <img src="/kjeldcinema/img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
                         RowanCinema
                     </a>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="flex items-center space-x-4">
                     <?php
                     if (logged_in()) {
-                        echo ' <a href="admin_panel_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="admin/admin_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Admin Panel
                     </button></a>';
                     }
