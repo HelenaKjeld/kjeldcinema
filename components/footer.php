@@ -5,19 +5,19 @@
                 <div>
                     <h3 class="text-xl font-bold text-amber-400 mb-4">RowanCinema</h3>
                     <p class="text-gray-400 mb-4">
-                        Your ultimate destination for premium cinematic experiences.
+                        Your ultimate destination for premium Rowan experiences.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-amber-400 transition">
+                        <a href="https://www.facebook.com/MrBean" class="text-gray-400 hover:text-amber-400 transition">
                             <i data-feather="facebook"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-amber-400 transition">
+                        <a href="https://x.com/mrbean?lang=da" class="text-gray-400 hover:text-amber-400 transition">
                             <i data-feather="twitter"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-amber-400 transition">
+                        <a href="https://www.instagram.com/mrbean/?hl=da" class="text-gray-400 hover:text-amber-400 transition">
                             <i data-feather="instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-amber-400 transition">
+                        <a href="https://www.youtube.com/user/MrBean" class="text-gray-400 hover:text-amber-400 transition">
                             <i data-feather="youtube"></i>
                         </a>
                     </div>
@@ -25,7 +25,7 @@
                 <div>
                     <h4 class="font-bold mb-4">Navigation</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Home</a></li>
+                        <li><a href="index.php" class="text-gray-400 hover:text-amber-400 transition">Home</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Movies</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Cinemas</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Promotions</a></li>
@@ -39,7 +39,6 @@
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Terms of Service</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Privacy Policy</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Careers</a></li>
                     </ul>
                 </div>
                 <div>

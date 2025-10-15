@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'includes/functions.php';
 require_once __DIR__ . '/includes/connection.php';
 $db = dbCon();
@@ -92,9 +92,9 @@ if (isset($_POST['updateMovie'])) {
                     </td>
                     <td class="p-3 text-slate-800 flex gap-2">
                         <button onclick="toggleEdit(<?= $row['MovieID'] ?>)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
-                        <a href="?delete=<?= $row['MovieID'] ?>" 
-                           onclick="return confirm('Are you sure you want to delete this movie?');"
-                           class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
+                        <a href="?delete=<?= $row['MovieID'] ?>"
+                            onclick="return confirm('Are you sure you want to delete this movie?');"
+                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
                     </td>
                 </tr>
 
@@ -105,16 +105,16 @@ if (isset($_POST['updateMovie'])) {
                             <input type="hidden" name="MovieID" value="<?= $row['MovieID'] ?>">
                             <input type="hidden" name="oldPoster" value="<?= htmlspecialchars($row['Poster']) ?>">
 
-                            <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full" required>
-                            <input type="number" name="ageRating" value="<?= $row['ageRating'] ?>" class="border p-2 rounded w-full">
-                            <input type="number" name="Duration" value="<?= $row['Duration'] ?>" class="border p-2 rounded w-full">
-                            <textarea name="Description" class="border p-2 rounded w-full col-span-2" placeholder="Description"><?= htmlspecialchars($row['Description']) ?></textarea>
+                            <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
+                            <input type="number" name="ageRating" value="<?= $row['ageRating'] ?>" class="border p-2 rounded w-full text-slate-800">
+                            <input type="number" name="Duration" value="<?= $row['Duration'] ?>" class="border p-2 rounded w-full text-slate-800">
+                            <textarea name="Description" class="border p-2 rounded w-full col-span-2 text-slate-800" placeholder="Description"><?= htmlspecialchars($row['Description']) ?></textarea>
 
                             <div class="col-span-2">
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
                                 <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full">
                                 <?php if ($row['Poster']): ?>
-                                    <img src="<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
+                                    <img src="<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded text-slate-800">
                                 <?php endif; ?>
                             </div>
 
@@ -128,10 +128,10 @@ if (isset($_POST['updateMovie'])) {
 </div>
 
 <script>
-function toggleEdit(id) {
-    const row = document.getElementById('editRow' + id);
-    row.classList.toggle('hidden');
-}
+    function toggleEdit(id) {
+        const row = document.getElementById('editRow' + id);
+        row.classList.toggle('hidden');
+    }
 </script>
 
 <?php include 'components/footer.php'; ?>
