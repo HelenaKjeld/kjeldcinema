@@ -48,11 +48,11 @@
                     </button></a>';
                     }
                     if (logged_in()) {
-                        echo ' <a href="logout_page.php"><button class="text-amber-400 border border-amber-500  hover:bg-amber-400 px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
                         Sign out
                     </button></a>';
                     } else {
-                        echo '<a href="login_page.php"><button class="bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo '<a href="login_page.php"><button class="bg-amber-500 text-amber-400 hover:bg-amber-400  px-4 py-2 rounded-full font-medium transition">
                         Sign In
                     </button></a>';
                     }
