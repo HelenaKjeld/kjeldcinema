@@ -20,11 +20,14 @@ if (isset($_POST['updateMovie'])) {
     $posterPath = $_POST['oldPoster']; // default to old poster
 
     if (!empty($_FILES['Poster']['tmp_name'])) {
-        $uploadDir = "uploads/";
+
+
+        $uploadDir = "../../posters/";
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
-        $fileName = time() . "_" . basename($_FILES['Poster']['name']);
+
+        $fileName = guidv4();
         $targetFile = $uploadDir . $fileName;
         move_uploaded_file($_FILES['Poster']['tmp_name'], $targetFile);
         $posterPath = $targetFile;
@@ -36,7 +39,7 @@ if (isset($_POST['updateMovie'])) {
     $stmt->execute([
         ':t' => $_POST['Titel'],
         ':d' => $_POST['Description'],
-        ':p' => $posterPath,
+        ':p' => "posters/" . $fileName,
         ':a' => $_POST['ageRating'],
         ':du' => $_POST['Duration'],
         ':id' => $movieId
@@ -46,7 +49,7 @@ if (isset($_POST['updateMovie'])) {
 }
 ?>
 
-<a href="admin_panel_page">
+<a href="../admin_page">
     <button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
         Back
     </button>

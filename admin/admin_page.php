@@ -24,7 +24,7 @@ include '../components/header.php';
             <p class="text-gray-600 mt-2">Preview and manage upcoming releases.</p>
         </a>
 
-        <a href="companyinfo.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="companyinfo/companyinfo_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Company Info</h3>
             <p class="text-gray-600 mt-2">Update company details and contact info.</p>
         </a>
