@@ -19,7 +19,7 @@ include '../components/header.php';
             <p class="text-gray-600 mt-2">Create and edit latest cinema news.</p>
         </a>
 
-        <a href="comingsoon.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="comingsoon/comingsoon_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Coming Soon</h3>
             <p class="text-gray-600 mt-2">Preview and manage upcoming releases.</p>
         </a>
@@ -29,7 +29,7 @@ include '../components/header.php';
             <p class="text-gray-600 mt-2">Update company details and contact info.</p>
         </a>
 
-        <a href="users.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="venues/venues_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Venues</h3>
             <p class="text-gray-600 mt-2">View all venues.</p>
         </a>
