@@ -1,52 +1,59 @@
 <?php
 include '../../includes/functions.php';
-require_once __DIR__ . '/../../includes/connection.php';
-$db = dbCon();
 include '../../components/header.php';
+require_once __DIR__ . '/../../OOP\classes/Movie.php';
 
-//  Handle Delete Request
+$movie = new Movie();
+
+// --------------------
+// Handle Delete Request
+// --------------------
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
-    $stmt = $db->prepare("DELETE FROM Movie WHERE MovieID = :id");
-    $stmt->execute([':id' => $deleteId]);
-    echo "<p class='text-red-600 text-center mt-4'> Movie deleted successfully.</p>";
+    if ($movie->delete($deleteId)) {
+        echo "<p class='text-red-600 text-center mt-4'>Movie deleted successfully.</p>";
+    } else {
+        echo "<p class='text-red-600 text-center mt-4'>Error deleting movie.</p>";
+    }
 }
 
-//  Handle Update Request (with image upload)
+// --------------------
+// Handle Update Request
+// --------------------
 if (isset($_POST['updateMovie'])) {
     $movieId = $_POST['MovieID'];
+    $posterPath = $_POST['oldPoster']; // Default old poster path
 
     // Handle new poster upload
-    $posterPath = $_POST['oldPoster']; // default to old poster
-
     if (!empty($_FILES['Poster']['tmp_name'])) {
-
-
         $uploadDir = "../../posters/";
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
         $fileName = guidv4();
         $targetFile = $uploadDir . $fileName;
         move_uploaded_file($_FILES['Poster']['tmp_name'], $targetFile);
-        $posterPath = $targetFile;
+        $posterPath = "posters/" . $fileName;
     }
 
-    $stmt = $db->prepare("UPDATE Movie 
-                          SET Titel=:t, Description=:d, Poster=:p, ageRating=:a, Duration=:du 
-                          WHERE MovieID=:id");
-    $stmt->execute([
-        ':t' => $_POST['Titel'],
-        ':d' => $_POST['Description'],
-        ':p' => "posters/" . $fileName,
-        ':a' => $_POST['ageRating'],
-        ':du' => $_POST['Duration'],
-        ':id' => $movieId
-    ]);
+    $updateData = [
+        'Titel' => $_POST['Titel'],
+        'Description' => $_POST['Description'],
+        'Poster' => $posterPath,
+        'ageRating' => $_POST['ageRating'],
+        'Duration' => $_POST['Duration']
+    ];
 
-    echo "<p class='text-green-600 text-center mt-4'> Movie updated successfully.</p>";
+    if ($movie->update($movieId, $updateData)) {
+        echo "<p class='text-green-600 text-center mt-4'>Movie updated successfully.</p>";
+    } else {
+        echo "<p class='text-red-600 text-center mt-4'>Error updating movie.</p>";
+    }
 }
+
+// --------------------
+// Fetch All Movies
+// --------------------
+$movies = $movie->getAll();
 ?>
 
 <a href="../admin_page">
@@ -78,10 +85,7 @@ if (isset($_POST['updateMovie'])) {
             </tr>
         </thead>
         <tbody>
-            <?php
-            $stmt = $db->query("SELECT * FROM Movie ORDER BY MovieID DESC");
-            foreach ($stmt as $row):
-            ?>
+            <?php foreach ($movies as $row): ?>
                 <tr class="border-b hover:bg-gray-50">
                     <td class="p-3 text-slate-800"><?= $row['MovieID'] ?></td>
                     <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Titel']) ?></td>
@@ -89,7 +93,7 @@ if (isset($_POST['updateMovie'])) {
                     <td class="p-3 text-slate-800"><?= $row['ageRating'] ?></td>
                     <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
                     <td class="p-3 text-slate-800">
-                        <?php if ($row['Poster']): ?>
+                        <?php if (!empty($row['Poster'])): ?>
                             <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No poster</span>
@@ -97,9 +101,7 @@ if (isset($_POST['updateMovie'])) {
                     </td>
                     <td class="p-3 text-slate-800 flex gap-2">
                         <button onclick="toggleEdit(<?= $row['MovieID'] ?>)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
-                        <a href="?delete=<?= $row['MovieID'] ?>"
-                            onclick="return confirm('Are you sure you want to delete this movie?');"
-                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
+                        <a href="?delete=<?= $row['MovieID'] ?>" onclick="return confirm('Are you sure you want to delete this movie?');" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
                     </td>
                 </tr>
 
@@ -112,13 +114,13 @@ if (isset($_POST['updateMovie'])) {
                             <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
                             <input type="number" name="ageRating" value="<?= $row['ageRating'] ?>" class="border p-2 rounded w-full text-slate-800">
                             <input type="number" name="Duration" value="<?= $row['Duration'] ?>" class="border p-2 rounded w-full text-slate-800">
-                            <textarea name="Description" class="border p-2 rounded w-full col-span-2 text-slate-800" placeholder="Description"><?= htmlspecialchars($row['Description']) ?></textarea>
+                            <textarea name="Description" class="border p-2 rounded w-full col-span-2 text-slate-800"><?= htmlspecialchars($row['Description']) ?></textarea>
 
                             <div class="col-span-2">
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
                                 <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full text-slate-800">
-                                <?php if ($row['Poster']): ?>
-                                    <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded text-slate-800">
+                                <?php if (!empty($row['Poster'])): ?>
+                                    <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
                                 <?php endif; ?>
                             </div>
 
