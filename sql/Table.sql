@@ -47,8 +47,8 @@ CREATE TABLE Movie (
 
 CREATE TABLE Showing (
     ShowingID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Titel VARCHAR(100),
     DATE DATE,
+    Time TIME NOT NULL,
     Price DECIMAL(10, 2),
     MovieID INT NOT NULL,
     ShowroomID INT NOT NULL,

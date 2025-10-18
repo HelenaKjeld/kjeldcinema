@@ -42,7 +42,7 @@ include '../components/header.php';
             <h3 class="text-xl font-semibold text-slate-800"> Manage Bookings</h3>
             <p class="text-gray-600 mt-2">View all booking.</p>
         </a>
-        <a href="users.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="schedules/schedules_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Manage Schedules</h3>
             <p class="text-gray-600 mt-2">View movie schedule.</p>
         </a>
