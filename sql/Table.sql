@@ -51,6 +51,8 @@ CREATE TABLE Showing (
     DATE DATE,
     Price DECIMAL(10, 2),
     MovieID INT NOT NULL,
+    ShowroomID INT NOT NULL,
+    FOREIGN KEY (ShowroomID) REFERENCES Showroom(ShowroomID),
     FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
 );
 
@@ -78,7 +80,6 @@ CREATE TABLE Seating (
     SeatingID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     RowLetters VARCHAR(2) NOT NULL,
     SeatNumber VARCHAR(2) NOT NULL,
-    IsAvailable BOOLEAN DEFAULT TRUE, -- is the seat available for booking
     ShowroomID INT NOT NULL,
     FOREIGN KEY (ShowroomID) REFERENCES Showroom(ShowroomID)
 );
@@ -88,6 +89,7 @@ CREATE TABLE Seating (
 CREATE TABLE Ticket_has_a_seating (
     TicketID INT NOT NULL,
     SeatingID INT NOT NULL,
+    IsAvailable BOOLEAN DEFAULT FALSE, -- is the seat available for booking
     PRIMARY KEY (TicketID, SeatingID),
     FOREIGN KEY (TicketID) REFERENCES Ticket(TicketID),
     FOREIGN KEY (SeatingID) REFERENCES Seating(SeatingID)
