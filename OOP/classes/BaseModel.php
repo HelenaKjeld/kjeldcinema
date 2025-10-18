@@ -1,49 +1,87 @@
 <?php
-require_once 'Database.php';
+require_once __DIR__ . '/Database.php';
 
-abstract class BaseModel {
+class BaseModel
+{
     protected $db;
     protected $table;
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id'; // Default (can be overridden in child classes)
 
-    public function __construct() {
-        $this->db = Database::getInstance()->getConnection();
+    public function __construct()
+    {
+        $database = Database::getInstance();
+        $this->db = $database->getConnection();
     }
 
-    public function getAll() {
-        $stmt = $this->db->query("SELECT * FROM {$this->table}");
+
+    public function all()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table}");
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getById($id) {
+  
+    public function find($id)
+    {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE {$this->primaryKey} = :id");
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function create($data) {
-        $fields = array_keys($data);
-        $columns = implode(',', $fields);
-        $placeholders = ':' . implode(', :', $fields);
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($data);
+
+    public function create(array $data)
+    {
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
+
+        $stmt = $this->db->prepare("INSERT INTO {$this->table} ($columns) VALUES ($placeholders)");
+        $stmt->execute($data);
+
+        return $this->db->lastInsertId();
     }
 
-    public function update($id, $data) {
-        $fields = '';
+ 
+    public function update($id, array $data)
+    {
+        $set = '';
         foreach ($data as $key => $value) {
-            $fields .= "$key = :$key, ";
+            $set .= "$key = :$key, ";
         }
-        $fields = rtrim($fields, ', ');
-        $sql = "UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :id";
-        $stmt = $this->db->prepare($sql);
+        $set = rtrim($set, ', ');
+
         $data['id'] = $id;
+
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET $set WHERE {$this->primaryKey} = :id");
         return $stmt->execute($data);
     }
 
-    public function delete($id) {
+   
+    public function delete($id)
+    {
         $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE {$this->primaryKey} = :id");
         return $stmt->execute([':id' => $id]);
+    }
+
+   
+    public function query($sql, $params = [])
+    {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    
+    public function fetchAll($sql, $params = [])
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+    public function fetch($sql, $params = [])
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

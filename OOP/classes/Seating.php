@@ -1,23 +1,34 @@
 <?php
 require_once __DIR__ . '/BaseModel.php';
 
-class Seating extends BaseModel {
+class Seating extends BaseModel
+{
     protected $table = "Seating";
+    protected $primaryKey = "SeatingID";
 
-    public function create($data) {
-        $stmt = $this->db->prepare("INSERT INTO $this->table (RowLetters, SeatNumber, ShowroomID) 
-                                    VALUES (:RowLetters, :SeatNumber, :ShowroomID)");
-        $stmt->execute($data);
+    public function generateSeating($showroomID, $rows, $seatsPerRow)
+    {
+        $letters = range('A', 'Z');
+
+        for ($r = 0; $r < $rows; $r++) {
+            for ($s = 1; $s <= $seatsPerRow; $s++) {
+                $this->query(
+                    "INSERT INTO Seating (RowLetters, SeatNumber, ShowroomID) 
+                     VALUES (:row, :seat, :sid)",
+                    [
+                        ':row' => $letters[$r],
+                        ':seat' => $s,
+                        ':sid' => $showroomID
+                    ]
+                );
+            }
+        }
     }
 
-    public function getByShowroom($showroomID) {
-        $stmt = $this->db->prepare("SELECT * FROM $this->table WHERE ShowroomID = :id ORDER BY RowLetters, SeatNumber");
-        $stmt->execute([':id' => $showroomID]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function deleteByShowroom($showroomID) {
-        $stmt = $this->db->prepare("DELETE FROM $this->table WHERE ShowroomID = :id");
-        $stmt->execute([':id' => $showroomID]);
+    public function getByShowroom($showroomID)
+    {
+        return $this->fetchAll("SELECT * FROM Seating WHERE ShowroomID = :id ORDER BY RowLetters, SeatNumber", [
+            ':id' => $showroomID
+        ]);
     }
 }

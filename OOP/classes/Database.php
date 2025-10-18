@@ -1,5 +1,4 @@
 <?php
-// ✅ Use __DIR__ to make the include path reliable everywhere
 include __DIR__ . '/../../includes/constants.php';
 
 class Database

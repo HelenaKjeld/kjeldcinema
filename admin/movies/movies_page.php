@@ -1,13 +1,12 @@
 <?php
 include '../../includes/functions.php';
 include '../../components/header.php';
-require_once __DIR__ . '/../../OOP\classes/Movie.php';
+require_once __DIR__ . '/../../OOP/classes/Movie.php';
 
 $movie = new Movie();
 
-// --------------------
+
 // Handle Delete Request
-// --------------------
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
     if ($movie->delete($deleteId)) {
@@ -17,9 +16,8 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// --------------------
+
 // Handle Update Request
-// --------------------
 if (isset($_POST['updateMovie'])) {
     $movieId = $_POST['MovieID'];
     $posterPath = $_POST['oldPoster']; // Default old poster path
@@ -50,10 +48,9 @@ if (isset($_POST['updateMovie'])) {
     }
 }
 
-// --------------------
+
 // Fetch All Movies
-// --------------------
-$movies = $movie->getAll();
+$movies = $movie->all();
 ?>
 
 <a href="../admin_page">
