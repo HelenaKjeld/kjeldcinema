@@ -35,7 +35,7 @@ $rooms = $showroom->all();
 </div>
 
 <div class="p-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-6 text-center">Manage Venues (Showrooms)</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center">View current Venues (Showrooms)</h2>
 
     <!-- Showrooms List -->
     <?php if ($rooms): ?>

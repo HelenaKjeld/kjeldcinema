@@ -19,5 +19,18 @@ class Showroom extends BaseModel
 
         return $showroomID;
     }
+
+    public function all()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE IsDeleted = FALSE");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET IsDeleted = TRUE WHERE {$this->primaryKey} = :id");
+        return $stmt->execute([':id' => $id]);
+    }
 }
 

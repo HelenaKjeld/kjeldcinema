@@ -59,6 +59,7 @@ CREATE TABLE Showing (
 CREATE TABLE Showroom(
     ShowroomID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
+    IsDeleted BOOLEAN NOT NULL DEFAULT FALSE,
     ShowingID INT NOT NULL,
     FOREIGN KEY (ShowingID) REFERENCES Showing(ShowingID)
      
