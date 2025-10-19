@@ -34,7 +34,7 @@ include '../components/header.php';
             <p class="text-gray-600 mt-2">View all venues.</p>
         </a>
 
-        <a href="users.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="manageusers/manageusers_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Manage Users</h3>
             <p class="text-gray-600 mt-2">View all registered users.</p>
         </a>
