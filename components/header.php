@@ -43,21 +43,21 @@
                 <div class="flex items-center space-x-4">
                     <?php
                     if (logged_in()) {
-                        echo ' <a href="admin/admin_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/kjeldcinema/admin/admin_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Admin Panel
                     </button></a>';
                     }
                     if (logged_in()) {
-                        echo ' <a href="logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/kjeldcinema/User/profile_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
                         Profile
                     </button></a>';
                     }
                     if (logged_in()) {
-                        echo ' <a href="logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/kjeldcinema/logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
                         Sign out
                     </button></a>';
                     } else {
-                        echo '<a href="login_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo '<a href="/kjeldcinema/login_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Sign In
                     </button></a>';
                     }
