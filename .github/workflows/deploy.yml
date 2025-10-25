@@ -1,43 +1,17 @@
-# .github/workflows/deploy.yml
-name: Deploy via FTP
-
-on:
-  push:
-    branches: ["main"] # change if needed
-
+on: push
+name: Publish Website
 jobs:
-  deploy:
+  web-deploy:
+    name: 🚀 Deploy Website Every Commit
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: 🚚 Get Latest Code
+        uses: actions/checkout@v3
 
-      # Optional: build steps (composer/npm/etc.)
-      # - name: Install PHP deps
-      #   run: composer install --no-dev --prefer-dist --optimize-autoloader
-
-      # - name: Build assets
-      #   run: npm ci && npm run build
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: 📂 Sync Files
+        uses: SamKirkland/web-deploy@v1
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: ${{ secrets.FTP_PORT || 21 }}
-          # Folder on the server to deploy into (e.g. "public_html")
-          server-dir: /public_html/
-          # Only changed files are uploaded
-          exclude: |
-            */.git
-            */.github/*
-            */node_modules/*
-            */tests/*
-            */.vscode/*
-            */.map
-            **/.env
-            uploads/**
- 
+          target-server: ${{ secrets.SSH_HOSTNAME }}
+          remote-user: ${{ secrets.SSH_USERNAME }}
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          destination-path: ~/public_html/
