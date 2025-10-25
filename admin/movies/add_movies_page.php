@@ -16,7 +16,7 @@ if (isset($_POST['addMovie'])) {
             if ($_FILES['Poster']['error'] > 0) {
                 echo "oh NO!!!!!";
             } else {
-                $newfilename = "posters/" . guidv4();
+                $newfilename = "uploads/" . guidv4();
                 move_uploaded_file(
                     $_FILES['Poster']['tmp_name'],
                     "../../" . $newfilename

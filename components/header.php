@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . "/../includes/session.php"); ?>
+<?php require_once(__DIR__ . "/includes/session.php"); ?>
 
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <link href="/kjeldcinema/style.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
 
 </head>
 
