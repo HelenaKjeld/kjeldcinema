@@ -23,7 +23,7 @@ $entries = $comingSoon->getAllWithMovies();
 $availableMovies = $comingSoon->getAvailableMovies();
 ?>
 
-<a href="../admin_page">
+<a href="/admin/admin_page.php">
     <button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
         Back
     </button>

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/BaseModel.php';
 
 class ComingSoon extends BaseModel {
-    protected $table = 'comingSoon';
+    protected $table = 'comingsoon';
     protected $primaryKey = 'ComingSoonID';
 
     public function add($movieId, $releaseDate) {
