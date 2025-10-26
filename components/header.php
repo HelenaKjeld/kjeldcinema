@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . "/includes/session.php"); ?>
+<?php require_once(__DIR__ . "/../includes/session.php"); ?>
 
 
 <!DOCTYPE html>
@@ -28,36 +28,36 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <a href="/kjeldcinema/index" class="text-2xl font-bold text-amber-500 flex items-center">
+                    <a href="/" class="text-2xl font-bold text-amber-500 flex items-center">
                         <!-- <i class="mr-2"> </i> -->
-                        <img src="/kjeldcinema/img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
+                        <img src="/img/mr_bean_icon.png" alt="icon" class="w-16 h-16 mr-1">
                         RowanCinema
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="/kjeldcinema/index" class="text-white hover:text-amber-400 transition">Home</a>
+                    <a href="/" class="text-white hover:text-amber-400 transition">Home</a>
                     <!-- <a href="#" class="text-white hover:text-amber-400 transition">Movies</a> -->
-                    <a href="/kjeldcinema/venues_page" class="text-white hover:text-amber-400 transition">Venues</a>
-                    <a href="/kjeldcinema/" class="text-white hover:text-amber-400 transition">Contact</a>
+                    <a href="/venues_page" class="text-white hover:text-amber-400 transition">Venues</a>
+                    <a href="/" class="text-white hover:text-amber-400 transition">Contact</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <?php
                     if (logged_in()) {
-                        echo ' <a href="/kjeldcinema/admin/admin_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/admin/admin_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Admin Panel
                     </button></a>';
                     }
                     if (logged_in()) {
-                        echo ' <a href="/kjeldcinema/User/profile_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/User/profile_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
                         Profile
                     </button></a>';
                     }
                     if (logged_in()) {
-                        echo ' <a href="/kjeldcinema/logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
+                        echo ' <a href="/logout_page.php"><button class="border border-amber-500 text-amber-400 px-4 py-2 rounded-full font-medium transition">
                         Sign out
                     </button></a>';
                     } else {
-                        echo '<a href="/kjeldcinema/login_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
+                        echo '<a href="/login_page.php"><button class="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-full font-medium transition">
                         Sign In
                     </button></a>';
                     }

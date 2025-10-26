@@ -2,7 +2,7 @@
 require_once __DIR__ . '/BaseModel.php';
 
 class ComingSoon extends BaseModel {
-    protected $table = 'ComingSoon';
+    protected $table = 'comingSoon';
     protected $primaryKey = 'ComingSoonID';
 
     public function add($movieId, $releaseDate) {
@@ -26,14 +26,14 @@ class ComingSoon extends BaseModel {
     public function getAllWithMovies() {
         $sql = "SELECT cs.*, m.Titel, m.Poster 
                 FROM {$this->table} cs
-                JOIN Movie m ON cs.MovieID = m.MovieID
+                JOIN movie m ON cs.MovieID = m.MovieID
                 ORDER BY cs.ReleaseDate ASC";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAvailableMovies() {
-        $sql = "SELECT * FROM Movie WHERE MovieID NOT IN (SELECT MovieID FROM {$this->table})";
+        $sql = "SELECT * FROM movie WHERE MovieID NOT IN (SELECT MovieID FROM {$this->table})";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

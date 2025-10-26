@@ -2,13 +2,13 @@
 require_once 'BaseModel.php';
 
 class Ticket extends BaseModel {
-    protected $table = 'Ticket';
+    protected $table = 'ticket';
 
     public function getTicketsByUser($userId) {
         $sql = "SELECT t.*, s.Date, s.ShowingID, m.Titel AS MovieTitle, s.Price
-                FROM Ticket t
-                JOIN Showing s ON t.ShowingID = s.ShowingID
-                JOIN Movie m ON s.MovieID = m.MovieID
+                FROM ticket t
+                JOIN showing s ON t.ShowingID = s.ShowingID
+                JOIN movie m ON s.MovieID = m.MovieID
                 WHERE t.UserID = :userId
                 ORDER BY s.Date DESC";
         $stmt = $this->db->prepare($sql);

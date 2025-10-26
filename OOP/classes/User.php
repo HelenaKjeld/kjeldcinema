@@ -2,7 +2,7 @@
 require_once 'BaseModel.php';
 
 class User extends BaseModel {
-    protected $table = 'User';
+    protected $table = 'user';
 
     public function getAll() {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE 1"); 

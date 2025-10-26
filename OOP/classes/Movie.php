@@ -3,7 +3,7 @@ require_once __DIR__ . '/BaseModel.php';
 
 class Movie extends BaseModel
 {
-    protected $table = 'Movie';
+    protected $table = 'movie';
     protected $primaryKey = 'MovieID';
 
     public function getMoviesWithShowtimes(): array
@@ -12,8 +12,8 @@ class Movie extends BaseModel
         $sql = "SELECT 
                     m.MovieID, m.Titel, m.Description, m.Poster, m.ageRating, m.Duration,
                     s.ShowingID, s.`DATE` AS ShowDate, s.`Time` AS ShowTime, s.Price
-                FROM Movie m
-                LEFT JOIN Showing s ON m.MovieID = s.MovieID
+                FROM movie m
+                LEFT JOIN showing s ON m.MovieID = s.MovieID
                 ORDER BY m.MovieID DESC, s.`Time` ASC";
 
         $stmt = $this->db->prepare($sql);
@@ -27,7 +27,7 @@ class Movie extends BaseModel
                 $movies[$id] = [
                     'MovieID'    => $row['MovieID'],
                     'Titel'      => $row['Titel'],
-                    'Description'=> $row['Description'],
+                    'Description' => $row['Description'],
                     'Poster'     => $row['Poster'],
                     'ageRating'  => $row['ageRating'],
                     'Duration'   => $row['Duration'],

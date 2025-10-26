@@ -3,7 +3,7 @@ require_once __DIR__ . '/BaseModel.php';
 
 class CompanyInfo extends BaseModel
 {
-    protected $table = "CompanyInfo";
+    protected $table = "companyinfo";
     protected $primaryKey = "CompanyInfoID";
 
     public function getCompanyInfo()

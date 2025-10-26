@@ -3,7 +3,7 @@ require_once __DIR__ . '/BaseModel.php';
 
 class Seating extends BaseModel
 {
-    protected $table = "Seating";
+    protected $table = "seating";
     protected $primaryKey = "SeatingID";
 
     public function generateSeating($showroomID, $rows, $seatsPerRow)
@@ -13,7 +13,7 @@ class Seating extends BaseModel
         for ($r = 0; $r < $rows; $r++) {
             for ($s = 1; $s <= $seatsPerRow; $s++) {
                 $this->query(
-                    "INSERT INTO Seating (RowLetters, SeatNumber, ShowroomID) 
+                    "INSERT INTO seating (RowLetters, SeatNumber, ShowroomID) 
                      VALUES (:row, :seat, :sid)",
                     [
                         ':row' => $letters[$r],
@@ -27,7 +27,7 @@ class Seating extends BaseModel
 
     public function getByShowroom($showroomID)
     {
-        return $this->fetchAll("SELECT * FROM Seating WHERE ShowroomID = :id ORDER BY RowLetters, SeatNumber", [
+        return $this->fetchAll("SELECT * FROM seating WHERE ShowroomID = :id ORDER BY RowLetters, SeatNumber", [
             ':id' => $showroomID
         ]);
     }

@@ -3,7 +3,7 @@ require_once __DIR__ . '/BaseModel.php';
 
 class Showing extends BaseModel
 {
-    protected $table = "Showing";
+    protected $table = "showing";
     protected $primaryKey = "ShowingID";
 
     public function create($data)
@@ -47,9 +47,9 @@ class Showing extends BaseModel
                     s.Price,
                     m.Titel AS MovieTitle,
                     r.name AS ShowroomName
-                FROM Showing s
-                JOIN Movie m ON s.MovieID = m.MovieID
-                JOIN Showroom r ON s.ShowroomID = r.ShowroomID
+                FROM showing s
+                JOIN movie m ON s.MovieID = m.MovieID
+                JOIN showroom r ON s.ShowroomID = r.ShowroomID
                 ORDER BY s.DATE ASC";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

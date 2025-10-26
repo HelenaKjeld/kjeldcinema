@@ -12,7 +12,7 @@ $movies = $movieObj->getMoviesWithShowtimes();
         <div class="bg-slate-800 rounded-xl overflow-hidden mb-12 shadow-lg">
             <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/4">
-                    <img src="/kjeldcinema/<?= htmlspecialchars($movie['Poster']) ?>"
+                    <img src="/<?= htmlspecialchars($movie['Poster']) ?>"
                          alt="<?= htmlspecialchars($movie['Titel']) ?>"
                          class="w-full h-full object-cover">
                 </div>
