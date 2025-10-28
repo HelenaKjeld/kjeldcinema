@@ -68,7 +68,7 @@ $availableMovies = $comingSoon->getAvailableMovies();
             <tbody>
                 <?php foreach ($entries as $row): ?>
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="p-3"><img src="<?= htmlspecialchars($row['Poster']) ?>" class="w-16 h-auto rounded"></td>
+                        <td class="p-3"><img src="/<?= htmlspecialchars($row['Poster']) ?>" class="w-16 h-auto rounded"></td>
                         <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Titel']) ?></td>
                         <td class="p-3 text-slate-800"><?= htmlspecialchars($row['ReleaseDate']) ?></td>
                         <td class="p-3">
