@@ -45,4 +45,11 @@ class News extends BaseModel
     {
         parent::softdelete($id);
     }
+
+    public function getLatest()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM news ORDER BY ReleaseDate DESC LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

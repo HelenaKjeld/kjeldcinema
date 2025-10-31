@@ -68,28 +68,28 @@ $all = $newsObj->getAll();
     <table class="w-full bg-white border-collapse shadow rounded-lg">
         <thead class="bg-gray-200 text-left">
             <tr>
-                <th class="p-3">ID</th>
-                <th class="p-3">Title</th>
-                <th class="p-3">Text</th>
-                <th class="p-3">Banner</th>
-                <th class="p-3">Release Date</th>
-                <th class="p-3">Actions</th>
+                <th class="text-slate-800 p-3">ID</th>
+                <th class="text-slate-800 p-3">Title</th>
+                <th class="text-slate-800 p-3">Text</th>
+                <th class="text-slate-800 p-3">Banner</th>
+                <th class="text-slate-800 p-3">Release Date</th>
+                <th class="text-slate-800 p-3">Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($all as $row): ?>
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3"><?= $row['NewsID'] ?></td>
-                    <td class="p-3"><?= htmlspecialchars($row['Titel']) ?></td>
-                    <td class="p-3"><?= nl2br(htmlspecialchars($row['Text'])) ?></td>
+                    <td class="text-slate-800 p-3"><?= $row['NewsID'] ?></td>
+                    <td class="text-slate-800 p-3"><?= politi($row['Titel']) ?></td>
+                    <td class=" text-slate-800 p-3"><?= nl2br(politi($row['Text'])) ?></td>
                     <td class="p-3">
                         <?php if (!empty($row['BannerImg'])): ?>
-                            <img src="/kjeldcinema/<?= htmlspecialchars($row['BannerImg']) ?>" class="w-16 h-12 object-cover rounded" alt="">
+                            <img src="/<?= politi($row['BannerImg']) ?>" class="w-16 h-12 object-cover rounded" alt="">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No image</span>
                         <?php endif; ?>
                     </td>
-                    <td class="p-3"><?= htmlspecialchars($row['ReleaseDate']) ?></td>
+                    <td class="text-slate-800 p-3"><?= politi($row['ReleaseDate']) ?></td>
                     <td class="p-3 flex gap-2">
                         <button onclick="toggleEdit(<?= $row['NewsID'] ?>)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
                         <a href="?delete=<?= $row['NewsID'] ?>" onclick="return confirm('Delete this news?')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
@@ -112,7 +112,7 @@ $all = $newsObj->getAll();
                                 <label class="block text-sm text-gray-700">Change Banner:</label>
                                 <input type="file" name="BannerImg" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if (!empty($row['BannerImg'])): ?>
-                                    <img src="/kjeldcinema/<?= htmlspecialchars($row['BannerImg']) ?>" class="w-24 mt-2 rounded" alt="">
+                                    <img src="/<?= htmlspecialchars($row['BannerImg']) ?>" class="w-24 mt-2 rounded" alt="">
                                 <?php endif; ?>
                             </div>
 
