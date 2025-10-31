@@ -37,4 +37,21 @@ class ComingSoon extends BaseModel {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getUpcomingWithMovies(int $limit = 12): array
+{
+    $sql = "SELECT cs.ComingSoonID, cs.ReleaseDate,
+                   m.MovieID, m.Titel, m.Poster
+            FROM {$this->table} cs
+            INNER JOIN movie m ON cs.MovieID = m.MovieID
+            WHERE cs.ReleaseDate >= CURDATE()
+            ORDER BY cs.ReleaseDate ASC
+            LIMIT :lim";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':lim', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+}
+
