@@ -39,7 +39,7 @@ $movies = $movieObj->getMoviesWithShowtimes();
                         <?php if (!empty($movie['Showtimes'])): ?>
                             <div class="flex flex-wrap gap-3">
                                 <?php foreach ($movie['Showtimes'] as $show): ?>
-                                    <a href="/kjeldcinema/booking_page.php?showing=<?= $show['ShowingID'] ?>"
+                                    <a href="/booking_page.php?showing=<?= $show['ShowingID'] ?>"
                                        class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">
                                         <?= date('H:i', strtotime($show['Time'])) ?>
                                     </a>

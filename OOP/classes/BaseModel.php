@@ -63,6 +63,12 @@ class BaseModel
         return $stmt->execute([':id' => $id]);
     }
 
+    public function softdelete($id)
+    {
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET `hidden` = '1' WHERE {$this->primaryKey} = :id");
+        return $stmt->execute([':id' => $id]);
+    }
+
    
     public function query($sql, $params = [])
     {

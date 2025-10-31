@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../OOP/classes/User.php';
 require_once __DIR__ . '/../OOP/classes/Ticket.php';
-require_once("includes/functions.php");
+require_once("../includes/functions.php");
 include '../components/header.php';
 
 

@@ -14,7 +14,7 @@ include '../components/header.php';
             <p class="text-gray-600 mt-2">Add, edit, or remove movies currently showing.</p>
         </a>
 
-        <a href="news.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
+        <a href="news/news_page.php" class="bg-white shadow rounded-xl p-6 hover:bg-amber-50">
             <h3 class="text-xl font-semibold text-slate-800"> Manage News</h3>
             <p class="text-gray-600 mt-2">Create and edit latest cinema news.</p>
         </a>
