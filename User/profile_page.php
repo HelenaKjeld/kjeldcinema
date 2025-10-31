@@ -2,15 +2,17 @@
 session_start();
 require_once __DIR__ . '/../OOP/classes/User.php';
 require_once __DIR__ . '/../OOP/classes/Ticket.php';
+require_once("includes/functions.php");
 include '../components/header.php';
+
 
 
 
 $userObj = new User();
 $ticketObj = new Ticket();
-$userId = $_SESSION['UserID'];
+$userId = $_SESSION['user_id'];
 
-// 🧾 Handle delete
+//  Handle delete
 if (isset($_POST['deleteAccount'])) {
     $userObj->delete($userId);
     session_destroy();
@@ -18,7 +20,7 @@ if (isset($_POST['deleteAccount'])) {
     exit();
 }
 
-// 📝 Handle update
+//  Handle update
 if (isset($_POST['updateProfile'])) {
     $data = [
         'Firstname' => $_POST['Firstname'],
@@ -43,10 +45,10 @@ $tickets = $ticketObj->getTicketsByUser($userId);
     <form method="POST" class="bg-white p-6 rounded-lg shadow mb-8">
         <h3 class="text-xl font-semibold mb-4 text-slate-800">Personal Information</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" name="Firstname" value="<?= htmlspecialchars($user['Firstname']) ?>" class="border p-2 rounded" required>
-            <input type="text" name="Lastname" value="<?= htmlspecialchars($user['Lastname']) ?>" class="border p-2 rounded" required>
+            <input type="text" name="Firstname" value="<?= politi($user['Firstname']) ?>" class="border p-2 rounded text-slate-800" required>
+            <input type="text" name="Lastname" value="<?= politi($user['Lastname']) ?>" class="border p-2 rounded text-slate-800" required>
         </div>
-        <input type="email" name="Email" value="<?= htmlspecialchars($user['Email']) ?>" class="border p-2 rounded w-full mt-4" required>
+        <input type="email" name="Email" value="<?= politi($user['Email']) ?>" class="border p-2 rounded w-full mt-4 text-slate-800" required>
         <button type="submit" name="updateProfile" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Update</button>
     </form>
 
@@ -70,9 +72,9 @@ $tickets = $ticketObj->getTicketsByUser($userId);
                 <tbody>
                     <?php foreach ($tickets as $ticket): ?>
                         <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3"><?= htmlspecialchars($ticket['MovieTitle']) ?></td>
-                            <td class="p-3"><?= htmlspecialchars($ticket['Date']) ?></td>
-                            <td class="p-3">$<?= htmlspecialchars($ticket['Price']) ?></td>
+                            <td class="p-3"><?= politi($ticket['MovieTitle']) ?></td>
+                            <td class="p-3"><?= politi($ticket['Date']) ?></td>
+                            <td class="p-3">$<?= politi($ticket['Price']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -83,4 +85,4 @@ $tickets = $ticketObj->getTicketsByUser($userId);
     </div>
 </div>
 
-<?php include '../../components/footer.php'; ?>
+<?php include '../components/footer.php'; ?>

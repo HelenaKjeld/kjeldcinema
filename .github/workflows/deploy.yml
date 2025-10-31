@@ -1,17 +1,17 @@
-on: push
-name: Publish Website
-jobs:
-  web-deploy:
-    name: 🚀 Deploy Website Every Commit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Latest Code
-        uses: actions/checkout@v3
+# on: push
+# name: Publish Website
+# jobs:
+#   web-deploy:
+#     name: 🚀 Deploy Website Every Commit
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get Latest Code
+#         uses: actions/checkout@v3
 
-      - name: Sync Files
-        uses: SamKirkland/web-deploy@v1
-        with:
-          target-server: ${{ secrets.SSH_HOSTNAME }}
-          remote-user: ${{ secrets.SSH_USERNAME }}
-          private-ssh-key: ${{ secrets.SSH_KEY }}
-          destination-path: ~/public_html/
+#       - name: Sync Files
+#         uses: SamKirkland/web-deploy@v1
+#         with:
+#           target-server: ${{ secrets.SSH_HOSTNAME }}
+#           remote-user: ${{ secrets.SSH_USERNAME }}
+#           private-ssh-key: ${{ secrets.SSH_KEY }}
+#           destination-path: ~/public_html/

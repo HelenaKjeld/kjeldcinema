@@ -1,7 +1,10 @@
 <?php
 require_once(__DIR__ . "/connection.php");
 
-
+function politi($value)
+{
+	return htmlspecialchars(trim($value));
+}
 
 function redirect_to($location)
 {

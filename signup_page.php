@@ -1,15 +1,25 @@
 <?php
 require_once("includes/connection.php");
+require_once("includes/functions.php");
 if (isset($_POST['submit'])) {
+    if (empty($_POST['firstName']) || empty($_POST['lastName']) || empty($_POST['email']) || empty($_POST['password'])) {
+        header("Location: signup_page.php?status=empty");
+        exit();
+    }
 
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
+    $firstName = politi($_POST['firstName']);
+    $lastName = politi($_POST['lastName']);
+    $email = politi($_POST['email']);
     $iterations = ['cost' => 10];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT, $iterations);
+    $password = password_hash(politi($_POST['password']), PASSWORD_BCRYPT, $iterations);
 
 
-    $query = dbCon()->prepare("INSERT INTO user (`Firstname`, `Lastname`, `Email`, `Password`) VALUES ('$firstName', '$lastName', '$email', '$password')");
+    $query = dbCon()->prepare("INSERT INTO user (`Firstname`, `Lastname`, `Email`, `Password`) VALUES (?, ?, ?, ?)");
+    $query->bindParam(1,$firstName);
+    $query->bindParam(2,$lastName);
+    $query->bindParam(3,$email);    
+    $query->bindParam(4,$password);
+    // Bind parameters in order: $firstName, $lastName, $email, $password
     $query->execute();
     header("Location: index.php?status=added");
 } else {
