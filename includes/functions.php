@@ -61,3 +61,21 @@ function guidv4($data = null)
 	// Output the 36 character UUID.
 	return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
+
+
+function formatShowDateTime($date, $time) {
+    $showDate = new DateTime($date . ' ' . $time);
+    $today = new DateTime();
+    $tomorrow = (clone $today)->modify('+1 day');
+
+    if ($showDate->format('Y-m-d') === $today->format('Y-m-d')) {
+        $prefix = 'today';
+    } elseif ($showDate->format('Y-m-d') === $tomorrow->format('Y-m-d')) {
+        $prefix = 'tomorrow';
+    } else {
+        $prefix = $showDate->format('D d/m');
+    }
+
+    return $prefix . ' ' . $showDate->format('H:i');
+}
+

@@ -1,46 +1,52 @@
 <?php
 include 'components/header.php';
+
+require_once __DIR__ . '/OOP/classes/Showing.php';
+require_once __DIR__ . '/OOP/classes/Movie.php';
+require_once __DIR__ . '/OOP/classes/Showroom.php';
+require_once __DIR__ . '/OOP/classes/Seating.php';
+require_once __DIR__ . '/includes/functions.php';
+
+$seating = new Seating();
+$showing = new Showing();
+$movie = new Movie();
+$showroom = new Showroom();
+
+
+$showingID = $_GET['showing'] ?? null;
+
+$showingDetails = $showingID ? $showing->find($showingID) : null;
+$movieDetails = $showingDetails ? $movie->find($showingDetails['MovieID']) : null;
+$showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID']) : null;
 ?>
 
 
-
 <main class="container mx-auto px-4 py-8">
-    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-        <a href="index"><button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
+    <div class="bg-slate-800 rounded-xl shadow-lg p-6 mb-8">
+        <a href="/"><button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
                 Back to Movies
             </button></a>
         <div class="flex flex-col md:flex-row gap-8">
             <div class="md:w-1/3">
-                <img src="http://static.photos/movie/640x360/42" alt="Movie Poster" class="rounded-lg w-full">
+                <img src="/<?= politi($movieDetails['Poster']) ?>"
+                        alt="<?= politi($movieDetails['Titel']) ?>" class="rounded-lg w-full">
                 <div class="mt-4">
-                    <h2 class="text-2xl font-bold">Avengers: Endgame</h2>
+                    <h2 class="text-2xl font-bold"><?= politi($movieDetails['Titel']) ?></h2>
                     <div class="flex items-center mt-2 text-gray-600">
-                        <span class="mr-4">PG-13</span>
-                        <span class="mr-4">3h 1m</span>
-                        <span>Action</span>
-                    </div>
-                    <div class="mt-4 flex items-center">
-                        <div class="flex">
-                            <i data-feather="star" class="text-yellow-400 mr-1"></i>
-                            <i data-feather="star" class="text-yellow-400 mr-1"></i>
-                            <i data-feather="star" class="text-yellow-400 mr-1"></i>
-                            <i data-feather="star" class="text-yellow-400 mr-1"></i>
-                            <i data-feather="star" class="text-gray-300 mr-1"></i>
-                        </div>
-                        <span class="ml-2">4.2/5</span>
+                        <span class="mr-4"><?= politi($movieDetails['ageRating']) ?></span>
+                        <span class="mr-4"><?= politi($movieDetails['Duration']) ?></span>
+                        <span>Comedy</span>
                     </div>
                 </div>
             </div>
             <div class="md:w-2/3">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h3 class="text-xl font-semibold">Screen 5</h3>
-                        <p class="text-gray-600">Today, 7:30 PM</p>
+                        <h3 class="text-xl font-semibold"><?= politi($showroomDetails['name']) ?></h3>
+                        <p class="text-gray-600"><?= politi(formatShowDateTime($showingDetails['DATE'], $showingDetails['Time'])) ?></p>
                     </div>
                     <div class="bg-gray-100 px-4 py-2 rounded-lg">
-                        <span class="font-medium">Standard: $12</span>
-                        <span class="mx-2">|</span>
-                        <span class="font-medium text-amber-600">VIP: $18</span>
+                        <span class="font-medium text-amber-600"><?= politi($showingDetails['Price']) ?></span>
                     </div>
                 </div>
 
