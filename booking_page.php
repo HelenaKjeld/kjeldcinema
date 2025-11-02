@@ -18,6 +18,9 @@ $showingID = $_GET['showing'] ?? null;
 $showingDetails = $showingID ? $showing->find($showingID) : null;
 $movieDetails = $showingDetails ? $movie->find($showingDetails['MovieID']) : null;
 $showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID']) : null;
+
+$seats = $showingID ? $seating->getByShowroom($showroomDetails['ShowroomID']) : [];
+// $bookedSeats = $showingID ? $seating->getBookedSeats($showingID) : [];
 ?>
 
 
@@ -45,8 +48,8 @@ $showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID
                         <h3 class="text-xl font-semibold"><?= politi($showroomDetails['name']) ?></h3>
                         <p class="text-gray-600"><?= politi(formatShowDateTime($showingDetails['DATE'], $showingDetails['Time'])) ?></p>
                     </div>
-                    <div class="bg-gray-100 px-4 py-2 rounded-lg">
-                        <span class="font-medium text-amber-600"><?= politi($showingDetails['Price']) ?></span>
+                    <div class="bg-slate-700 px-4 py-2 rounded-lg">
+                        <span class="font-medium text-amber-600"><?= politi($showingDetails['Price']) ?> kr</span>
                     </div>
                 </div>
 
@@ -54,13 +57,39 @@ $showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID
                     <h3 class="text-xl font-bold text-gray-700">SCREEN</h3>
                 </div>
 
-                <div class="seat-map mb-8">
+                <div class="bg-slate-700 seat-map mb-8">
                     <div class="grid grid-cols-10 gap-3" id="seats">
-                        <!-- Seats will be generated here -->
+                        <?php if ($seats): ?>
+                            <?php
+                            // Group seats by row
+                            $grouped = [];
+                            foreach ($seats as $seat) {
+                                $grouped[$seat['RowLetters']][] = $seat;
+                            }
+                            foreach ($grouped as $row => $rowSeats):
+                                foreach ($rowSeats as $seat):
+                                    $seatId = $row . $seat['SeatNumber'];
+                                    // $isBooked = in_array($seatId, $bookedSeats);
+                            ?>
+                                <div
+                                    class="seat w-10 h-10 flex items-center justify-center font-medium rounded
+                                        <?= $isBooked ? 'bg-red-500 text-white cursor-not-allowed' : ($isVip ? 'bg-amber-500 text-black' : 'bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer') ?>"
+                                    data-id="<?= $seatId ?>"
+                                    <? 
+                                    // $isBooked ? 'style="pointer-events:none;"' : '' 
+                                    ?>
+                                >
+                                    <?= $seat['SeatNumber'] ?>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <span class="text-gray-500">No seats found</span>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <div class="seat-legend flex flex-wrap gap-6 mb-6">
+                <div class="bg-slate-700 seat-legend flex flex-wrap gap-6 mb-6">
                     <div class="flex items-center">
                         <div class="w-6 h-6 bg-gray-200 rounded mr-2"></div>
                         <span>Available</span>
@@ -73,13 +102,9 @@ $showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID
                         <div class="w-6 h-6 bg-red-500 rounded mr-2"></div>
                         <span>Booked</span>
                     </div>
-                    <div class="flex items-center">
-                        <div class="w-6 h-6 bg-amber-500 rounded mr-2"></div>
-                        <span>VIP</span>
-                    </div>
                 </div>
 
-                <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                <div class="bg-slate-700 p-4 rounded-lg mb-6">
                     <h4 class="font-semibold mb-2">Selected Seats</h4>
                     <div id="selected-seats" class="flex flex-wrap gap-2">
                         <span class="text-gray-500">No seats selected</span>
@@ -101,123 +126,77 @@ $showroomDetails = $showingDetails ? $showroom->find($showingDetails['ShowroomID
 </main>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        feather.replace();
-        AOS.init();
+document.addEventListener('DOMContentLoaded', function() {
+    feather.replace();
+    AOS.init();
 
-        // Generate seats
-        const seatsContainer = document.getElementById('seats');
-        const selectedSeatsContainer = document.getElementById('selected-seats');
-        const totalPriceElement = document.getElementById('total-price');
-        const proceedBtn = document.getElementById('proceed-btn');
+    const seatsContainer = document.getElementById('seats');
+    const selectedSeatsContainer = document.getElementById('selected-seats');
+    const totalPriceElement = document.getElementById('total-price');
+    const proceedBtn = document.getElementById('proceed-btn');
 
-        let selectedSeats = [];
-        let ticketCount = 1;
-        const bookedSeats = ['A3', 'B5', 'C7', 'D2', 'E4', 'F6']; // Example booked seats
-        const vipSeats = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']; // Example VIP seats
+    let selectedSeats = [];
 
-        const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
-        const cols = 10;
+    // Get all seat elements rendered by PHP
+    const seatElements = seatsContainer.querySelectorAll('.seat');
 
-        rows.forEach(row => {
-            for (let col = 1; col <= cols; col++) {
-                const seatId = `${row}${col}`;
-                const seat = document.createElement('div');
-                seat.className = 'seat w-10 h-10 flex items-center justify-center font-medium';
-                seat.classList.add(vipSeats.includes(seatId) ? 'vip' : 'standard');
-                seat.textContent = col;
-                seat.dataset.id = seatId;
+    seatElements.forEach(seat => {
+        const seatId = seat.dataset.id;
+        const isVip = seat.classList.contains('bg-amber-500');
+        const isBooked = seat.classList.contains('bg-red-500');
 
-                if (bookedSeats.includes(seatId)) {
-                    seat.classList.add('booked');
-                } else if (vipSeats.includes(seatId)) {
-                    seat.classList.add('vip');
-                }
+        seat.addEventListener('click', () => {
+            if (isBooked) return;
 
-                seat.addEventListener('click', () => {
-                    if (seat.classList.contains('booked')) return;
+            seat.classList.toggle('selected');
 
-                    seat.classList.toggle('selected');
-
-                    if (seat.classList.contains('selected')) {
-                        selectedSeats.push(seatId);
-                    } else {
-                        selectedSeats = selectedSeats.filter(id => id !== seatId);
-                    }
-
-                    updateSelectedSeatsDisplay();
-                    updateTotalPrice();
-                    updateProceedButton();
-                });
-
-                seatsContainer.appendChild(seat);
-            }
-        });
-
-        function updateSelectedSeatsDisplay() {
-            selectedSeatsContainer.innerHTML = '';
-
-            if (selectedSeats.length === 0) {
-                selectedSeatsContainer.innerHTML = '<span class="text-gray-500">No seats selected</span>';
-                return;
-            }
-
-            selectedSeats.forEach(seatId => {
-                const seatElement = document.createElement('span');
-                seatElement.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center';
-                const icon = document.createElement('i');
-                icon.setAttribute('data-feather', 'check-circle');
-                seatElement.prepend(icon);
-                seatElement.appendChild(document.createTextNode(` ${seatId}`));
-                selectedSeatsContainer.appendChild(seatElement);
-                feather.replace();
-            });
-        }
-
-        function updateTotalPrice() {
-            let total = 0;
-            selectedSeats.forEach(seatId => {
-                total += vipSeats.includes(seatId) ? 18 : 12;
-            });
-            totalPriceElement.textContent = `$${total}`;
-        }
-
-        function updateProceedButton() {
-            proceedBtn.disabled = selectedSeats.length === 0;
-        }
-
-        // Ticket counter functionality
-        const ticketCountInput = document.getElementById('ticket-count');
-        const decrementBtn = document.getElementById('decrement-tickets');
-        const incrementBtn = document.getElementById('increment-tickets');
-
-        decrementBtn.addEventListener('click', () => {
-            if (ticketCount > 1) {
-                ticketCount--;
-                ticketCountInput.value = ticketCount;
-            }
-        });
-
-        incrementBtn.addEventListener('click', () => {
-            if (ticketCount < 10) {
-                ticketCount++;
-                ticketCountInput.value = ticketCount;
-            }
-        });
-
-        ticketCountInput.addEventListener('change', () => {
-            const value = parseInt(ticketCountInput.value);
-            if (isNaN(value) || value < 1) {
-                ticketCount = 1;
-                ticketCountInput.value = 1;
-            } else if (value > 10) {
-                ticketCount = 10;
-                ticketCountInput.value = 10;
+            if (seat.classList.contains('selected')) {
+                selectedSeats.push(seatId);
             } else {
-                ticketCount = value;
+                selectedSeats = selectedSeats.filter(id => id !== seatId);
             }
+
+            updateSelectedSeatsDisplay();
+            updateTotalPrice();
+            updateProceedButton();
         });
     });
+
+    function updateSelectedSeatsDisplay() {
+        selectedSeatsContainer.innerHTML = '';
+
+        if (selectedSeats.length === 0) {
+            selectedSeatsContainer.innerHTML = '<span class="text-gray-500">No seats selected</span>';
+            return;
+        }
+
+        selectedSeats.forEach(seatId => {
+            const seatElement = document.createElement('span');
+            seatElement.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center';
+            const icon = document.createElement('i');
+            icon.setAttribute('data-feather', 'check-circle');
+            seatElement.prepend(icon);
+            seatElement.appendChild(document.createTextNode(` ${seatId}`));
+            selectedSeatsContainer.appendChild(seatElement);
+            feather.replace();
+        });
+    }
+
+    function updateTotalPrice() {
+        let total = 0;
+        selectedSeats.forEach(seatId => {
+            // Find the seat element to check if it's VIP
+            const seat = seatsContainer.querySelector(`[data-id="${seatId}"]`);
+            const isVip = seat && seat.classList.contains('bg-amber-500');
+            total += isVip ? 18 : 12;
+        });
+        totalPriceElement.textContent = `$${total}`;
+    }
+
+    function updateProceedButton() {
+        proceedBtn.disabled = selectedSeats.length === 0;
+    }
+});
 </script>
 
 <?php
