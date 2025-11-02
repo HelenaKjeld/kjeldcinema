@@ -45,7 +45,7 @@ include 'components/coming_soon.php';
 
 
 <!-- Premium Experience Section -->
-<section class="py-20 px-6 bg-gradient-to-r from-slate-900 to-slate-800">
+<!-- <section class="py-20 px-6 bg-gradient-to-r from-slate-900 to-slate-800">
     <div class="container mx-auto">
         <div class="flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-10 md:mb-0">
@@ -92,7 +92,7 @@ include 'components/coming_soon.php';
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <!-- Newsletter Section -->

@@ -1,4 +1,4 @@
- <div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
+<div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
      <div id="weekButtons" class="flex space-x-2"></div>
  </div>
 
@@ -32,9 +32,10 @@
                  button.textContent = date.toLocaleDateString('en-US', options);
              }
 
-             // Optional: clicking a date fills the date input
+             // Redirect to page with ?date=YYYY-MM-DD
              button.addEventListener('click', () => {
-                 document.getElementById('dateInput').value = date.toLocaleDateString();
+                 const formattedDate = date.toISOString().slice(0, 10);
+                 window.location.search = '?date=' + formattedDate;
              });
 
              container.appendChild(button);

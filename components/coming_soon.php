@@ -38,9 +38,9 @@ $items = $cs->getUpcomingWithMovies(12); // adjust how many you want
                 <?= $dateStr ?>
               </span>
               <h3 class="text-xl font-bold text-white"><?= $title ?></h3>
-              <a href="<?= $detailUrl ?>" class="mt-4 inline-block text-white border border-white px-4 py-1 rounded-full text-sm hover:bg-white hover:text-black transition">
+              <!-- <a href="<?= $detailUrl ?>" class="mt-4 inline-block text-white border border-white px-4 py-1 rounded-full text-sm hover:bg-white hover:text-black transition">
                 Read more
-              </a>
+              </a> -->
             </div>
           </div>
         </div>

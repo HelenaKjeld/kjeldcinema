@@ -1,10 +1,13 @@
-
- 
 <?php
 require_once __DIR__ . '/../OOP/classes/Movie.php';
 
+
+$date = $_GET["date"] ?? date("Y-m-d");
+
+
+
 $movieObj = new Movie();
-$movies = $movieObj->getMoviesWithShowtimes();
+$movies = $movieObj->getMoviesWithShowtimes($date);
 ?>
 
 <?php if (!empty($movies)): ?>
@@ -13,8 +16,8 @@ $movies = $movieObj->getMoviesWithShowtimes();
             <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/4">
                     <img src="/<?= htmlspecialchars($movie['Poster']) ?>"
-                         alt="<?= htmlspecialchars($movie['Titel']) ?>"
-                         class="w-full h-full object-cover">
+                        alt="<?= htmlspecialchars($movie['Titel']) ?>"
+                        class="w-full h-full object-cover">
                 </div>
 
                 <div class="md:w-3/4 p-6">
@@ -40,7 +43,7 @@ $movies = $movieObj->getMoviesWithShowtimes();
                             <div class="flex flex-wrap gap-3">
                                 <?php foreach ($movie['Showtimes'] as $show): ?>
                                     <a href="/booking_page.php?showing=<?= $show['ShowingID'] ?>"
-                                       class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">
+                                        class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">
                                         <?= date('H:i', strtotime($show['Time'])) ?>
                                     </a>
                                 <?php endforeach; ?>

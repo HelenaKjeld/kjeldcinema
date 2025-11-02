@@ -6,18 +6,17 @@ class Movie extends BaseModel
     protected $table = 'movie';
     protected $primaryKey = 'MovieID';
 
-    public function getMoviesWithShowtimes(): array
+    public function getMoviesWithShowtimes($date): array
     {
-        // DATE and Time are reserved words – wrap them in backticks
         $sql = "SELECT 
                     m.MovieID, m.Titel, m.Description, m.Poster, m.ageRating, m.Duration,
                     s.ShowingID, s.`DATE` AS ShowDate, s.`Time` AS ShowTime, s.Price
                 FROM movie m
-                LEFT JOIN showing s ON m.MovieID = s.MovieID
+                INNER JOIN showing s ON m.MovieID = s.MovieID AND s.`DATE` = :date
                 ORDER BY m.MovieID DESC, s.`Time` ASC";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(['date' => $date]);
 
         $movies = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -27,7 +26,7 @@ class Movie extends BaseModel
                 $movies[$id] = [
                     'MovieID'    => $row['MovieID'],
                     'Titel'      => $row['Titel'],
-                    'Description' => $row['Description'],
+                    'Description'=> $row['Description'],
                     'Poster'     => $row['Poster'],
                     'ageRating'  => $row['ageRating'],
                     'Duration'   => $row['Duration'],
@@ -35,17 +34,14 @@ class Movie extends BaseModel
                 ];
             }
 
-            if (!empty($row['ShowingID'])) {
-                $movies[$id]['Showtimes'][] = [
-                    'ShowingID' => $row['ShowingID'],
-                    'Date'      => $row['ShowDate'],
-                    'Time'      => $row['ShowTime'],
-                    'Price'     => $row['Price']
-                ];
-            }
+            $movies[$id]['Showtimes'][] = [
+                'ShowingID' => $row['ShowingID'],
+                'Date'      => $row['ShowDate'],
+                'Time'      => $row['ShowTime'],
+                'Price'     => $row['Price']
+            ];
         }
 
-        // optional: reindex to a simple numeric array
         return array_values($movies);
     }
 }
