@@ -1,3 +1,4 @@
+<!--
 <?php include 'components/header.php'; ?>
 
 <main class="container mx-auto px-4 py-16">
@@ -24,12 +25,12 @@
         <h2 class="text-2xl font-bold text-amber-400 mb-4"><?php echo $venue; ?></h2>
         <p class="text-gray-400 mb-4">Screen: 1</p>
 
-        <!-- Screen -->
+       Screen
         <div class="screen w-full h-10 bg-slate-700 rounded-lg flex items-center justify-center mb-6">
           <span class="text-sm font-semibold text-gray-300">SCREEN</span>
         </div>
 
-        <!-- Seating Grid -->
+       Seating Grid 
         <div class="overflow-x-auto">
           <table class="w-full text-center border-collapse">
             <thead>
@@ -59,7 +60,7 @@
           </table>
         </div>
 
-        <!-- Legend -->
+        Legend 
         <div class="flex flex-wrap gap-6 mt-6">
           <div class="flex items-center">
             <div class="w-6 h-6 bg-gray-300 rounded mr-2"></div>
@@ -88,3 +89,5 @@
 <?php
 include 'components/footer.php';
 ?>
+
+            -->
