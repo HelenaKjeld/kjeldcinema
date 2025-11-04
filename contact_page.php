@@ -83,7 +83,7 @@ include 'components/header.php';
     <div class="container mx-auto">
       <h2 class="text-3xl font-bold mb-4">Join the RowanCinema Experience</h2>
       <p class="text-gray-300 mb-8">We promise the movies are great, and the snacks are even better.</p>
-      <a href="index.html"
+      <a href="/"
          class="ticket-button bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 py-3 rounded-full transition">
         Back to Home
       </a>

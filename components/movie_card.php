@@ -30,7 +30,7 @@ $movies = $movieObj->getMoviesWithShowtimes($date);
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Age <?= htmlspecialchars($movie['ageRating']) ?>+</span>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded"> <?= htmlspecialchars($movie['ageRating']) ?>+</span><p>Age</p>
                         <span class="text-xs bg-slate-700 px-2 py-1 rounded"><?= htmlspecialchars($movie['Duration']) ?> min</span>
                     </div>
 
