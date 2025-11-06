@@ -39,7 +39,7 @@
                     <!-- <a href="#" class="text-white hover:text-amber-400 transition">Movies</a> -->
                     <!-- <a href="/venues_page.php" class="text-white hover:text-amber-400 transition">Venues</a> -->
                     <a href="/about_page.php" class="text-white hover:text-amber-400 transition">About</a>
-                    <a href="contact_page.php" class="text-white hover:text-amber-400 transition">Contact</a>
+                    <a href="/contact_page.php" class="text-white hover:text-amber-400 transition">Contact</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <?php

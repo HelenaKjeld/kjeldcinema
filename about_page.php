@@ -16,13 +16,13 @@ include 'components/header.php';
             we deliver movies with maximum comfort—and a dash of Mr. Bean-style mischief.
           </p>
           <div class="mt-8 flex flex-wrap gap-4">
-            <a href="index.html#now-showing" class="ticket-button px-8 py-3 rounded-full font-bold text-white">View Showtimes</a>
-            <a href="contact.html" class="border border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">Contact Us</a>
+            <a href="/" class="ticket-button px-8 py-3 rounded-full font-bold text-white">View Showtimes</a>
+            <a href="contact_page.html" class="border border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">Contact Us</a>
           </div>
         </div>
         <div class="md:w-1/3 flex justify-center">
           <div class="w-44 h-44 rounded-xl shadow-2xl bg-slate-800 p-4 flex items-center justify-center">
-            <img src="img/logo_placeholder.png" alt="RowanCinema Logo" class="max-w-full max-h-full object-contain">
+            <img src="img/mr_bean_icon.png" alt="RowanCinema Logo" class="max-w-full max-h-full object-contain">
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@ include 'components/header.php';
   </section>
 
   <!-- Highlights -->
-  <section class="py-12 px-6 bg-slate-900">
+  <!-- <section class="py-12 px-6 bg-slate-900">
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-slate-800 rounded-xl p-6 shadow">
         <div class="flex items-center gap-3 mb-3">
@@ -54,7 +54,7 @@ include 'components/header.php';
         <p class="text-gray-300">Kick back, relax, and try not to spill your popcorn during the plot twist.</p>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Our Story -->
   <section class="py-16 px-6 bg-slate-800">
@@ -101,7 +101,7 @@ include 'components/header.php';
         <p class="text-gray-300"><i data-feather="phone" class="inline mr-2"></i>(123) 456-7890</p>
         <div class="mt-6 rounded-lg overflow-hidden bg-slate-700">
           <!-- Map placeholder; swap with an embed later -->
-          <div class="h-56 w-full flex items-center justify-center text-gray-400">Map coming soon…</div>
+          <div class="h-56 w-full flex items-center justify-center text-gray-400"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d633136.5276189636!2d-1.6366670218750168!3d51.6929761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876402f2fe350ad%3A0xa43f20856ba6c5!2sWarner%20Bros.%20Studios%20Leavesden!5e0!3m2!1sen!2sdk!4v1762253783415!5m2!1sen!2sdk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
       </div>
       <div class="bg-slate-800 rounded-xl p-6 shadow">

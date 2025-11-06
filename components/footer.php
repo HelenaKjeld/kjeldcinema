@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/../OOP/classes/CompanyInfo.php';
+require_once __DIR__ . '/../includes/functions.php';
 $companyinfo = new CompanyInfo();
 $info = $companyinfo->getCompanyInfo();
 ?>
@@ -30,36 +31,25 @@ $info = $companyinfo->getCompanyInfo();
             <div>
                 <h4 class="font-bold mb-4">Navigation</h4>
                 <ul class="space-y-2">
-                    <li><a href="index.php" class="text-gray-400 hover:text-amber-400 transition">Home</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Movies</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Cinemas</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Promotions</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4">Information</h4>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">About Us</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Terms of Service</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">Privacy Policy</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-amber-400 transition">FAQs</a></li>
+                    <li><a href="/" class="text-gray-400 hover:text-amber-400 transition">Movies</a></li>
+                    <li><a href="/about_page.php" class="text-gray-400 hover:text-amber-400 transition">About</a></li>
+                    <li><a href="/contact_page.php" class="text-gray-400 hover:text-amber-400 transition">Contact</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-4">Contact Us</h4>
                 <ul class="space-y-2">
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="map-pin" class="mr-2"></i> <?php echo htmlspecialchars($info['Address'] ?? 'N/A'); ?>
+                        <i data-feather="map-pin" class="mr-2"></i> <?php echo politi($info['Address'] ?? 'N/A'); ?>
                     </li>
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="phone" class="mr-2"></i> <?php echo htmlspecialchars($info['PhoneNumber'] ?? 'N/A'); ?>
+                        <i data-feather="phone" class="mr-2"></i> <?php echo politi($info['PhoneNumber'] ?? 'N/A'); ?>
                     </li>
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="mail" class="mr-2"></i> <?php echo htmlspecialchars($info['Email'] ?? 'N/A'); ?>
+                        <i data-feather="mail" class="mr-2"></i> <?php echo politi($info['Email'] ?? 'N/A'); ?>
                     </li>
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="time" class="mr-2"></i> Opening hours: <?php echo htmlspecialchars($info['OpeningHours'] ?? 'N/A'); ?>
+                        <i data-feather="time" class="mr-2"></i> Opening hours: <?php echo politi($info['OpeningHours'] ?? 'N/A'); ?>
                     </li>
                 </ul>
             </div>
