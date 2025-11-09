@@ -99,7 +99,7 @@
 
       <p class="text-center text-gray-400 mt-6 text-sm">
         Don’t have an account?
-        <a href="signup_page.php" class="text-amber-400 hover:underline">Sign Up</a>
+        <a href="/add_user.php" class="text-amber-400 hover:underline">Sign Up</a>
       </p>
     </div>
   </section>
