@@ -1,10 +1,13 @@
 <?php
 require_once 'BaseModel.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
-class Ticket extends BaseModel {
+class Ticket extends BaseModel
+{
     protected $table = 'ticket';
 
-    public function getTicketsByUser($userId) {
+    public function getTicketsByUser($userId)
+    {
         $sql = "SELECT t.*, s.Date, s.ShowingID, m.Titel AS MovieTitle, s.Price
                 FROM ticket t
                 JOIN showing s ON t.ShowingID = s.ShowingID
@@ -15,5 +18,25 @@ class Ticket extends BaseModel {
         $stmt->execute([':userId' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createTicketForSeats($showingID, $seats)
+    {
+        $Showing = new Showing();
+        $showingDetails = $Showing->find($showingID);
+
+        $sql = "INSERT INTO {$this->table} (PurchaseDate, TotalPrice, CheckoutSessionID, Status, ShowingID)
+                VALUES (:PurchaseDate, :TotalPrice, :CheckoutSessionID, :Status, :ShowingID)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':PurchaseDate' => date('Y-m-d'),
+            ':TotalPrice' => $showingDetails['Price'] * count($seats),
+            ':CheckoutSessionID' => guidv4(),
+            ':Status' => 'pending',
+            ':ShowingID' => $showingDetails['ShowingID']
+
+        ]);
+
+        $ticketId = $this->db->lastInsertId();
+        return $ticketId;
+    }
 }
-?>

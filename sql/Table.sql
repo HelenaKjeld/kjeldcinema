@@ -70,6 +70,8 @@ CREATE TABLE ticket(
     TicketID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     PurchaseDate DATE,
     TotalPrice DECIMAL(10, 2),
+    CheckoutSessionID VARCHAR(255),
+    Status VARCHAR(50) DEFAULT 'pending',
     ShowingID INT NOT NULL,
     UserID INT, 
     FOREIGN KEY (ShowingID) REFERENCES showing(ShowingID),
