@@ -1,5 +1,7 @@
 <?php
 require_once 'BaseModel.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
 
 class User extends BaseModel {
     protected $table = 'user';
@@ -28,9 +30,9 @@ class User extends BaseModel {
                                     SET Firstname = :fname, Lastname = :lname, Email = :email
                                     WHERE UserID = :id");
         $stmt->execute([
-            ':fname' => $data['Firstname'],
-            ':lname' => $data['Lastname'],
-            ':email' => $data['Email'],
+            ':fname' => politi($data['Firstname']),
+            ':lname' => politi($data['Lastname']),
+            ':email' => politi($data['Email']),
             ':id' => $id
         ]);
         return true;
