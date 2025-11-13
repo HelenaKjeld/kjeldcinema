@@ -81,7 +81,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $booked = (int)($r['BookedSeats'] ?? 0);
             $max    = (int)($r['MaxSeats'] ?? 0);
             $occ    = $max > 0 ? round(($booked / $max) * 100) : 0;
-            $detail = $r['DetailUrl'] ?? ('/admin/bookings/tickets_page.php?showing=' . (int)$r['ShowingID']);
+            $detail = ('/admin/managebooking/bookings/view_tickets_page.php?showing=' . (int)$r['ShowingID']);
 
             // Occupancy bar color
             $bar = 'bg-green-500';

@@ -71,6 +71,7 @@ CREATE TABLE ticket(
     PurchaseDate DATE,
     TotalPrice DECIMAL(10, 2),
     CheckoutSessionID VARCHAR(255),
+    BookingEmail VARCHAR(255),
     Status VARCHAR(50) DEFAULT 'pending',
     ShowingID INT NOT NULL,
     UserID INT, 
