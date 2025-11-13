@@ -91,7 +91,7 @@ $movies = $movie->all();
                     <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
                     <td class="p-3 text-slate-800">
                         <?php if (!empty($row['Poster'])): ?>
-                            <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
+                            <img src="/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No poster</span>
                         <?php endif; ?>
@@ -117,7 +117,7 @@ $movies = $movie->all();
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
                                 <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if (!empty($row['Poster'])): ?>
-                                    <img src="/kjeldcinema/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
+                                    <img src="/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
                                 <?php endif; ?>
                             </div>
 

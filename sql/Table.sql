@@ -97,3 +97,9 @@ CREATE TABLE ticket_has_a_seating (
     FOREIGN KEY (TicketID) REFERENCES ticket(TicketID),
     FOREIGN KEY (SeatingID) REFERENCES seating(SeatingID)
 );
+
+CREATE INDEX idx_showing_movie   ON `showing`(`MovieID`);
+CREATE INDEX idx_showing_room    ON `showing`(`ShowroomID`);
+CREATE INDEX idx_ticket_showing  ON `ticket`(`ShowingID`);
+CREATE INDEX idx_ths_ticket      ON `ticket_has_a_seating`(`TicketID`);
+CREATE INDEX idx_seating_room    ON `seating`(`ShowroomID`);
