@@ -136,7 +136,7 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
         </div>
 
         <!-- Total + Proceed -->
-        <form id="booking-form" method="POST" action="/payments/create_ticket.php">
+        <form id="booking-form" method="POST" action="/booking/confirm_booking_page.php">
         <input type="hidden" name="showingID"  value="<?= politi($showingID) ?>">  
         <input type="hidden" name="selected_seats[]" id="selected-seats-input" value="">
           <div class="flex justify-between items-center">

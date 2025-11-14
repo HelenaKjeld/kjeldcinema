@@ -19,20 +19,21 @@ class Ticket extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function createTicketForSeats($showingID, $seats)
+    public function createTicketForSeats($showingID, $seats, $bookingEmail)
     {
         $Showing = new Showing();
         $showingDetails = $Showing->find($showingID);
 
-        $sql = "INSERT INTO {$this->table} (PurchaseDate, TotalPrice, CheckoutSessionID, Status, ShowingID)
-                VALUES (:PurchaseDate, :TotalPrice, :CheckoutSessionID, :Status, :ShowingID)";
+        $sql = "INSERT INTO {$this->table} (PurchaseDate, TotalPrice, CheckoutSessionID, Status, ShowingID, BookingEmail)
+                VALUES (:PurchaseDate, :TotalPrice, :CheckoutSessionID, :Status, :ShowingID, :BookingEmail)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':PurchaseDate' => date('Y-m-d'),
             ':TotalPrice' => $showingDetails['Price'] * count($seats),
             ':CheckoutSessionID' => guidv4(),
             ':Status' => 'pending',
-            ':ShowingID' => $showingDetails['ShowingID']
+            ':ShowingID' => $showingDetails['ShowingID'],
+            ':BookingEmail' => htmlspecialchars($bookingEmail)
 
         ]);
 

@@ -131,3 +131,16 @@ LEFT JOIN (
     FROM `seating` se
     GROUP BY se.`ShowroomID`
 ) cap ON cap.`ShowroomID` = s.`ShowroomID`;
+
+
+CREATE TABLE invoice (
+    InvoiceID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    InvoiceNumber VARCHAR(50) NOT NULL UNIQUE,
+    TicketID INT NOT NULL,
+    FullAmount DECIMAL(10,2) NOT NULL,
+    Status ENUM('pending', 'paid', 'cancelled') DEFAULT 'pending',
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    DueDate DATE NULL,
+    BilledEmail VARCHAR(255) NULL,
+    FOREIGN KEY (TicketID) REFERENCES ticket(TicketID)
+);
