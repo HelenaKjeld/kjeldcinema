@@ -104,3 +104,30 @@ CREATE INDEX idx_showing_room    ON `showing`(`ShowroomID`);
 CREATE INDEX idx_ticket_showing  ON `ticket`(`ShowingID`);
 CREATE INDEX idx_ths_ticket      ON `ticket_has_a_seating`(`TicketID`);
 CREATE INDEX idx_seating_room    ON `seating`(`ShowroomID`);
+
+
+CREATE OR REPLACE VIEW `v_booking_overview` AS
+SELECT
+    s.`ShowingID`,
+    m.`Poster`       AS `PosterImage`,
+    m.`Titel`        AS `MovieName`,
+    s.`DATE`         AS `ShowingDate`,
+    s.`Time`         AS `ShowingTime`,
+    sr.`name`        AS `VenueName`,
+    COALESCE(b.`booked_seats`, 0)  AS `BookedSeats`,
+    COALESCE(cap.`total_seats`, 0) AS `MaxSeats`,
+    CONCAT('admin/managebooking/bookings/tickets.php?showing=', s.`ShowingID`) AS `DetailUrl`
+FROM `showing` s
+JOIN `movie`    m  ON m.`MovieID`     = s.`MovieID`
+JOIN `showroom` sr ON sr.`ShowroomID` = s.`ShowroomID`
+LEFT JOIN (
+    SELECT t.`ShowingID`, COUNT(DISTINCT ths.`SeatingID`) AS `booked_seats`
+    FROM `ticket` t
+    JOIN `ticket_has_a_seating` ths ON ths.`TicketID` = t.`TicketID`
+    GROUP BY t.`ShowingID`
+) b   ON b.`ShowingID`   = s.`ShowingID`
+LEFT JOIN (
+    SELECT se.`ShowroomID`, COUNT(*) AS `total_seats`
+    FROM `seating` se
+    GROUP BY se.`ShowroomID`
+) cap ON cap.`ShowroomID` = s.`ShowroomID`;
