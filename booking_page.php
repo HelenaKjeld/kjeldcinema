@@ -95,7 +95,7 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
                   return $a['SeatNumber'] - $b['SeatNumber'];
                 });
                 foreach ($rowSeats as $seat):
-                  $seatId = $seat['SeatNumber']; // numeric only
+                  $seatId = $seat['SeatingID']; // numeric only
               ?>
                   <div
                     class="seat w-10 h-10 flex items-center justify-center font-medium rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer select-none"
@@ -127,13 +127,13 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
           </div>
         </div>
 
-        <!-- Selected seats -->
+        <!-- Selected seats 
         <div class="bg-slate-700 p-4 rounded-lg mb-6">
           <h4 class="font-semibold mb-2">Selected Seats</h4>
           <div id="selected-seats" class="flex flex-wrap gap-2">
             <span class="text-gray-400">No seats selected</span>
           </div>
-        </div>
+        </div>-->
 
         <!-- Total + Proceed -->
         <form id="booking-form" method="POST" action="/booking/confirm_booking_page.php">
@@ -256,23 +256,23 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
     }
 
     // Chips for selected seats
-    function updateSelectedSeatsDisplay() {
-      selectedSeatsContainer.innerHTML = '';
-      if (selectedSeats.length === 0) {
-        selectedSeatsContainer.innerHTML = '<span class="text-gray-400">No seats selected</span>';
-        return;
-      }
-      selectedSeats.forEach(seatId => {
-        const chip = document.createElement('span');
-        chip.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center';
-        const icon = document.createElement('i');
-        icon.setAttribute('data-feather', 'check-circle');
-        chip.prepend(icon);
-        chip.appendChild(document.createTextNode(' ' + seatId));
-        selectedSeatsContainer.appendChild(chip);
-      });
-      if (window.feather) feather.replace();
-    }
+    // function updateSelectedSeatsDisplay() {
+    //   selectedSeatsContainer.innerHTML = '';
+    //   if (selectedSeats.length === 0) {
+    //     selectedSeatsContainer.innerHTML = '<span class="text-gray-400">No seats selected</span>';
+    //     return;
+    //   }
+    //   selectedSeats.forEach(seatId => {
+    //     const chip = document.createElement('span');
+    //     chip.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center';
+    //     const icon = document.createElement('i');
+    //     icon.setAttribute('data-feather', 'check-circle');
+    //     chip.prepend(icon);
+    //     chip.appendChild(document.createTextNode(' ' + seatId));
+    //     selectedSeatsContainer.appendChild(chip);
+    //   });
+    //   if (window.feather) feather.replace();
+    // }
 
     // TOTAL = #selected * actual seat price (DKK)
     function updateTotalPrice() {
@@ -290,7 +290,7 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
     }
 
     function refreshUI() {
-      updateSelectedSeatsDisplay();
+      // updateSelectedSeatsDisplay();
       updateTotalPrice();
       updateProceedButton();
       updateRemaining();

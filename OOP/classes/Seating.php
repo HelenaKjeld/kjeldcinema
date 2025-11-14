@@ -31,4 +31,30 @@ class Seating extends BaseModel
             ':id' => $showroomID
         ]);
     }
+
+    public function findByIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        // Build placeholders like "?, ?, ?"
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+        $sql = "
+        SELECT SeatingID, RowLetters, SeatNumber
+        FROM {$this->table}
+        WHERE {$this->primaryKey} IN ($placeholders)
+        ORDER BY RowLetters ASC, CAST(SeatNumber AS UNSIGNED) ASC
+    ";
+
+        $stmt = $this->db->prepare($sql);
+
+        foreach ($ids as $index => $id) {
+            $stmt->bindValue($index + 1, (int)$id, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

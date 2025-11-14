@@ -2,83 +2,63 @@
 session_start();
 
 require_once __DIR__ . '/../includes/constants.php';
+
+// include your class autoloader or model files:
+
+require_once __DIR__ . '/../OOP/classes/Showing.php';
+require_once __DIR__ . '/../OOP/classes/Seating.php';
+
 include __DIR__ . '/../components/header.php';
 
-$mysqli = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-if ($mysqli->connect_error) {
-    die('Database connection failed: ' . $mysqli->connect_error);
-}
 
-// --- 1. Read data coming from booking_page.php ---
+$showingModel = new Showing();
+$seatingModel = new Seating();
+
+// --- 2. Read data coming from booking_page.php ---
 
 $showingId = isset($_POST['showingID']) ? (int)$_POST['showingID'] : 0;
-$selectedSeatsIds = isset($_POST['selected_seats']) ? array_map('intval', (array)$_POST['selected_seats']) : [];
+$selectedSeatsIds = [];
+if (isset($_POST['selected_seats'][0]) && !empty($_POST['selected_seats'][0])) {
+    // Example string: '["7","8","9"]'
+    $json = $_POST['selected_seats'][0];
+
+    $decoded = json_decode($json, true); // → ["7", "8", "9"]
+
+    if (is_array($decoded)) {
+        // Convert all to integers
+        $selectedSeatsIds = array_map('intval', $decoded);
+    }
+}
 $bookingEmail = isset($_POST['booking_email']) ? trim($_POST['booking_email']) : '';
 
 if ($showingId <= 0 || empty($selectedSeatsIds)) {
-    // You can redirect back instead if you prefer
     die('No showing or seats selected.');
 }
 
-// --- 2. Fetch showing info ---
+// --- 3. Fetch showing info *using the model* ---
 
-$showingSql = "
-    SELECT 
-        s.ShowingID,
-        s.DATE       AS ShowingDate,
-        s.Time       AS ShowingTime,
-        s.Price,
-        m.Titel      AS MovieTitle,
-        m.Poster     AS PosterImage,
-        sr.name      AS ShowroomName
-    FROM showing s
-    JOIN movie    m  ON m.MovieID     = s.MovieID
-    JOIN showroom sr ON sr.ShowroomID = s.ShowroomID
-    WHERE s.ShowingID = ?
-";
-$showingStmt = $mysqli->prepare($showingSql);
-$showingStmt->bind_param('i', $showingId);
-$showingStmt->execute();
-$showingResult = $showingStmt->get_result();
-$showing = $showingResult->fetch_assoc();
+$showing = $showingModel->findWithMovieAndShowroom($showingId);
 
 if (!$showing) {
     die('Showing not found.');
 }
+// --- 4. Fetch seat info *using the model* ---
 
-// --- 3. Fetch info about the selected seats ---
+$seats = $seatingModel->findByIds($selectedSeatsIds);
 
-$placeholders = implode(',', array_fill(0, count($selectedSeatsIds), '?'));
-$types = str_repeat('i', count($selectedSeatsIds));
-
-$seatSql = "
-    SELECT SeatingID, RowLetters, SeatNumber
-    FROM seating
-    WHERE SeatingID IN ($placeholders)
-    ORDER BY RowLetters ASC, CAST(SeatNumber AS UNSIGNED) ASC
-";
-$seatStmt = $mysqli->prepare($seatSql);
-$seatStmt->bind_param($types, ...$selectedSeatsIds);
-$seatStmt->execute();
-$seatResult = $seatStmt->get_result();
-
-$seats = [];
-while ($row = $seatResult->fetch_assoc()) {
-    $seats[] = $row;
-}
-
-// --- 4. Calculate total price ---
+// --- 5. Calculate total price ---
 
 $pricePerSeat = (float)$showing['Price'];
 $totalSeats   = count($seats);
 $totalPrice   = $pricePerSeat * $totalSeats;
 
-// Optional: is the user logged in?
+// Logged-in user?
 $userId = $_SESSION['UserID'] ?? null;
 ?>
 
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <title>Confirm booking – <?php echo htmlspecialchars($showing['MovieTitle']); ?></title>
@@ -105,8 +85,8 @@ $userId = $_SESSION['UserID'] ?? null;
                 <div class="w-28 h-40 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-lg shadow-black/50">
                     <?php if (!empty($showing['PosterImage'])): ?>
                         <img src="/<?php echo htmlspecialchars($showing['PosterImage']); ?>"
-                             alt="Poster"
-                             class="w-full h-full object-cover">
+                            alt="Poster"
+                            class="w-full h-full object-cover">
                     <?php else: ?>
                         <div class="w-full h-full flex items-center justify-center text-xs text-slate-500 px-2 text-center">
                             No poster
@@ -167,12 +147,11 @@ $userId = $_SESSION['UserID'] ?? null;
                     </p>
                     <div>
                         <input
+                            form="formId"
                             type="email"
-                            name="booking_email_display"
+                            name="BookingEmail"
                             value="<?php echo htmlspecialchars($bookingEmail); ?>"
-                            readonly
-                            class="w-full rounded-lg bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
-                        >
+                            class="w-full rounded-lg bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/70">
                     </div>
                 </div>
             <?php endif; ?>
@@ -203,11 +182,10 @@ $userId = $_SESSION['UserID'] ?? null;
 
             <!-- Confirm button + hidden form to pass data on -->
             <form
+                id="formId"
                 method="post"
                 action="/booking/create_ticket.php"
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-2"
-            >
-                <!-- Hidden inputs: keep all the data for the next step -->
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-2">
                 <input type="hidden" name="showingID" value="<?php echo $showingId; ?>">
 
                 <?php foreach ($selectedSeatsIds as $id): ?>
@@ -215,30 +193,23 @@ $userId = $_SESSION['UserID'] ?? null;
                 <?php endforeach; ?>
 
                 <?php if (!$userId): ?>
-                    <input type="hidden" name="BookingEmail" value="<?php echo htmlspecialchars($bookingEmail); ?>">
+                    <input type="hidden" name="BookingEmail1234556" value="<?php echo htmlspecialchars($bookingEmail); ?>">
                 <?php endif; ?>
 
                 <p class="text-sm text-slate-400">
                     When you confirm, we will create a ticket and an invoice (fake payment).
                 </p>
 
-                <button
-                    type="submit"
-                    class="self-start sm:self-auto inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold
-                           bg-amber-400 text-black hover:bg-amber-300 transition shadow-lg shadow-amber-500/30">
-                    Confirm & create invoice
-                </button>
+                <input type="submit" class="self-start sm:self-auto inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold
+                           bg-amber-400 text-black hover:bg-amber-300 transition shadow-lg shadow-amber-500/30" value="Confirm & create invoice" />
             </form>
 
         </div>
     </div>
 </body>
+
 </html>
 
 <?php
-$seatStmt->close();
-$showingStmt->close();
-$mysqli->close();
-
 include __DIR__ . '/../components/footer.php';
 ?>
