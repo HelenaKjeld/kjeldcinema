@@ -53,7 +53,8 @@ $totalSeats   = count($seats);
 $totalPrice   = $pricePerSeat * $totalSeats;
 
 // Logged-in user?
-$userId = $_SESSION['UserID'] ?? null;
+$userId = $_SESSION['user_id'] ?? null;
+$userEmail = $_SESSION['user'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -139,22 +140,24 @@ $userId = $_SESSION['UserID'] ?? null;
             </div>
 
             <!-- Guest info (if not logged in) -->
-            <?php if (!$userId): ?>
-                <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-5 space-y-3">
-                    <h2 class="text-lg font-semibold text-slate-100">Your contact details</h2>
+
+            <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-5 space-y-3">
+                <h2 class="text-lg font-semibold text-slate-100">Your contact details</h2>
+                <?php if (!$userId): ?>
                     <p class="text-sm text-slate-300">
                         Since you are not logged in, we will use this email on your invoice.
                     </p>
-                    <div>
-                        <input
-                            form="formId"
-                            type="email"
-                            name="BookingEmail"
-                            value="<?php echo htmlspecialchars($bookingEmail); ?>"
-                            class="w-full rounded-lg bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/70">
-                    </div>
+                <?php endif; ?>
+                <div>
+                    <input
+                        form="formId"
+                        type="email"
+                        name="BookingEmail"
+                        value="<?php echo htmlspecialchars($userEmail); ?>"
+                        class="w-full rounded-lg bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/70">
                 </div>
-            <?php endif; ?>
+            </div>
+
 
             <!-- Total summary -->
             <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -201,7 +204,7 @@ $userId = $_SESSION['UserID'] ?? null;
                 </p>
 
                 <input type="submit" class="self-start sm:self-auto inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold
-                           bg-amber-400 text-black hover:bg-amber-300 transition shadow-lg shadow-amber-500/30" value="Confirm & create invoice" />
+                           bg-amber-400 text-black hover:bg-amber-300" value="Confirm & create invoice" />
             </form>
 
         </div>

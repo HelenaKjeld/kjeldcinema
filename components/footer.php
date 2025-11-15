@@ -7,7 +7,7 @@ $info = $companyinfo->getCompanyInfo();
 
 <footer class="bg-black text-white py-12 px-6">
     <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <h3 class="text-xl font-bold text-amber-400 mb-4">RowanCinema</h3>
                 <p class="text-gray-400 mb-4">
