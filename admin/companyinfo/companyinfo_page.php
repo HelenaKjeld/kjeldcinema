@@ -13,7 +13,17 @@ if (isset($_GET['delete'])) {
 
 // Handle add/update
 if (isset($_POST['saveCompany'])) {
-    $result = $companyModel->saveCompanyInfo($_POST, $_FILES['Logo']);
+      $posterPath = $_POST['oldLogo']; // Default old poster path
+    if (!empty($_FILES['Logo']['tmp_name'])) {
+        $uploadDir = "../../logo/";
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+
+        $fileName = guidv4();
+        $targetFile = $uploadDir . $fileName;
+        move_uploaded_file($_FILES['Logo']['tmp_name'], $targetFile);
+        $posterPath = "logo/" . $fileName;
+    }
+    $result = $companyModel->saveCompanyInfo($_POST, $posterPath);
     if ($result === "updated") {
         echo "<p class='text-green-600 text-center mt-4'>Company info updated successfully!</p>";
     } else {
@@ -38,7 +48,7 @@ $info = $companyModel->getCompanyInfo();
         <div class="bg-white p-6 rounded-lg shadow mb-6">
             <div class="flex flex-col items-center mb-4">
                 <?php if (!empty($info['Logo'])): ?>
-                    <img src="/kjeldcinema/<?= htmlspecialchars($info['Logo']) ?>" alt="Company Logo" class="w-32 h-32 object-contain mb-3">
+                    <img src="/<?= htmlspecialchars($info['Logo']) ?>" alt="Company Logo" class="w-32 h-32 object-contain mb-3">
                 <?php else: ?>
                     <div class="w-32 h-32 bg-gray-200 flex items-center justify-center text-gray-500 rounded mb-3">No Logo</div>
                 <?php endif; ?>
@@ -70,12 +80,13 @@ $info = $companyModel->getCompanyInfo();
             <input type="text" name="PhoneNumber" value="<?= htmlspecialchars($info['PhoneNumber'] ?? '') ?>" placeholder="Phone Number" class="border p-2 rounded w-full text-slate-800" required>
             <input type="text" name="OpeningHours" value="<?= htmlspecialchars($info['OpeningHours'] ?? '') ?>" placeholder="Opening Hours" class="border p-2 rounded w-full text-slate-800" required>
             <input type="text" name="Address" value="<?= htmlspecialchars($info['Address'] ?? '') ?>" placeholder="Address" class="border p-2 rounded w-full text-slate-800" required>
+            <input type="hidden" name="oldLogo" value="<?= htmlspecialchars($info['Logo']) ?>">
 
             <div>
                 <label class="block text-gray-700 mb-1">Company Logo:</label>
                 <input type="file" name="Logo" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                 <?php if (!empty($info['Logo'])): ?>
-                    <img src="/kjeldcinema/<?= htmlspecialchars($info['Logo']) ?>" alt="Current Logo" class="w-20 mt-2 rounded">
+                    <img src="/<?= htmlspecialchars($info['Logo']) ?>" alt="Current Logo" class="w-20 mt-2 rounded">
                 <?php endif; ?>
             </div>
 

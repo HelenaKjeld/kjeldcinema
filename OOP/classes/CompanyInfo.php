@@ -13,14 +13,14 @@ class CompanyInfo extends BaseModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function saveCompanyInfo($data)
+    public function saveCompanyInfo($data, $logoPath = null)
     {
         $existing = $this->getCompanyInfo();
 
         if ($existing) {
             // Update existing record
             $stmt = $this->db->prepare("UPDATE {$this->table} 
-                SET Name=:n, Description=:d, Email=:e, PhoneNumber=:p, OpeningHours=:o, Address=:a 
+                SET Name=:n, Description=:d, Email=:e, PhoneNumber=:p, OpeningHours=:o, Address=:a, Logo=:l
                 WHERE {$this->primaryKey}=:id");
             $stmt->execute([
                 ':n' => $data['Name'],
@@ -29,6 +29,7 @@ class CompanyInfo extends BaseModel
                 ':p' => $data['PhoneNumber'],
                 ':o' => $data['OpeningHours'],
                 ':a' => $data['Address'],
+                ':l' => $logoPath,
                 ':id' => $existing['CompanyInfoID']
             ]);
             return "updated";
@@ -36,13 +37,14 @@ class CompanyInfo extends BaseModel
             // Insert new record
             $stmt = $this->db->prepare("INSERT INTO {$this->table} 
                 (Name, Description, Email, PhoneNumber, OpeningHours, Address)
-                VALUES (:n, :d, :e, :p, :o, :a)");
+                VALUES (:n, :d, :e, :p, :o, :l, :a)");
             $stmt->execute([
                 ':n' => $data['Name'],
                 ':d' => $data['Description'],
                 ':e' => $data['Email'],
                 ':p' => $data['PhoneNumber'],
                 ':o' => $data['OpeningHours'],
+                ':l' => $logoPath,
                 ':a' => $data['Address']
             ]);
             return "added";
