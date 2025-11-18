@@ -39,17 +39,36 @@ $info = $companyinfo->getCompanyInfo();
             <div>
                 <h4 class="font-bold mb-4">Contact Us</h4>
                 <ul class="space-y-2">
+                    
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="map-pin" class="mr-2"></i> <?php echo politi($info['Address'] ?? 'N/A'); ?>
+                        <i data-feather="map-pin" class="mr-2 text-amber-400 transition"></i>
+                        <a
+                            href="https://www.google.com/maps/search/<?php echo urlencode($info['Address'] ?? ''); ?>"
+                            target="_blank"
+                            class="text-gray-400 hover:text-amber-400 transition">
+                            <?php echo politi($info['Address'] ?? 'N/A'); ?>
+                        </a>
                     </li>
+
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="phone" class="mr-2"></i> <?php echo politi($info['PhoneNumber'] ?? 'N/A'); ?>
+                        <i data-feather="phone" class="mr-2 text-amber-400 transition"></i>
+                        <a href="tel:<?php echo $info['PhoneNumber']; ?>" class="text-gray-400 hover:text-amber-400 transition">
+                            <?php echo politi($info['PhoneNumber'] ?? 'N/A'); ?>
+                        </a>
                     </li>
+
+            
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="mail" class="mr-2"></i> <?php echo politi($info['Email'] ?? 'N/A'); ?>
+                        <i data-feather="mail" class="mr-2 text-amber-400 transition"></i>
+                        <a
+                            href="mailto:<?php echo $info['Email'] ?? ''; ?>"
+                            class="text-gray-400 hover:text-amber-400 transition">
+                            <?php echo politi($info['Email'] ?? 'N/A'); ?>
+                        </a>
                     </li>
+
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="time" class="mr-2"></i> Opening hours: <?php echo politi($info['OpeningHours'] ?? 'N/A'); ?>
+                        <i data-feather="time" class="mr-2 text-amber-400 transition"></i> Opening hours: <?php echo politi($info['OpeningHours'] ?? 'N/A'); ?>
                     </li>
                 </ul>
             </div>
