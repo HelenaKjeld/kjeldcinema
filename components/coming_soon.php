@@ -17,7 +17,7 @@ $items = $cs->getUpcomingWithMovies(12); // adjust how many you want
     <?php if (!empty($items)): ?>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       <?php foreach ($items as $row): 
-        $title = htmlspecialchars($row['Titel']);
+        $title = politi($row['Titel']);
         $poster = !empty($row['Poster']) ? '/' . ltrim($row['Poster'], '/') : null;
         $dateStr = $row['ReleaseDate'] ? date('F j', strtotime($row['ReleaseDate'])) : 'TBA';
         $detailUrl = '/kjeldcinema/movie_detail.php?id=' . (int)$row['MovieID']; // adjust if you use another route

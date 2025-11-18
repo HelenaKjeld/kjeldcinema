@@ -62,7 +62,7 @@ $userEmail = $_SESSION['user'] ?? null;
 
 <head>
     <meta charset="UTF-8">
-    <title>Confirm booking – <?php echo htmlspecialchars($showing['MovieTitle']); ?></title>
+    <title>Confirm booking – <?php echo politi($showing['MovieTitle']); ?></title>
 
     <!-- Tailwind CDN (if header already includes Tailwind, you can remove this) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -85,7 +85,7 @@ $userEmail = $_SESSION['user'] ?? null;
             <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
                 <div class="w-28 h-40 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-lg shadow-black/50">
                     <?php if (!empty($showing['PosterImage'])): ?>
-                        <img src="/<?php echo htmlspecialchars($showing['PosterImage']); ?>"
+                        <img src="/<?php echo politi($showing['PosterImage']); ?>"
                             alt="Poster"
                             class="w-full h-full object-cover">
                     <?php else: ?>
@@ -100,17 +100,17 @@ $userEmail = $_SESSION['user'] ?? null;
                         Confirm your booking
                     </h1>
                     <p class="text-lg font-medium text-slate-100">
-                        <?php echo htmlspecialchars($showing['MovieTitle']); ?>
+                        <?php echo politi($showing['MovieTitle']); ?>
                     </p>
                     <div class="flex flex-wrap gap-2 text-xs sm:text-sm">
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars($showing['ShowroomName']); ?>
+                            <?php echo politi($showing['ShowroomName']); ?>
                         </span>
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars($showing['ShowingDate']); ?>
+                            <?php echo politi($showing['ShowingDate']); ?>
                         </span>
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars(substr($showing['ShowingTime'], 0, 5)); ?>
+                            <?php echo politi(substr($showing['ShowingTime'], 0, 5)); ?>
                         </span>
                     </div>
                     <p class="text-sm text-slate-300">
@@ -130,7 +130,7 @@ $userEmail = $_SESSION['user'] ?? null;
                     <div class="flex flex-wrap gap-2">
                         <?php foreach ($seats as $seat): ?>
                             <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-900 text-slate-100 border border-slate-600 text-sm">
-                                Row <?php echo htmlspecialchars($seat['RowLetters']); ?> – Seat <?php echo htmlspecialchars($seat['SeatNumber']); ?>
+                                Row <?php echo politi($seat['RowLetters']); ?> – Seat <?php echo politi($seat['SeatNumber']); ?>
                             </span>
                         <?php endforeach; ?>
                     </div>
@@ -153,7 +153,7 @@ $userEmail = $_SESSION['user'] ?? null;
                         form="formId"
                         type="email"
                         name="BookingEmail"
-                        value="<?php echo htmlspecialchars($userEmail); ?>"
+                        value="<?php echo politi($userEmail); ?>"
                         class="w-full rounded-lg bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/70">
                 </div>
             </div>
@@ -196,7 +196,7 @@ $userEmail = $_SESSION['user'] ?? null;
                 <?php endforeach; ?>
 
                 <?php if (!$userId): ?>
-                    <input type="hidden" name="BookingEmail1234556" value="<?php echo htmlspecialchars($bookingEmail); ?>">
+                    <input type="hidden" name="BookingEmail1234556" value="<?php echo politi($bookingEmail); ?>">
                 <?php endif; ?>
 
                 <p class="text-sm text-slate-400">

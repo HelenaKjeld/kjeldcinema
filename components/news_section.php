@@ -14,15 +14,15 @@ $latestNews = $newsObj->getLatest();
                         <div class="flex flex-col md:flex-row items-center h-full">
                             <div class="md:w-1/2 mb-10 md:mb-0">
                                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-amber-400">
-                                    <?= htmlspecialchars($latestNews['Titel']) ?>
+                                    <?= politi($latestNews['Titel']) ?>
                                 </h1>
                                 <p class="text-lg text-gray-300 mb-8 max-w-lg">
-                                    <?= nl2br(htmlspecialchars($latestNews['Text'])) ?>
+                                    <?= nl2br(politi($latestNews['Text'])) ?>
                                 </p>
                             </div>
                             <div class="md:w-1/2 relative">
                                 <div class="relative">
-                                    <img src="/<?= htmlspecialchars($latestNews['BannerImg']) ?>" alt="Cinema news" class="rounded-xl shadow-2xl w-full">
+                                    <img src="/<?= politi($latestNews['BannerImg']) ?>" alt="Cinema news" class="rounded-xl shadow-2xl w-full">
                                 </div>
                             </div>
                         </div>

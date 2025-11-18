@@ -9,8 +9,8 @@
     else
     {
       if (isset($_POST['submit'])) { // Form has been submitted.
-		    $email = trim($_POST['email']);
-		    $password = trim($_POST['password']);
+		    $email = politi($_POST['email']);
+		    $password = politi($_POST['password']);
         authenticate($email, $password);
       }
     }
@@ -49,7 +49,7 @@
 
       <?php if (!empty($error)): ?>
         <div class="bg-red-500 text-white text-sm rounded-lg p-3 mb-4 text-center">
-          <?php echo htmlspecialchars($error); ?>
+          <?php echo politi($error); ?>
         </div>
       <?php endif; ?>
 
