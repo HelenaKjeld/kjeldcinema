@@ -1,6 +1,33 @@
 <?php
-include 'components/header.php';
+require_once __DIR__ . '/includes/constants.php';
+include __DIR__ . '/components/header.php';
+
+$mysqli = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+if ($mysqli->connect_error) {
+    die('Database connection failed: ' . $mysqli->connect_error);
+}
+
+$about = [
+    'HeroTitel'  => 'Welcome to RowanCinema',
+    'Herotext'   => 'Your ultimate destination for premium cinematic experiences...',
+    'AboutTitle' => 'Our Story',
+    'AboutText'  => "Born from a love of laughter, drama, and the occasional silent stare...",
+];
+
+$res = $mysqli->query("SELECT HeroTitel, Herotext, AboutTitle, AboutText FROM aboutcinema WHERE Aboutcinema = 1 LIMIT 1");
+if ($res && $res->num_rows > 0) {
+    $about = $res->fetch_assoc();
+}
 ?>
+
+<!-- hero section
+<h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+  <?= htmlspecialchars($about['HeroTitel'], ENT_QUOTES, 'UTF-8') ?>
+</h1>
+<p class="text-gray-300 mt-6 max-w-2xl">
+  <?= nl2br(htmlspecialchars($about['Herotext'], ENT_QUOTES, 'UTF-8')) ?>
+</p> -->
+
 
   <!-- Hero -->
   <section class="hero-gradient pt-32 pb-16 px-6">
@@ -29,32 +56,14 @@ include 'components/header.php';
     </div>
   </section>
 
-  <!-- Highlights -->
-  <!-- <section class="py-12 px-6 bg-slate-900">
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-slate-800 rounded-xl p-6 shadow">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="bg-amber-500 p-2 rounded-full"><i data-feather="headphones" class="text-black"></i></div>
-          <h3 class="text-xl font-semibold">Dolby Atmos</h3>
-        </div>
-        <p class="text-gray-300">Sound so immersive you’ll hear Mr. Bean drop his teddy three rows back.</p>
-      </div>
-      <div class="bg-slate-800 rounded-xl p-6 shadow">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="bg-amber-500 p-2 rounded-full"><i data-feather="maximize" class="text-black"></i></div>
-          <h3 class="text-xl font-semibold">4K Projection</h3>
-        </div>
-        <p class="text-gray-300">Crisp visuals that make every eyebrow raise a cinematic event.</p>
-      </div>
-      <div class="bg-slate-800 rounded-xl p-6 shadow">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="bg-amber-500 p-2 rounded-full"><i data-feather="coffee" class="text-black"></i></div>
-          <h3 class="text-xl font-semibold">Recliners & Snacks</h3>
-        </div>
-        <p class="text-gray-300">Kick back, relax, and try not to spill your popcorn during the plot twist.</p>
-      </div>
-    </div>
-  </section> -->
+
+<!-- Our Story
+<h2 class="text-3xl font-bold mb-4">
+  <?= htmlspecialchars($about['AboutTitle'], ENT_QUOTES, 'UTF-8') ?>
+</h2>
+<p class="text-gray-300 leading-relaxed whitespace-pre-line">
+  <?= nl2br(htmlspecialchars($about['AboutText'], ENT_QUOTES, 'UTF-8')) ?>
+</p> -->
 
   <!-- Our Story -->
   <section class="py-16 px-6 bg-slate-800">
@@ -132,5 +141,6 @@ include 'components/header.php';
   <script>feather.replace();</script>
 
 <?php
+// $mysqli->close();
 include 'components/footer.php';
 ?>

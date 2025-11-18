@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../OOP/classes/ComingSoon.php';
+require_once __DIR__ . '/../includes/functions.php';
 $cs = new ComingSoon();
 $items = $cs->getUpcomingWithMovies(12); // adjust how many you want
 ?>

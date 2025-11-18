@@ -8,7 +8,7 @@ CREATE TABLE aboutcinema (
     HeroTitel VARCHAR(100),
     Herotext VARCHAR(255),
     AboutTitle VARCHAR(100),
-    AboutText TEXT,
+    AboutText TEXT
 );
 
 CREATE TABLE companyinfo (

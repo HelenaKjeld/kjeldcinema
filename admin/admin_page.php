@@ -46,6 +46,10 @@ include '../components/header.php';
             <h3 class="text-xl font-semibold text-white"> Manage Schedules</h3>
             <p class="text-gray-600 mt-2">View movie schedule.</p>
         </a>
+        <a href="manageabout/manage_about_page.php" class="bg-slate-800 shadow rounded-xl p-6 hover:bg-amber-500">
+            <h3 class="text-xl font-semibold text-white"> Manage About page</h3>
+            <p class="text-gray-600 mt-2">View about page.</p>
+        </a>
     </div>
 </div>
 

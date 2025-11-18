@@ -2,6 +2,7 @@
 session_start();
 
 require_once __DIR__ . '/../includes/constants.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 // include your class autoloader or model files:
 

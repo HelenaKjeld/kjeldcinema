@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../OOP/classes/News.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 $newsObj = new News();
 $latestNews = $newsObj->getLatest();
