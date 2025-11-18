@@ -85,13 +85,13 @@ $movies = $movie->all();
             <?php foreach ($movies as $row): ?>
                 <tr class="border-b hover:bg-gray-50">
                     <td class="p-3 text-slate-800"><?= $row['MovieID'] ?></td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Titel']) ?></td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Description']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($row['Titel']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($row['Description']) ?></td>
                     <td class="p-3 text-slate-800"><?= $row['ageRating'] ?></td>
                     <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
                     <td class="p-3 text-slate-800">
                         <?php if (!empty($row['Poster'])): ?>
-                            <img src="/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
+                            <img src="/<?= politi($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No poster</span>
                         <?php endif; ?>
@@ -107,17 +107,17 @@ $movies = $movie->all();
                     <td colspan="6" class="p-4">
                         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input type="hidden" name="MovieID" value="<?= $row['MovieID'] ?>">
-                            <input type="hidden" name="oldPoster" value="<?= htmlspecialchars($row['Poster']) ?>">
-                            <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
+                            <input type="hidden" name="oldPoster" value="<?= politi($row['Poster']) ?>">
+                            <input type="text" name="Titel" value="<?= politi($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
                             <input type="number" name="ageRating" value="<?= $row['ageRating'] ?>" class="border p-2 rounded w-full text-slate-800">
                             <input type="number" name="Duration" value="<?= $row['Duration'] ?>" class="border p-2 rounded w-full text-slate-800">
-                            <textarea name="Description" class="border p-2 rounded w-full col-span-2 text-slate-800"><?= htmlspecialchars($row['Description']) ?></textarea>
+                            <textarea name="Description" class="border p-2 rounded w-full col-span-2 text-slate-800"><?= politi($row['Description']) ?></textarea>
 
                             <div class="col-span-2">
                                 <label class="block text-sm text-gray-700">Change Poster:</label>
                                 <input type="file" name="Poster" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if (!empty($row['Poster'])): ?>
-                                    <img src="/<?= htmlspecialchars($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
+                                    <img src="/<?= politi($row['Poster']) ?>" alt="poster" class="w-16 mt-2 rounded">
                                 <?php endif; ?>
                             </div>
 

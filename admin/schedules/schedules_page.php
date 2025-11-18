@@ -49,14 +49,14 @@ $showrooms = $showroom->all();
         <select name="MovieID" class="border p-2 rounded text-slate-800" required>
             <option value="">Select Movie</option>
             <?php foreach ($movies as $m): ?>
-                <option value="<?= $m['MovieID'] ?>"><?= htmlspecialchars($m['Titel']) ?></option>
+                <option value="<?= $m['MovieID'] ?>"><?= politi($m['Titel']) ?></option>
             <?php endforeach; ?>
         </select>
 
         <select name="ShowroomID" class="border p-2 rounded text-slate-800" required>
             <option value="">Select Showroom</option>
             <?php foreach ($showrooms as $s): ?>
-                <option value="<?= $s['ShowroomID'] ?>"><?= htmlspecialchars($s['name']) ?></option>
+                <option value="<?= $s['ShowroomID'] ?>"><?= politi($s['name']) ?></option>
             <?php endforeach; ?>
         </select>
 
@@ -80,11 +80,11 @@ $showrooms = $showroom->all();
         <tbody>
             <?php foreach ($allShowings as $sh): ?>
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($sh['DATE']) ?></td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($sh['Time']) ?></td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($sh['Price']) ?> DKK</td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($sh['MovieTitle']) ?></td>
-                    <td class="p-3 text-slate-800"><?= htmlspecialchars($sh['ShowroomName']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($sh['DATE']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($sh['Time']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($sh['Price']) ?> DKK</td>
+                    <td class="p-3 text-slate-800"><?= politi($sh['MovieTitle']) ?></td>
+                    <td class="p-3 text-slate-800"><?= politi($sh['ShowroomName']) ?></td>
                     <td class="p-3 text-slate-800">
                         <a href="?delete=<?= $sh['ShowingID'] ?>"
                            onclick="return confirm('Are you sure you want to delete this showing?');"

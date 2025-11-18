@@ -40,12 +40,12 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <form method="GET" class="bg-slate-800 p-4 rounded-xl mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
     <div>
       <label class="block text-sm text-gray-300 mb-1">Date</label>
-      <input type="date" name="date" value="<?= htmlspecialchars($date ?? '') ?>"
+      <input type="date" name="date" value="<?= politi($date ?? '') ?>"
              class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-amber-500 focus:border-amber-500">
     </div>
     <div>
       <label class="block text-sm text-gray-300 mb-1">Movie</label>
-      <input type="text" name="q" placeholder="Search by title..." value="<?= htmlspecialchars($movieSearch ?? '') ?>"
+      <input type="text" name="q" placeholder="Search by title..." value="<?= politi($movieSearch ?? '') ?>"
              class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-amber-500 focus:border-amber-500">
     </div>
     <div class="flex items-end">
@@ -91,16 +91,16 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr class="border-b border-slate-800 hover:bg-slate-800/60">
               <td class="p-3">
                 <?php if ($poster): ?>
-                  <img src="/<?= htmlspecialchars($poster) ?>" alt="poster" class="w-12 h-16 object-cover rounded">
+                  <img src="/<?= politi($poster) ?>" alt="poster" class="w-12 h-16 object-cover rounded">
                 <?php else: ?>
                   <div class="w-12 h-16 rounded bg-slate-700 flex items-center justify-center text-xs text-gray-400">No<br>Img</div>
                 <?php endif; ?>
               </td>
-              <td class="p-3 text-slate-100"><?= htmlspecialchars($movie) ?></td>
+              <td class="p-3 text-slate-100"><?= politi($movie) ?></td>
               <td class="p-3 text-slate-200">
-                <?= htmlspecialchars($date) ?> <span class="text-gray-400">at</span> <?= htmlspecialchars(substr($time,0,5)) ?>
+                <?= politi($date) ?> <span class="text-gray-400">at</span> <?= politi(substr($time,0,5)) ?>
               </td>
-              <td class="p-3 text-slate-200"><?= htmlspecialchars($venue) ?></td>
+              <td class="p-3 text-slate-200"><?= politi($venue) ?></td>
               <td class="p-3 text-slate-200"><?= $booked ?>/<?= $max ?></td>
               <td class="p-3">
                 <div class="w-40 bg-slate-700 rounded h-3 overflow-hidden">
@@ -109,7 +109,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="text-xs text-gray-400 mt-1"><?= $occ ?>%</div>
               </td>
               <td class="p-3">
-                <a href="<?= htmlspecialchars($detail) ?>"
+                <a href="<?= politi($detail) ?>"
                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded inline-flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

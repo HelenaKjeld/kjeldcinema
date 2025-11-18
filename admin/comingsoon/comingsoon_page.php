@@ -40,7 +40,7 @@ $availableMovies = $comingSoon->getAvailableMovies();
                 <select name="MovieID" required class="border p-2 rounded w-full text-slate-800">
                     <option value="">-- Choose a movie --</option>
                     <?php foreach ($availableMovies as $m): ?>
-                        <option value="<?= $m['MovieID'] ?>"><?= htmlspecialchars($m['Titel']) ?></option>
+                        <option value="<?= $m['MovieID'] ?>"><?= politi($m['Titel']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -68,9 +68,9 @@ $availableMovies = $comingSoon->getAvailableMovies();
             <tbody>
                 <?php foreach ($entries as $row): ?>
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="p-3"><img src="/<?= htmlspecialchars($row['Poster']) ?>" class="w-16 h-auto rounded"></td>
-                        <td class="p-3 text-slate-800"><?= htmlspecialchars($row['Titel']) ?></td>
-                        <td class="p-3 text-slate-800"><?= htmlspecialchars($row['ReleaseDate']) ?></td>
+                        <td class="p-3"><img src="/<?= politi($row['Poster']) ?>" class="w-16 h-auto rounded"></td>
+                        <td class="p-3 text-slate-800"><?= politi($row['Titel']) ?></td>
+                        <td class="p-3 text-slate-800"><?= politi($row['ReleaseDate']) ?></td>
                         <td class="p-3">
                             <a href="?delete=<?= $row['ComingSoonID'] ?>" 
                                onclick="return confirm('Are you sure you want to delete this entry?');"

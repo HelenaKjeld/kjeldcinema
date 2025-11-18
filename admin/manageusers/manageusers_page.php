@@ -32,7 +32,7 @@ $getUsers = $userObj->getAll();
 
     <?php if (isset($_GET['status']) && $_GET['status'] === 'deleted'): ?>
         <p class="text-green-600 text-center mb-4">
-            User with ID <?= htmlspecialchars($_GET['ID']) ?> deleted successfully.
+            User with ID <?= politi($_GET['ID']) ?> deleted successfully.
         </p>
     <?php endif; ?>
 
@@ -51,8 +51,8 @@ $getUsers = $userObj->getAll();
                 <?php foreach ($getUsers as $user): ?>
                     <tr class="border-b text-slate-800 hover:bg-gray-50">
                         <td class="p-3 "><?= $user['UserID'] ?></td>
-                        <td class="p-3"><?= htmlspecialchars($user['Firstname'] . ' ' . $user['Lastname']) ?></td>
-                        <td class="p-3"><?= htmlspecialchars($user['Email']) ?></td>
+                        <td class="p-3"><?= politi($user['Firstname'] . ' ' . $user['Lastname']) ?></td>
+                        <td class="p-3"><?= politi($user['Email']) ?></td>
                         <td class="p-3">
                             <a href="editUser.php?ID=<?= $user['UserID'] ?>" 
                                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</a>

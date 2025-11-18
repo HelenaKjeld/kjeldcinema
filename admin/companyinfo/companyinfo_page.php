@@ -48,17 +48,17 @@ $info = $companyModel->getCompanyInfo();
         <div class="bg-white p-6 rounded-lg shadow mb-6">
             <div class="flex flex-col items-center mb-4">
                 <?php if (!empty($info['Logo'])): ?>
-                    <img src="/<?= htmlspecialchars($info['Logo']) ?>" alt="Company Logo" class="w-32 h-32 object-contain mb-3">
+                    <img src="/<?= politi($info['Logo']) ?>" alt="Company Logo" class="w-32 h-32 object-contain mb-3">
                 <?php else: ?>
                     <div class="w-32 h-32 bg-gray-200 flex items-center justify-center text-gray-500 rounded mb-3">No Logo</div>
                 <?php endif; ?>
             </div>
-            <h3 class="text-xl font-semibold mb-2 text-slate-800"><?= htmlspecialchars($info['Name']) ?></h3>
-            <p class="mb-2 text-slate-700"><strong>Description:</strong> <?= nl2br(htmlspecialchars($info['Description'])) ?></p>
-            <p class="mb-2 text-slate-700"><strong>Email:</strong> <?= htmlspecialchars($info['Email']) ?></p>
-            <p class="mb-2 text-slate-700"><strong>Phone:</strong> <?= htmlspecialchars($info['PhoneNumber']) ?></p>
-            <p class="mb-2 text-slate-700"><strong>Opening Hours:</strong> <?= htmlspecialchars($info['OpeningHours']) ?></p>
-            <p class="mb-2 text-slate-700"><strong>Address:</strong> <?= htmlspecialchars($info['Address']) ?></p>
+            <h3 class="text-xl font-semibold mb-2 text-slate-800"><?= politi($info['Name']) ?></h3>
+            <p class="mb-2 text-slate-700"><strong>Description:</strong> <?= nl2br(politi($info['Description'])) ?></p>
+            <p class="mb-2 text-slate-700"><strong>Email:</strong> <?= politi($info['Email']) ?></p>
+            <p class="mb-2 text-slate-700"><strong>Phone:</strong> <?= politi($info['PhoneNumber']) ?></p>
+            <p class="mb-2 text-slate-700"><strong>Opening Hours:</strong> <?= politi($info['OpeningHours']) ?></p>
+            <p class="mb-2 text-slate-700"><strong>Address:</strong> <?= politi($info['Address']) ?></p>
 
             <div class="flex gap-4 mt-4">
                 <button onclick="toggleEdit()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Edit</button>
@@ -74,19 +74,19 @@ $info = $companyModel->getCompanyInfo();
     <!-- Add / Edit Form -->
     <div id="editForm" class="<?= $info ? 'hidden' : '' ?> bg-amber-50 p-6 rounded-lg shadow">
         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
-            <input type="text" name="Name" value="<?= htmlspecialchars($info['Name'] ?? '') ?>" placeholder="Company Name" class="border p-2 rounded w-full text-slate-800" required>
-            <textarea name="Description" placeholder="Description" class="border p-2 rounded w-full text-slate-800"><?= htmlspecialchars($info['Description'] ?? '') ?></textarea>
-            <input type="email" name="Email" value="<?= htmlspecialchars($info['Email'] ?? '') ?>" placeholder="Email" class="border p-2 rounded w-full text-slate-800" required>
-            <input type="text" name="PhoneNumber" value="<?= htmlspecialchars($info['PhoneNumber'] ?? '') ?>" placeholder="Phone Number" class="border p-2 rounded w-full text-slate-800" required>
-            <input type="text" name="OpeningHours" value="<?= htmlspecialchars($info['OpeningHours'] ?? '') ?>" placeholder="Opening Hours" class="border p-2 rounded w-full text-slate-800" required>
-            <input type="text" name="Address" value="<?= htmlspecialchars($info['Address'] ?? '') ?>" placeholder="Address" class="border p-2 rounded w-full text-slate-800" required>
-            <input type="hidden" name="oldLogo" value="<?= htmlspecialchars($info['Logo']) ?>">
+            <input type="text" name="Name" value="<?= politi($info['Name'] ?? '') ?>" placeholder="Company Name" class="border p-2 rounded w-full text-slate-800" required>
+            <textarea name="Description" placeholder="Description" class="border p-2 rounded w-full text-slate-800"><?= politi($info['Description'] ?? '') ?></textarea>
+            <input type="email" name="Email" value="<?= politi($info['Email'] ?? '') ?>" placeholder="Email" class="border p-2 rounded w-full text-slate-800" required>
+            <input type="text" name="PhoneNumber" value="<?= politi($info['PhoneNumber'] ?? '') ?>" placeholder="Phone Number" class="border p-2 rounded w-full text-slate-800" required>
+            <input type="text" name="OpeningHours" value="<?= politi($info['OpeningHours'] ?? '') ?>" placeholder="Opening Hours" class="border p-2 rounded w-full text-slate-800" required>
+            <input type="text" name="Address" value="<?= politi($info['Address'] ?? '') ?>" placeholder="Address" class="border p-2 rounded w-full text-slate-800" required>
+            <input type="hidden" name="oldLogo" value="<?= politi($info['Logo']) ?>">
 
             <div>
                 <label class="block text-gray-700 mb-1">Company Logo:</label>
                 <input type="file" name="Logo" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                 <?php if (!empty($info['Logo'])): ?>
-                    <img src="/<?= htmlspecialchars($info['Logo']) ?>" alt="Current Logo" class="w-20 mt-2 rounded">
+                    <img src="/<?= politi($info['Logo']) ?>" alt="Current Logo" class="w-20 mt-2 rounded">
                 <?php endif; ?>
             </div>
 

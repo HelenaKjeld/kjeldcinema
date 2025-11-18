@@ -43,7 +43,7 @@ $rooms = $showroom->all();
             <?php foreach ($rooms as $r): ?>
                 <div class="bg-white p-6 rounded-lg shadow">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-xl text-slate-800 font-semibold"><?= htmlspecialchars($r['name']) ?></h3>
+                        <h3 class="text-xl text-slate-800 font-semibold"><?= politi($r['name']) ?></h3>
                         <a href="?delete=<?= $r['ShowroomID'] ?>" 
                            onclick="return confirm('Delete this showroom and all its seats?');"
                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</a>

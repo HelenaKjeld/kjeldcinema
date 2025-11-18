@@ -95,7 +95,7 @@ $ticketsResult = $ticketsStmt->get_result();
 <html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <title>Tickets for <?php echo htmlspecialchars($showing['MovieTitle']); ?></title>
+    <title>Tickets for <?php echo politi($showing['MovieTitle']); ?></title>
 
     <!-- Tailwind CDN (if your header already includes Tailwind, you can remove this) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -118,7 +118,7 @@ $ticketsResult = $ticketsStmt->get_result();
             <div class="flex flex-col gap-6 sm:flex-row sm:items-center mb-10">
                 <div class="w-32 h-48 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-lg shadow-black/50">
                     <?php if (!empty($showing['PosterImage'])): ?>
-                        <img src="/<?php echo htmlspecialchars($showing['PosterImage']); ?>"
+                        <img src="/<?php echo politi($showing['PosterImage']); ?>"
                              alt="Poster"
                              class="w-full h-full object-cover">
                     <?php else: ?>
@@ -130,17 +130,17 @@ $ticketsResult = $ticketsStmt->get_result();
 
                 <div class="flex-1 space-y-2">
                     <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
-                        Tickets for <?php echo htmlspecialchars($showing['MovieTitle']); ?>
+                        Tickets for <?php echo politi($showing['MovieTitle']); ?>
                     </h1>
                     <div class="flex flex-wrap gap-2 text-xs sm:text-sm">
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars($showing['ShowroomName']); ?>
+                            <?php echo politi($showing['ShowroomName']); ?>
                         </span>
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars($showing['ShowingDate']); ?>
+                            <?php echo politi($showing['ShowingDate']); ?>
                         </span>
                         <span class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-slate-100 border border-slate-700">
-                            <?php echo htmlspecialchars(substr($showing['ShowingTime'], 0, 5)); ?>
+                            <?php echo politi(substr($showing['ShowingTime'], 0, 5)); ?>
                         </span>
                     </div>
                     <p class="text-sm text-slate-300">
@@ -175,7 +175,7 @@ $ticketsResult = $ticketsStmt->get_result();
                                 <div class="flex items-center gap-3">
                                     <!-- Row label -->
                                     <div class="w-6 text-sm font-semibold text-slate-100">
-                                        <?php echo htmlspecialchars($rowLetter); ?>
+                                        <?php echo politi($rowLetter); ?>
                                     </div>
                                     <!-- Row seats -->
                                     <div class="grid grid-cols-10 gap-2 flex-1">
@@ -187,8 +187,8 @@ $ticketsResult = $ticketsStmt->get_result();
                                             <div
                                                 class="seat w-10 h-10 flex items-center justify-center font-medium rounded text-sm
                                                        <?php echo $isBooked ? 'bg-red-500 text-white cursor-not-allowed' : 'bg-gray-200 text-black'; ?>"
-                                                title="Seat <?php echo htmlspecialchars($rowLetter); ?>-<?php echo htmlspecialchars($seat['SeatNumber']); ?>">
-                                                <?php echo htmlspecialchars($seat['SeatNumber']); ?>
+                                                title="Seat <?php echo politi($rowLetter); ?>-<?php echo politi($seat['SeatNumber']); ?>">
+                                                <?php echo politi($seat['SeatNumber']); ?>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>

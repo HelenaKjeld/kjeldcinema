@@ -101,10 +101,10 @@ $all = $newsObj->getAll();
                     <td colspan="6" class="p-4">
                         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input type="hidden" name="NewsID" value="<?= $row['NewsID'] ?>">
-                            <input type="hidden" name="oldBanner" value="<?= htmlspecialchars($row['BannerImg']) ?>">
+                            <input type="hidden" name="oldBanner" value="<?= politi($row['BannerImg']) ?>">
 
-                            <input type="text" name="Titel" value="<?= htmlspecialchars($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
-                            <input type="date" name="ReleaseDate" value="<?= htmlspecialchars($row['ReleaseDate']) ?>" class="border p-2 rounded w-full text-slate-800" required>
+                            <input type="text" name="Titel" value="<?= politi($row['Titel']) ?>" class="border p-2 rounded w-full text-slate-800" required>
+                            <input type="date" name="ReleaseDate" value="<?= politi($row['ReleaseDate']) ?>" class="border p-2 rounded w-full text-slate-800" required>
 
                             <textarea name="Text" class="border p-2 rounded w-full col-span-2 text-slate-800" rows="4" placeholder="Text"><?= htmlspecialchars($row['Text']) ?></textarea>
 
@@ -112,7 +112,7 @@ $all = $newsObj->getAll();
                                 <label class="block text-sm text-gray-700">Change Banner:</label>
                                 <input type="file" name="BannerImg" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if (!empty($row['BannerImg'])): ?>
-                                    <img src="/<?= htmlspecialchars($row['BannerImg']) ?>" class="w-24 mt-2 rounded" alt="">
+                                    <img src="/<?= politi($row['BannerImg']) ?>" class="w-24 mt-2 rounded" alt="">
                                 <?php endif; ?>
                             </div>
 
