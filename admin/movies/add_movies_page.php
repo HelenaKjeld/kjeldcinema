@@ -1,13 +1,7 @@
 <?php
 include '../../includes/functions.php';
-?>
-<?php
-require_once __DIR__ . '/../../includes/connection.php';
-$db = dbCon(); // this creates the PDO object
-?>
+require_once __DIR__ . '/../../OOP/classes/Database.php';
 
-
-<?php
 if (isset($_POST['addMovie'])) {
 
 
@@ -24,7 +18,11 @@ if (isset($_POST['addMovie'])) {
 
                 $sql = "INSERT INTO Movie (Titel, Description, Poster, ageRating, Duration)
           VALUES (:Titel, :Description, :Poster, :ageRating, :Duration)";
-                $stmt = $db->prepare($sql);
+
+                $database = Database::getInstance();
+
+
+                $stmt = $database->getConnection()->prepare($sql);
                 $stmt->execute([
                     ':Titel' => $_POST['Titel'],
                     ':Description' => $_POST['Description'],
@@ -42,9 +40,6 @@ if (isset($_POST['addMovie'])) {
         echo "<p class='text-red-600'> Invalid file type!</p>";
     }
 }
-?>
-
-<?php
 include '../../components/header.php';
 ?>
 <a href="movies_page.php"><button class="border border-amber-400 text-amber-400 m-6 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">

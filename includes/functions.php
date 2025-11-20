@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/connection.php");
+require_once __DIR__ . '/../OOP/classes/Database.php';
 
 function politi($value)
 {
@@ -17,7 +17,10 @@ function authenticate($email = "", $password = "")
 	try {
 		// Prepare the SQL query using PDO
 		$query = "SELECT UserID, Email, password FROM user WHERE Email = :Email LIMIT 1";
-		$stmt = dbCon()->prepare($query);
+
+		$database = Database::getInstance();
+
+		$stmt =  $database->getConnection()->prepare($query);
 
 		// Bind the Eamil parameter
 		$stmt->bindParam(':Email', $email);
@@ -63,19 +66,19 @@ function guidv4($data = null)
 }
 
 
-function formatShowDateTime($date, $time) {
-    $showDate = new DateTime($date . ' ' . $time);
-    $today = new DateTime();
-    $tomorrow = (clone $today)->modify('+1 day');
+function formatShowDateTime($date, $time)
+{
+	$showDate = new DateTime($date . ' ' . $time);
+	$today = new DateTime();
+	$tomorrow = (clone $today)->modify('+1 day');
 
-    if ($showDate->format('Y-m-d') === $today->format('Y-m-d')) {
-        $prefix = 'today';
-    } elseif ($showDate->format('Y-m-d') === $tomorrow->format('Y-m-d')) {
-        $prefix = 'tomorrow';
-    } else {
-        $prefix = $showDate->format('D d/m');
-    }
+	if ($showDate->format('Y-m-d') === $today->format('Y-m-d')) {
+		$prefix = 'today';
+	} elseif ($showDate->format('Y-m-d') === $tomorrow->format('Y-m-d')) {
+		$prefix = 'tomorrow';
+	} else {
+		$prefix = $showDate->format('D d/m');
+	}
 
-    return $prefix . ' ' . $showDate->format('H:i');
+	return $prefix . ' ' . $showDate->format('H:i');
 }
-

@@ -1,8 +1,7 @@
 <?php
 // admin/bookings/manage_bookings_page.php
 include '../../includes/functions.php';
-require_once __DIR__ . '/../../includes/connection.php';
-$db = dbCon();
+require_once __DIR__ . '/../../OOP/classes/Database.php';
 include '../../components/header.php';
 
 // Optional filters
@@ -22,7 +21,9 @@ if ($movieSearch) {
 }
 $sql .= " ORDER BY `ShowingDate`, `ShowingTime`";
 
-$stmt = $db->prepare($sql);
+$database = Database::getInstance(); 
+
+$stmt = $database->getConnection()->prepare($sql);
 $stmt->execute($params);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
