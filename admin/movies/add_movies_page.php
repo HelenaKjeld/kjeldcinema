@@ -16,7 +16,7 @@ if (isset($_POST['addMovie'])) {
                     "../../" . $newfilename
                 );
 
-                $sql = "INSERT INTO Movie (Titel, Description, Poster, ageRating, Duration)
+                $sql = "INSERT INTO movie (Titel, Description, Poster, ageRating, Duration)
           VALUES (:Titel, :Description, :Poster, :ageRating, :Duration)";
 
                 $database = Database::getInstance();
@@ -30,7 +30,7 @@ if (isset($_POST['addMovie'])) {
                     ':ageRating' => $_POST['ageRating'],
                     ':Duration' => $_POST['Duration']
                 ]);
-                echo "<p class='text-green-600'> Movie added successfully!</p>";
+                
                 redirect_to("movies_page.php");
             }
         } else {

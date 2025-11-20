@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../OOP/classes/Database.php';
 
+function clamp($value, $min, $max)
+{
+	return max($min, min($max, $value));
+}
+
 function politi($value)
 {
 	return htmlspecialchars(trim($value));
