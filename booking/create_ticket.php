@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../OOP/classes/Showing.php';
 require_once __DIR__ . '/../OOP/classes/Ticket.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../OOP/classes/Invoice.php';
+require_once __DIR__ . '/../OOP/classes/Database.php';
 
 $selectedSeats = $_POST['selected_seats']; // array of seat IDs
 $showingID = $_POST['showingID'];
@@ -14,6 +16,11 @@ $showingDetails  = $showingID ? $showing->find($showingID) : null;
 $ticket = new Ticket();
 $ticketId = $ticket->createTicketForSeats($showingID, $selectedSeats, $bookingEmail);
 
-$_COOKIE['ticketId'] = $ticketId;
+$totalPrice = $showingDetails['Price'] * count($selectedSeats);
 
-redirect_to("checkout.html");
+$invoice = new Invoice();
+$invoiceId = $invoice->createForTicket($ticketId, $totalPrice, $bookingEmail, date('Y-m-d'));
+
+$_COOKIE['invoiceID'] = $invoiceId;
+
+redirect_to("invoice_page.php");

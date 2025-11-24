@@ -3,6 +3,7 @@ CREATE DATABASE Rowancinema;
 USE Rowancinema;
 SET default_storage_engine=InnoDB;
 
+
 CREATE TABLE aboutcinema (
     Aboutcinema INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     HeroTitel VARCHAR(100),
@@ -150,9 +151,9 @@ CREATE TABLE invoice (
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     DueDate DATE NULL,
     BilledEmail VARCHAR(255) NULL,
+    FilePath      VARCHAR(255) NULL,
     FOREIGN KEY (TicketID) REFERENCES ticket(TicketID)
 );
-
 
 
 CREATE TABLE site_settings (

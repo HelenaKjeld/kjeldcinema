@@ -217,3 +217,11 @@ $userEmail = $_SESSION['user'] ?? null;
 <?php
 include __DIR__ . '/../components/footer.php';
 ?>
+
+<?php
+// ...your ticket creation logic...
+
+// After successfully creating the ticket:
+header("Location: /booking/invoice_page.php?ticketId=" . $ticketId);
+exit;
+?>
