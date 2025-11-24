@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../OOP/classes/Database.php';
+require_once __DIR__ . '/../OOP/classes/Invoice.php';
+require_once __DIR__ . '/../OOP/classes/Ticket.php';
 
 $invoiceId = isset($_COOKIE['invoiceID']) ? (int)$_COOKIE['invoiceID'] : 0;
 if ($invoiceId <= 0) {
@@ -7,73 +8,10 @@ if ($invoiceId <= 0) {
     exit;
 }
 
-include __DIR__ . '/../components/header.php';
+$invoiceModel = new Invoice();
+$ticketModel  = new Ticket();
 
-// Fetch invoice + ticket + showing + movie + showroom info
-$sql = "
-    SELECT 
-        i.InvoiceID,
-        i.InvoiceNumber,
-        i.FullAmount,
-        i.Status,
-        i.CreatedAt,
-        i.DueDate,
-        i.BilledEmail,
-        i.FilePath,
-        t.TicketID,
-        t.TotalPrice,
-        t.PurchaseDate,
-        t.ShowingID,
-        s.DATE  AS ShowingDate,
-        s.Time  AS ShowingTime,
-        m.Titel AS MovieTitle,
-        sr.name AS ShowroomName
-    FROM invoice i
-    JOIN ticket   t  ON t.TicketID   = i.TicketID
-    JOIN showing  s  ON s.ShowingID  = t.ShowingID
-    JOIN movie    m  ON m.MovieID    = s.MovieID
-    JOIN showroom sr ON sr.ShowroomID = s.ShowroomID
-    WHERE i.InvoiceID = ?
-";
-
-$stmt = $mysqli->prepare($sql);
-if (!$stmt) {
-    die('Failed to prepare invoice query.');
-}
-$stmt->bind_param('i', $invoiceId);
-$stmt->execute();
-$result  = $stmt->get_result();
-$invoice = $result->fetch_assoc();
-$stmt->close();
-
-if (!$invoice) {
-    echo "<div class='min-h-screen flex items-center justify-center bg-slate-950 text-slate-100'>
-            <p class='text-lg'>Invoice not found.</p>
-          </div>";
-    include __DIR__ . '/../components/footer.php';
-    exit;
-}
-
-// Fetch seats for this ticket
-$seatSql = "
-    SELECT se.RowLetters, se.SeatNumber
-    FROM ticket_has_a_seating ths
-    JOIN seating se ON se.SeatingID = ths.SeatingID
-    WHERE ths.TicketID = ?
-    ORDER BY se.RowLetters ASC, CAST(se.SeatNumber AS UNSIGNED) ASC
-";
-$seatStmt = $mysqli->prepare($seatSql);
-$seatStmt->bind_param('i', $invoice['TicketID']);
-$seatStmt->execute();
-$seatResult = $seatStmt->get_result();
-
-$seats = [];
-while ($row = $seatResult->fetch_assoc()) {
-    $seats[] = $row;
-}
-
-$seatStmt->close();
-$mysqli->close();
+$invoice = $invoiceModel->find($invoiceId);
 
 // Convenience variables
 $status       = $invoice['Status'];
@@ -84,7 +22,7 @@ $createdAt    = $invoice['CreatedAt'];
 $dueDate      = $invoice['DueDate'] ?: null;
 $billedEmail  = $invoice['BilledEmail'] ?: 'Unknown';
 $filePath     = $invoice['FilePath'] ?: null;
-
+include __DIR__ . '/../components/header.php';
 ?>
 <div class="relative min-h-screen bg-slate-950 text-slate-100 px-4 py-10 sm:px-6 lg:px-8">
 

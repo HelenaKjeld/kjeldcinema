@@ -36,19 +36,11 @@ class Invoice extends BaseModel
             ':InvoiceNumber' => $invoiceNumber,
             ':TicketID' => $ticketID,
             ':FullAmount' =>  $fullAmount,
-            ':Status' => 'pending',
+            ':Status' => 'paid',
             ':BilledEmail' => $billedEmail
         ]);
 
-        $sql = "
-            INSERT INTO invoice (InvoiceNumber, TicketID, FullAmount, Status, DueDate, BilledEmail)
-            VALUES (?, ?, ?, 'pending', ?, ?)
-        ";
-
-        $ok = $stmt->execute();
-        $invoiceId = $stmt->insert_id;
-        $stmt->close();
-
+        $invoiceId = $this->db->lastInsertId();
         return $invoiceId;
     }
 
