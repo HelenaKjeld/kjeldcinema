@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../OOP/classes/Invoice.php';
 require_once __DIR__ . '/../OOP/classes/Ticket.php';
 
-$invoiceId = isset($_COOKIE['invoiceID']) ? (int)$_COOKIE['invoiceID'] : 0;
+$invoiceId = isset($_GET['invoiceID']) ? (int)$_GET['invoiceID'] : 0;
 if ($invoiceId <= 0) {
     http_response_code(400);
     exit;

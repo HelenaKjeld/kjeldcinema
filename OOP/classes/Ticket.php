@@ -24,12 +24,11 @@ class Ticket extends BaseModel
         $Showing = new Showing();
         $showingDetails = $Showing->find($showingID);
 
-        $sql = "INSERT INTO {$this->table} (PurchaseDate, TotalPrice, CheckoutSessionID, Status, ShowingID, BookingEmail)
-                VALUES (:PurchaseDate, :TotalPrice, :CheckoutSessionID, :Status, :ShowingID, :BookingEmail)";
+        $sql = "INSERT INTO {$this->table} (PurchaseDate, CheckoutSessionID, Status, ShowingID, BookingEmail)
+                VALUES (:PurchaseDate, :CheckoutSessionID, :Status, :ShowingID, :BookingEmail)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':PurchaseDate' => date('Y-m-d'),
-            ':TotalPrice' => $showingDetails['Price'] * count($seats),
             ':CheckoutSessionID' => guidv4(),
             ':Status' => 'pending',
             ':ShowingID' => $showingDetails['ShowingID'],

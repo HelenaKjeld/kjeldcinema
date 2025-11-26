@@ -21,6 +21,5 @@ $totalPrice = $showingDetails['Price'] * count($selectedSeats);
 $invoice = new Invoice();
 $invoiceId = $invoice->createForTicket($ticketId, $totalPrice, $bookingEmail, date('Y-m-d'));
 
-$_COOKIE['invoiceID'] = $invoiceId;
-
+setcookie('invoiceID', $invoiceId, time() + 3600, '/');
 redirect_to("invoice_page.php");
