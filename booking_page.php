@@ -98,7 +98,7 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
                   $seatId = $seat['SeatingID']; // numeric only
               ?>
                   <div
-                    class="seat w-10 h-10 flex items-center justify-center font-medium rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer select-none <?= $seat['IsTaken'] ? 'bg-red-500' : '' ?>"
+                    class="seat w-10 h-10 flex items-center justify-center font-medium rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer select-none <?= $seat['IsTaken'] ? 'bg-red-500 text-white' : '' ?>"
                     data-id="<?= $seatId ?>"
                     title="Seat <?= $row ?>-<?= $seat['SeatNumber'] ?>">
                     <?= $seat['SeatNumber'] ?>
