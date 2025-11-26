@@ -32,6 +32,20 @@ class Seating extends BaseModel
         ]);
     }
 
+    public function getByShowingWithStatus($showingID)
+    {
+        $sql = "
+            SELECT * 
+            FROM seat_status s
+            WHERE s.ShowingID = :showingID
+            ORDER BY RowLetters, SeatNumber
+        ";
+
+        return $this->fetchAll($sql, [
+            ':showingID' => $showingID
+        ]);
+    }
+
     public function findByIds(array $ids): array
     {
         if (empty($ids)) {

@@ -1,5 +1,4 @@
 <?php
-// admin/bookings/manage_bookings_page.php
 include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/Database.php';
 include '../../components/header.php';

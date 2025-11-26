@@ -30,13 +30,23 @@ class Ticket extends BaseModel
         $stmt->execute([
             ':PurchaseDate' => date('Y-m-d'),
             ':CheckoutSessionID' => guidv4(),
-            ':Status' => 'pending',
+            ':Status' => 'paid',
             ':ShowingID' => $showingDetails['ShowingID'],
             ':BookingEmail' => htmlspecialchars($bookingEmail)
 
         ]);
 
         $ticketId = $this->db->lastInsertId();
+
+        foreach ($seats as $seatId) {
+            $sqlSeat = "INSERT INTO ticket_has_a_seating (TicketID, SeatingID) VALUES (:TicketID, :SeatingID)";
+            $stmtSeat = $this->db->prepare($sqlSeat);
+            $stmtSeat->execute([
+                ':TicketID' => $ticketId,
+                ':SeatingID' => $seatId
+            ]);
+        }
+
         return $ticketId;
     }
 }

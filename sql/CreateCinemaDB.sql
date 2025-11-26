@@ -108,6 +108,19 @@ CREATE TABLE ticket_has_a_seating (
     FOREIGN KEY (SeatingID) REFERENCES seating(SeatingID)
 );
 
+CREATE TABLE invoice (
+    InvoiceID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    InvoiceNumber VARCHAR(50) NOT NULL UNIQUE,
+    TicketID INT NOT NULL,
+    FullAmount DECIMAL(10,2) NOT NULL,
+    Status ENUM('pending', 'paid', 'cancelled') DEFAULT 'pending',
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    DueDate DATE NULL,
+    BilledEmail VARCHAR(255) NULL,
+    FilePath      VARCHAR(255) NULL,
+    FOREIGN KEY (TicketID) REFERENCES ticket(TicketID)
+);
+
 CREATE INDEX idx_showing_movie   ON `showing`(`MovieID`);
 CREATE INDEX idx_showing_room    ON `showing`(`ShowroomID`);
 CREATE INDEX idx_ticket_showing  ON `ticket`(`ShowingID`);
@@ -142,21 +155,35 @@ LEFT JOIN (
 ) cap ON cap.`ShowroomID` = s.`ShowroomID`;
 
 
-CREATE TABLE invoice (
-    InvoiceID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    InvoiceNumber VARCHAR(50) NOT NULL UNIQUE,
-    TicketID INT NOT NULL,
-    FullAmount DECIMAL(10,2) NOT NULL,
-    Status ENUM('pending', 'paid', 'cancelled') DEFAULT 'pending',
-    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    DueDate DATE NULL,
-    BilledEmail VARCHAR(255) NULL,
-    FilePath      VARCHAR(255) NULL,
-    FOREIGN KEY (TicketID) REFERENCES ticket(TicketID)
-);
 
 
-CREATE TABLE site_settings (
-    SettingKey VARCHAR(255) NOT NULL PRIMARY KEY,
-    SettingValue TEXT NOT NULL
-);
+
+CREATE VIEW seat_status AS
+SELECT 
+    sh.ShowingID,
+    sh.Date,
+    sh.Time,
+    sh.ShowroomID,
+    
+    s.SeatingID,
+    s.RowLetters,
+    s.SeatNumber,
+    
+    CASE 
+        WHEN EXISTS (
+            SELECT 1
+            FROM ticket t
+            JOIN ticket_has_a_seating ths 
+                ON ths.TicketID = t.TicketID
+            WHERE t.ShowingID = sh.ShowingID
+              AND ths.SeatingID = s.SeatingID
+              AND t.Status IN ('pending', 'paid')  -- treat these as active bookings
+        )
+        THEN 1
+        ELSE 0
+    END AS IsTaken
+FROM showing sh
+JOIN showroom sr 
+    ON sh.ShowroomID = sr.ShowroomID
+JOIN seating s 
+    ON s.ShowroomID = sr.ShowroomID;
