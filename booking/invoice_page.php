@@ -13,7 +13,8 @@ if ($invoiceId <= 0) {
 $invoiceModel = new Invoice();
 $ticketModel  = new Ticket();
 
-$invoice = $invoiceModel->find($invoiceId);
+
+$invoice = $invoiceModel->findWithDetails($invoiceId);
 
 // Convenience variables
 $status       = $invoice['Status'];
@@ -25,6 +26,11 @@ $dueDate      = $invoice['DueDate'] ?: null;
 $billedEmail  = $invoice['BilledEmail'] ?: 'Unknown';
 $filePath     = $invoice['FilePath'] ?: null;
 include __DIR__ . '/../components/header.php';
+
+$seats = [];
+if (!empty($invoice['TicketID'])) {
+    $seats = $ticketModel->getSeatsForTicket($invoice['TicketID']);
+}
 ?>
 <div class="relative min-h-screen bg-slate-950 text-slate-100 px-4 py-10 sm:px-6 lg:px-8">
 

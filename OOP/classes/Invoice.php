@@ -68,4 +68,28 @@ class Invoice extends BaseModel
             $this->db->close();
         }
     }
+
+
+    public function findWithDetails($invoiceId)
+{
+    $sql = "
+        SELECT 
+            i.*, 
+            m.Titel AS MovieTitle,
+            s.Name AS ShowroomName,
+            sh.DATE AS ShowingDate,
+            sh.Time AS ShowingTime,
+            t.TicketID
+        FROM invoice i
+        LEFT JOIN ticket t ON i.TicketID = t.TicketID
+        LEFT JOIN showing sh ON t.ShowingID = sh.ShowingID
+        LEFT JOIN movie m ON sh.MovieID = m.MovieID
+        LEFT JOIN showroom s ON sh.ShowroomID = s.ShowroomID
+        WHERE i.InvoiceID = :invoiceId
+        LIMIT 1
+    ";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':invoiceId' => $invoiceId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

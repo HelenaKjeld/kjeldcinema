@@ -19,6 +19,20 @@ class Ticket extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getSeatsForTicket($ticketId)
+{
+    $sql = "
+        SELECT s.SeatingID, s.RowLetters, s.SeatNumber
+        FROM ticket_has_a_seating thas
+        INNER JOIN seating s ON thas.SeatingID = s.SeatingID
+        WHERE thas.TicketID = :ticketId
+        ORDER BY s.RowLetters, s.SeatNumber
+    ";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':ticketId' => $ticketId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
     public function createTicketForSeats($showingID, $seats, $bookingEmail)
     {
         $Showing = new Showing();
@@ -35,6 +49,8 @@ class Ticket extends BaseModel
             ':BookingEmail' => htmlspecialchars($bookingEmail)
 
         ]);
+
+        
 
         $ticketId = $this->db->lastInsertId();
 

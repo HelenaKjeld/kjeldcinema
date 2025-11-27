@@ -13,19 +13,37 @@ $info = $companyinfo->getCompanyInfo();
                 <p class="text-gray-400 mb-4">
                     Your ultimate destination for premium Rowan experiences.
                 </p>
+                 <!-- SOCIAL MEDIA -->
                 <div class="flex space-x-4">
-                    <a href="https://www.facebook.com/MrBean" class="text-gray-400 hover:text-amber-400 transition">
-                        <i data-feather="facebook"></i>
-                    </a>
-                    <a href="https://x.com/mrbean?lang=da" class="text-gray-400 hover:text-amber-400 transition">
-                        <i data-feather="twitter"></i>
-                    </a>
-                    <a href="https://www.instagram.com/mrbean/?hl=da" class="text-gray-400 hover:text-amber-400 transition">
-                        <i data-feather="instagram"></i>
-                    </a>
-                    <a href="https://www.youtube.com/user/MrBean" class="text-gray-400 hover:text-amber-400 transition">
-                        <i data-feather="youtube"></i>
-                    </a>
+
+                    <?php if (!empty($info['Facebook'])): ?>
+                        <a href="<?= politi($info['Facebook']) ?>" target="_blank" class="text-gray-400 hover:text-amber-400 transition">
+                            <i data-feather="facebook"></i>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (!empty($info['Twitter'])): ?>
+                        <a href="<?= politi($info['Twitter']) ?>" target="_blank" class="text-gray-400 hover:text-amber-400 transition">
+                            <i data-feather="twitter"></i>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (!empty($info['Instagram'])): ?>
+                        <a href="<?= politi($info['Instagram']) ?>" target="_blank" class="text-gray-400 hover:text-amber-400 transition">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (!empty($info['Youtube'])): ?>
+                        <a href="<?= politi($info['Youtube']) ?>" target="_blank" class="text-gray-400 hover:text-amber-400 transition">
+                            <i data-feather="youtube"></i>
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if (empty($info['Facebook']) && empty($info['Twitter']) && empty($info['Instagram']) && empty($info['Youtube'])): ?>
+                        <p class="text-gray-500 italic">No social links added.</p>
+                    <?php endif; ?>
+
                 </div>
             </div>
             <div>
