@@ -40,7 +40,7 @@ if (!empty($invoice['TicketID'])) {
     <div class="mx-auto max-w-4xl">
 
         <!-- Back button -->
-        <a href="/profile_page.php" class="inline-block mb-6">
+        <a href="/User/profile_page.php" class="inline-block mb-6">
             <button class="border border-amber-400 text-amber-400 px-6 py-2 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
                 ← Back to profile
             </button>
