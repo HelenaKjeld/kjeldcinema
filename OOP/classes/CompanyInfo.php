@@ -19,41 +19,70 @@ class CompanyInfo extends BaseModel
 
         if ($existing) {
             // Update existing record
-            $stmt = $this->db->prepare("UPDATE {$this->table} 
-                SET Name=:n, Description=:d, Email=:e, PhoneNumber=:p, OpeningHours=:o, Address=:a, Logo=:l
-                WHERE {$this->primaryKey}=:id");
+            $stmt = $this->db->prepare("
+                UPDATE {$this->table}
+                SET 
+                    Name = :n,
+                    Description = :d,
+                    Email = :e,
+                    PhoneNumber = :p,
+                    OpeningHours = :o,
+                    Address = :a,
+                    Logo = :l,
+                    Facebook = :fb,
+                    Instagram = :ig,
+                    Twitter = :tw,
+                    Youtube = :yt
+                WHERE {$this->primaryKey} = :id
+            ");
+
             $stmt->execute([
-                ':n' => $data['Name'],
-                ':d' => $data['Description'],
-                ':e' => $data['Email'],
-                ':p' => $data['PhoneNumber'],
-                ':o' => $data['OpeningHours'],
-                ':a' => $data['Address'],
-                ':l' => $logoPath,
+                ':n'  => $data['Name'],
+                ':d'  => $data['Description'],
+                ':e'  => $data['Email'],
+                ':p'  => $data['PhoneNumber'],
+                ':o'  => $data['OpeningHours'],
+                ':a'  => $data['Address'],
+                ':l'  => $logoPath ?? $existing['Logo'],  // keep old logo if none uploaded
+                ':fb' => $data['Facebook'],
+                ':ig' => $data['Instagram'],
+                ':tw' => $data['Twitter'],
+                ':yt' => $data['Youtube'],
                 ':id' => $existing['CompanyInfoID']
             ]);
+
             return "updated";
+
         } else {
             // Insert new record
-            $stmt = $this->db->prepare("INSERT INTO {$this->table} 
-                (Name, Description, Email, PhoneNumber, OpeningHours, Address)
-                VALUES (:n, :d, :e, :p, :o, :l, :a)");
+            $stmt = $this->db->prepare("
+                INSERT INTO {$this->table}
+                (Name, Description, Email, PhoneNumber, OpeningHours, Address, Logo, Facebook, Instagram, Twitter, Youtube)
+                VALUES
+                (:n, :d, :e, :p, :o, :a, :l, :fb, :ig, :tw, :yt)
+            ");
+
             $stmt->execute([
-                ':n' => $data['Name'],
-                ':d' => $data['Description'],
-                ':e' => $data['Email'],
-                ':p' => $data['PhoneNumber'],
-                ':o' => $data['OpeningHours'],
-                ':l' => $logoPath,
-                ':a' => $data['Address']
+                ':n'  => $data['Name'],
+                ':d'  => $data['Description'],
+                ':e'  => $data['Email'],
+                ':p'  => $data['PhoneNumber'],
+                ':o'  => $data['OpeningHours'],
+                ':a'  => $data['Address'],
+                ':l'  => $logoPath,
+                ':fb' => $data['Facebook'],
+                ':ig' => $data['Instagram'],
+                ':tw' => $data['Twitter'],
+                ':yt' => $data['Youtube'],
             ]);
+
             return "added";
         }
     }
 
     public function deleteCompanyInfo($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE {$this->primaryKey}=:id");
+        $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE {$this->primaryKey} = :id");
         $stmt->execute([':id' => $id]);
     }
 }

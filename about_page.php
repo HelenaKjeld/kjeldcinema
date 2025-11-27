@@ -2,7 +2,11 @@
 require_once __DIR__ . '/includes/constants.php';
 require_once __DIR__ . '/includes/functions.php';
 include __DIR__ . '/components/header.php';
+require_once __DIR__ . '/OOP/classes/CompanyInfo.php';
+require_once __DIR__ . '/includes/functions.php';
 
+$companyinfo = new CompanyInfo();
+$info = $companyinfo->getCompanyInfo();
 $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 if ($mysqli->connect_error) {
   die('Database connection failed: ' . $mysqli->connect_error);
@@ -107,9 +111,35 @@ if ($res && $res->num_rows > 0) {
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
     <div class="md:col-span-2 bg-slate-800 rounded-xl p-6 shadow">
       <h3 class="text-2xl font-bold mb-4">Visit Us</h3>
-      <p class="text-gray-300 mb-2"><i data-feather="map-pin" class="inline mr-2"></i>123 Cinema St, Movie City</p>
-      <p class="text-gray-300 mb-2"><i data-feather="clock" class="inline mr-2"></i>Mon–Sun: 10:00 – 23:00</p>
-      <p class="text-gray-300"><i data-feather="phone" class="inline mr-2"></i>(123) 456-7890</p>
+      <ul class="space-y-2">
+
+        <li class="flex items-center text-gray-400">
+          <i data-feather="map-pin" class="mr-2 text-amber-400 transition"></i>
+          <a
+            href="https://www.google.com/maps/search/<?php echo urlencode($info['Address'] ?? ''); ?>"
+            target="_blank"
+            class="text-gray-400 hover:text-amber-400 transition">
+            <?php echo politi($info['Address'] ?? 'N/A'); ?>
+          </a>
+        </li>
+
+        <li class="flex items-center text-gray-400">
+          <i data-feather="phone" class="mr-2 text-amber-400 transition"></i>
+          <a href="tel:<?php echo $info['PhoneNumber']; ?>" class="text-gray-400 hover:text-amber-400 transition">
+            <?php echo politi($info['PhoneNumber'] ?? 'N/A'); ?>
+          </a>
+        </li>
+
+
+        <li class="flex items-center text-gray-400">
+          <i data-feather="mail" class="mr-2 text-amber-400 transition"></i>
+          <a
+            href="mailto:<?php echo $info['Email'] ?? ''; ?>"
+            class="text-gray-400 hover:text-amber-400 transition">
+            <?php echo politi($info['Email'] ?? 'N/A'); ?>
+          </a>
+        </li>
+      </ul>
       <div class="mt-6 rounded-lg overflow-hidden bg-slate-700">
         <!-- Map placeholder; swap with an embed later -->
         <div class="h-56 w-full flex items-center justify-center text-gray-400"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d633136.5276189636!2d-1.6366670218750168!3d51.6929761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876402f2fe350ad%3A0xa43f20856ba6c5!2sWarner%20Bros.%20Studios%20Leavesden!5e0!3m2!1sen!2sdk!4v1762253783415!5m2!1sen!2sdk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>

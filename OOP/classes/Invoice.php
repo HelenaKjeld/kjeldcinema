@@ -5,7 +5,7 @@ require_once __DIR__ . '/BaseModel.php';
 class Invoice extends BaseModel
 {
     protected $table = 'invoice';
-    protected $invoiceKey = 'InvoiceID';
+    protected $primaryKey = 'InvoiceID';
 
 
     public function generateInvoiceNumber(int $ticketId): string

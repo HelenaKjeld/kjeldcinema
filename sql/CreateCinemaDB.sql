@@ -19,7 +19,11 @@ CREATE TABLE companyinfo (
     Email VARCHAR(100),
     PhoneNumber VARCHAR(30),
     OpeningHours VARCHAR(20),
-    Address VARCHAR(100)
+    Address VARCHAR(100),
+    Facebook VARCHAR(100),
+    Instagram VARCHAR(100),
+    Twitter VARCHAR(100),
+    Youtube VARCHAR(100)
 );
 
 ALTER TABLE CompanyInfo ADD COLUMN Logo VARCHAR(255) NULL;
@@ -153,8 +157,6 @@ LEFT JOIN (
     FROM `seating` se
     GROUP BY se.`ShowroomID`
 ) cap ON cap.`ShowroomID` = s.`ShowroomID`;
-
-
 
 
 

@@ -13,7 +13,8 @@ if (isset($_GET['delete'])) {
 
 // Handle add/update
 if (isset($_POST['saveCompany'])) {
-      $posterPath = $_POST['oldLogo']; // Default old poster path
+    $posterPath = $_POST['oldLogo'] ?? ''; // Default old logo path
+
     if (!empty($_FILES['Logo']['tmp_name'])) {
         $uploadDir = "../../logo/";
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
@@ -23,6 +24,7 @@ if (isset($_POST['saveCompany'])) {
         move_uploaded_file($_FILES['Logo']['tmp_name'], $targetFile);
         $posterPath = "logo/" . $fileName;
     }
+
     $result = $companyModel->saveCompanyInfo($_POST, $posterPath);
     if ($result === "updated") {
         echo "<p class='text-green-600 text-center mt-4'>Company info updated successfully!</p>";
@@ -60,6 +62,51 @@ $info = $companyModel->getCompanyInfo();
             <p class="mb-2 text-slate-700"><strong>Opening Hours:</strong> <?= politi($info['OpeningHours']) ?></p>
             <p class="mb-2 text-slate-700"><strong>Address:</strong> <?= politi($info['Address']) ?></p>
 
+            <!-- Social Links Display -->
+            <div class="mt-4 border-t pt-4">
+                <h4 class="font-semibold mb-2 text-slate-800">Social Media</h4>
+
+                <?php if (!empty($info['Facebook'])): ?>
+                    <p class="mb-1 text-slate-700">
+                        <strong>Facebook:</strong>
+                        <a href="<?= politi($info['Facebook']) ?>" target="_blank" class="text-blue-600 underline">
+                            <?= politi($info['Facebook']) ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (!empty($info['Instagram'])): ?>
+                    <p class="mb-1 text-slate-700">
+                        <strong>Instagram:</strong>
+                        <a href="<?= politi($info['Instagram']) ?>" target="_blank" class="text-blue-600 underline">
+                            <?= politi($info['Instagram']) ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (!empty($info['Twitter'])): ?>
+                    <p class="mb-1 text-slate-700">
+                        <strong>Twitter:</strong>
+                        <a href="<?= politi($info['Twitter']) ?>" target="_blank" class="text-blue-600 underline">
+                            <?= politi($info['Twitter']) ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (!empty($info['Youtube'])): ?>
+                    <p class="mb-1 text-slate-700">
+                        <strong>Youtube:</strong>
+                        <a href="<?= politi($info['Youtube']) ?>" target="_blank" class="text-blue-600 underline">
+                            <?= politi($info['Youtube']) ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (empty($info['Facebook']) && empty($info['Instagram']) && empty($info['Twitter']) && empty($info['Youtube'])): ?>
+                    <p class="text-gray-500 italic">No social media links added yet.</p>
+                <?php endif; ?>
+            </div>
+
             <div class="flex gap-4 mt-4">
                 <button onclick="toggleEdit()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Edit</button>
                 <a href="?delete=<?= $info['CompanyInfoID'] ?>" 
@@ -80,7 +127,14 @@ $info = $companyModel->getCompanyInfo();
             <input type="text" name="PhoneNumber" value="<?= politi($info['PhoneNumber'] ?? '') ?>" placeholder="Phone Number" class="border p-2 rounded w-full text-slate-800" required>
             <input type="text" name="OpeningHours" value="<?= politi($info['OpeningHours'] ?? '') ?>" placeholder="Opening Hours" class="border p-2 rounded w-full text-slate-800" required>
             <input type="text" name="Address" value="<?= politi($info['Address'] ?? '') ?>" placeholder="Address" class="border p-2 rounded w-full text-slate-800" required>
-            <input type="hidden" name="oldLogo" value="<?= politi($info['Logo']) ?>">
+
+            <!-- Social Inputs -->
+            <input type="text" name="Facebook" value="<?= politi($info['Facebook'] ?? '') ?>" placeholder="Facebook URL" class="border p-2 rounded w-full text-slate-800">
+            <input type="text" name="Instagram" value="<?= politi($info['Instagram'] ?? '') ?>" placeholder="Instagram URL" class="border p-2 rounded w-full text-slate-800">
+            <input type="text" name="Twitter" value="<?= politi($info['Twitter'] ?? '') ?>" placeholder="Twitter URL" class="border p-2 rounded w-full text-slate-800">
+            <input type="text" name="Youtube" value="<?= politi($info['Youtube'] ?? '') ?>" placeholder="Youtube URL" class="border p-2 rounded w-full text-slate-800">
+
+            <input type="hidden" name="oldLogo" value="<?= isset($info['Logo']) ? politi($info['Logo']) : '' ?>">
 
             <div>
                 <label class="block text-gray-700 mb-1">Company Logo:</label>
