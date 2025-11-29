@@ -106,7 +106,7 @@ $tickets = $ticketObj->getTicketsByUser($userId);
                     type="submit"
                     name="updateProfile"
                     class="mt-3 inline-flex items-center justify-center px-6 py-2 rounded-full font-semibold
-                           bg-amber-400 text-black hover:bg-amber-300 transition shadow-lg shadow-amber-500/30"
+                           bg-amber-400 text-black hover:bg-amber-300 transition"
                 >
                     Update profile
                 </button>
@@ -126,7 +126,7 @@ $tickets = $ticketObj->getTicketsByUser($userId);
                     type="submit"
                     name="deleteAccount"
                     class="inline-flex items-center justify-center px-6 py-2 rounded-full font-semibold
-                           bg-red-500 text-white hover:bg-red-600 transition shadow-lg shadow-red-500/40"
+                           bg-red-500 text-white hover:bg-red-600 transition"
                 >
                     Delete account
                 </button>
