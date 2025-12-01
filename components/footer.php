@@ -80,13 +80,13 @@ $info = $companyinfo->getCompanyInfo();
                         <i data-feather="mail" class="mr-2 text-amber-400 transition"></i>
                         <a
                             href="mailto:<?php echo $info['Email'] ?? ''; ?>"
-                            class="text-gray-400 hover:text-gray-200">
+                            class="text-gray-400 hover:text-amber-400 transition">
                             <?php echo politi($info['Email'] ?? 'N/A'); ?>
                         </a>
                     </li>
 
                     <li class="flex items-center text-gray-400">
-                        <i data-feather="time" class="mr-2 text-amber-400 transition"></i> Opening hours: <?php echo politi($info['OpeningHours'] ?? 'N/A'); ?>
+                        <i data-feather="clock" class="mr-2 text-amber-400 transition"></i> Opening hours: <?php echo politi($info['OpeningHours'] ?? 'N/A'); ?>
                     </li>
                 </ul>
             </div>
