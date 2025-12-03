@@ -1,36 +1,33 @@
-<?php require_once("includes/session.php"); ?>
-<?php require_once("includes/functions.php"); ?>
 <?php
-if (is_logged_in()) {
-  redirect_to("index.php");
-} else {
-  if (isset($_POST['submit'])) { // Form has been submitted.
-    $email = politi($_POST['email']);
-    $password = politi($_POST['password']);
-    authenticate($email, $password);
-  }
-}
+require_once __DIR__ . '/includes/session.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/OOP/classes/User.php';
 
-$email = isset($email) ? $email : "";
-$password = "";
+$userObj = new User();
+$error = '';
+
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';      // ⬅ lowercase
+    $password = $_POST['password'] ?? ''; // ⬅ lowercase
+
+    if ($userObj->login($email, $password)) {
+
+        if (is_admin()) {
+            header("Location: /admin/admin_page.php");
+        } else {
+            header("Location: /");
+        }
+        exit();
+    } else {
+        $error = "Invalid email or password.";
+    }
+}
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RowanCinema - Sign In</title>
-  <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="style.css" rel="stylesheet" />
-  <script src="https://unpkg.com/feather-icons"></script>
-</head>
-
-<body class="index min-h-screen flex flex-col">
 
   <?php
   include 'components/header.php';

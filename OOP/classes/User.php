@@ -45,13 +45,9 @@ class User extends BaseModel
 
     public function login($email, $password)
     {
-        global $conn; // or $pdo, depending on your setup
-
-        $stmt = $conn->prepare("SELECT * FROM user WHERE Email = ? LIMIT 1");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE Email = :email LIMIT 1");
+        $stmt->execute([':email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['Password'])) {
             $_SESSION['user_id'] = $user['UserID'];
