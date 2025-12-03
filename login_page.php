@@ -1,27 +1,25 @@
 <?php require_once("includes/session.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 <?php
-		if (logged_in()) 
-    {
-		  redirect_to("index.php");
-	  }
-    else
-    {
-      if (isset($_POST['submit'])) { // Form has been submitted.
-		    $email = politi($_POST['email']);
-		    $password = politi($_POST['password']);
-        authenticate($email, $password);
-      }
-    }
+if (is_logged_in()) {
+  redirect_to("index.php");
+} else {
+  if (isset($_POST['submit'])) { // Form has been submitted.
+    $email = politi($_POST['email']);
+    $password = politi($_POST['password']);
+    authenticate($email, $password);
+  }
+}
 
-    $email = isset($email) ? $email : "";
-    $password = "";
+$email = isset($email) ? $email : "";
+$password = "";
 ?>
 
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,19 +29,20 @@
   <link href="style.css" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body class="index min-h-screen flex flex-col">
 
-<?php 
+  <?php
   include 'components/header.php';
-?>
+  ?>
 
   <!-- Login Section -->
   <section class="hero-gradient flex-grow flex items-center justify-center pt-32 pb-20 px-6">
     <div class="bg-slate-800 bg-opacity-80 p-10 rounded-2xl shadow-2xl w-full max-w-md">
       <div class="text-center mb-6">
         <img src="img/Tedyy.webp" alt="Mr Bean" class="w-20 h-20 mx-auto mb-4 >
-        <h2 class="text-3xl font-bold mb-2">
-          Welcome Back, <span class="text-amber-400">Movie Bean!</span>
+        <h2 class=" text-3xl font-bold mb-2">
+        Welcome Back, <span class="text-amber-400">Movie Bean!</span>
         </h2>
         <p class="text-gray-400">Sign in and grab your popcorn 🍿</p>
       </div>
@@ -58,25 +57,23 @@
         <!-- Email -->
         <div>
           <label class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="bean@rowancinema.com" 
+          <input
+            type="email"
+            name="email"
+            placeholder="bean@rowancinema.com"
             required
-            class="w-full px-4 py-3 rounded-lg bg-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none border border-slate-600"
-          />
+            class="w-full px-4 py-3 rounded-lg bg-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none border border-slate-600" />
         </div>
 
         <!-- Password -->
         <div>
           <label class="block text-sm font-medium mb-2 text-gray-300">Password</label>
-          <input 
-            type="password" 
-            name="password" 
-            placeholder="•••••••• (not teddy!)" 
+          <input
+            type="password"
+            name="password"
+            placeholder="•••••••• (not teddy!)"
             required
-            class="w-full px-4 py-3 rounded-lg bg-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none border border-slate-600"
-          />
+            class="w-full px-4 py-3 rounded-lg bg-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none border border-slate-600" />
         </div>
 
         <!-- Remember Me + Forgot -->
@@ -89,13 +86,12 @@
         </div>
 
         <!-- Submit Button -->
-        <input 
+        <input
           name="submit"
-          type="submit" 
-          class="ticket-button w-full py-3 rounded-full font-bold text-white text-center"
-        >
-          Sign In
-      </input>
+          type="submit"
+          class="ticket-button w-full py-3 rounded-full font-bold text-white text-center">
+        Sign In
+        </input>
       </form>
 
       <p class="text-center text-gray-400 mt-6 text-sm">
@@ -108,7 +104,7 @@
   <!-- Footer -->
   <footer class="bg-black text-white py-8 px-6">
     <div class="text-center text-gray-500 text-sm">
-      © 2025 RowanCinema. All rights reserved.  
+      © 2025 RowanCinema. All rights reserved.
       <br>Made with ❤️ and a dash of silliness by Mr. Bean
     </div>
   </footer>
@@ -117,4 +113,5 @@
     feather.replace();
   </script>
 </body>
+
 </html>

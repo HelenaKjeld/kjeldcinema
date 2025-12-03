@@ -44,9 +44,15 @@ CREATE TABLE user (
     Lastname VARCHAR(50),
     Email VARCHAR(100) NOT NULL UNIQUE,
     Password VARCHAR(100) NOT NULL
+    Role ENUM('user','admin') NOT NULL DEFAULT 'user';
   
     -- Role ENUM('admin', 'customer') DEFAULT 'customer', maybe?!?!?
 );
+
+UPDATE user
+SET Role = 'admin'
+WHERE Email = 'your-admin-email@example.com';
+
 
 CREATE TABLE movie (
     MovieID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
