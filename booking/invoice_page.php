@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../OOP/classes/Invoice.php';
 require_once __DIR__ . '/../OOP/classes/Ticket.php';
 
@@ -54,12 +55,12 @@ if (!empty($invoice['TicketID'])) {
                 <div>
                     <p class="text-sm uppercase tracking-wide text-slate-400 mb-1">Invoice</p>
                     <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">
-                        <?= htmlspecialchars($invoice['InvoiceNumber'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= politi($invoice['InvoiceNumber'], ENT_QUOTES, 'UTF-8') ?>
                     </h1>
                     <p class="mt-2 text-sm text-slate-400">
-                        Created: <span class="text-slate-100"><?= htmlspecialchars($createdAt, ENT_QUOTES, 'UTF-8') ?></span>
+                        Created: <span class="text-slate-100"><?= politi($createdAt, ENT_QUOTES, 'UTF-8') ?></span>
                         <?php if ($dueDate): ?>
-                            · Due: <span class="text-slate-100"><?= htmlspecialchars($dueDate, ENT_QUOTES, 'UTF-8') ?></span>
+                            · Due: <span class="text-slate-100"><?= politi($dueDate, ENT_QUOTES, 'UTF-8') ?></span>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -95,19 +96,20 @@ if (!empty($invoice['TicketID'])) {
                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
                     <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-2">Billed to</h2>
                     <p class="text-sm text-slate-200 break-words">
-                        <?= htmlspecialchars($billedEmail, ENT_QUOTES, 'UTF-8') ?>
+                        <?= politi($invoice['MovieTitle'], ENT_QUOTES, 'UTF-8') ?>
                     </p>
+                    
                 </div>
 
                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
                     <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-2">Invoice for</h2>
                     <p class="text-sm text-slate-200">
-                        <?= htmlspecialchars($invoice['MovieTitle'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= politi($invoice['MovieTitle'], ENT_QUOTES, 'UTF-8') ?>
                     </p>
                     <p class="text-sm text-slate-300 mt-1">
-                        <?= htmlspecialchars($invoice['ShowroomName'], ENT_QUOTES, 'UTF-8') ?>
-                        · <?= htmlspecialchars($invoice['ShowingDate'], ENT_QUOTES, 'UTF-8') ?>
-                        · <?= htmlspecialchars(substr($invoice['ShowingTime'], 0, 5), ENT_QUOTES, 'UTF-8') ?>
+                        <?= politi($invoice['ShowroomName'], ENT_QUOTES, 'UTF-8') ?>
+                        · <?= politi($invoice['ShowingDate'], ENT_QUOTES, 'UTF-8') ?>
+                        · <?= politi(substr($invoice['ShowingTime'], 0, 5), ENT_QUOTES, 'UTF-8') ?>
                     </p>
                     <p class="text-xs text-slate-500 mt-1">
                         Ticket #<?= (int)$invoice['TicketID'] ?>
@@ -124,7 +126,7 @@ if (!empty($invoice['TicketID'])) {
                         <div class="flex flex-wrap gap-2">
                             <?php foreach ($seats as $seat): ?>
                                 <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-900 text-slate-100 border border-slate-700 text-xs">
-                                    Row <?= htmlspecialchars($seat['RowLetters'], ENT_QUOTES, 'UTF-8') ?> – Seat <?= htmlspecialchars($seat['SeatNumber'], ENT_QUOTES, 'UTF-8') ?>
+                                    Row <?= politi($seat['RowLetters'], ENT_QUOTES, 'UTF-8') ?> – Seat <?= politi($seat['SeatNumber'], ENT_QUOTES, 'UTF-8') ?>
                                 </span>
                             <?php endforeach; ?>
                         </div>
@@ -135,17 +137,17 @@ if (!empty($invoice['TicketID'])) {
 
                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 space-y-2">
                     <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-2">Summary</h2>
-                    <p class="flex justify-between text-sm text-slate-300">
+                    <!-- <p class="flex justify-between text-sm text-slate-300">
                         <span>Ticket total</span>
                         <span><?= number_format((float)$invoice['TotalPrice'], 2) ?> DKK</span>
-                    </p>
+                    </p> -->
                     <p class="flex justify-between text-sm text-slate-300">
                         <span>Invoice amount</span>
                         <span><?= number_format($amount, 2) ?> DKK</span>
                     </p>
                     <p class="flex justify-between text-sm text-slate-300">
                         <span>Status</span>
-                        <span class="font-medium"><?= htmlspecialchars(ucfirst($status), ENT_QUOTES, 'UTF-8') ?></span>
+                        <span class="font-medium"><?= politi(ucfirst($status), ENT_QUOTES, 'UTF-8') ?></span>
                     </p>
                 </div>
             </div>
@@ -158,7 +160,7 @@ if (!empty($invoice['TicketID'])) {
 
                 <div class="flex flex-wrap gap-3">
                     <?php if ($filePath): ?>
-                        <a href="/<?= htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8') ?>" target="_blank"
+                        <a href="/<?= politi($filePath, ENT_QUOTES, 'UTF-8') ?>" target="_blank"
                             class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold
                   border border-slate-500 text-slate-100 hover:bg-slate-800 transition">
                             View PDF invoice
@@ -167,7 +169,7 @@ if (!empty($invoice['TicketID'])) {
 
                     <a href="/booking/ticket_pdf.php?invoiceID=<?= (int)$invoiceId ?>" target="_blank"
                         class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold
-              bg-sky-500 text-black hover:bg-sky-400 transition shadow-lg shadow-sky-500/30">
+              bg-sky-500 text-black hover:bg-sky-400 ">
                         Download ticket (PDF)
                     </a>
 
@@ -175,7 +177,7 @@ if (!empty($invoice['TicketID'])) {
                         id="replay-confetti"
                         type="button"
                         class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold
-               bg-amber-400 text-black hover:bg-amber-300 transition shadow-lg shadow-amber-500/30">
+               bg-amber-400 text-black hover:bg-amber-300 ">
                         🎉 Replay confetti
                     </button>
                 </div>
@@ -213,7 +215,7 @@ if (!empty($invoice['TicketID'])) {
 
     // Auto-fire confetti on page load for non-cancelled invoices
     document.addEventListener('DOMContentLoaded', () => {
-        const status = "<?= htmlspecialchars($status, ENT_QUOTES, 'UTF-8') ?>";
+        const status = "<?= politi($status, ENT_QUOTES, 'UTF-8') ?>";
         if (status !== 'cancelled') {
             launchConfetti();
         }
