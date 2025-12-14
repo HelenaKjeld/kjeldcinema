@@ -1,6 +1,7 @@
 <?php
-include '../../includes/functions.php'; // if you have guidv4() etc.
+include '../../includes/functions.php'; // guidv4, politi, etc.
 require_once __DIR__ . '/../../OOP/classes/News.php';
+require_once __DIR__ . '/../../includes/ImageResizer.php';
 include '../../components/header.php';
 
 $newsObj = new News();
@@ -21,25 +22,70 @@ if (isset($_POST['updateNews'])) {
 
     // if new file uploaded
     if (!empty($_FILES['BannerImg']['tmp_name']) && is_uploaded_file($_FILES['BannerImg']['tmp_name'])) {
-        // simple validation
-        $allowed = ['image/jpeg' => '.jpg', 'image/png' => '.png', 'image/webp' => '.webp'];
-        $mime = mime_content_type($_FILES['BannerImg']['tmp_name']);
-        if (isset($allowed[$mime])) {
-            $ext = $allowed[$mime];
-            $dirFs = realpath(__DIR__ . '/../../') . DIRECTORY_SEPARATOR . 'banners' . DIRECTORY_SEPARATOR;
-            if (!is_dir($dirFs)) {
-                mkdir($dirFs, 0777, true);
-            }
-            $filename = (function_exists('guidv4') ? guidv4() : bin2hex(random_bytes(16))) . $ext;
-            $fullPath = $dirFs . $filename;
 
-            if (move_uploaded_file($_FILES['BannerImg']['tmp_name'], $fullPath)) {
-                // store relative path to web root
-                $bannerPath = "banners/" . $filename;
+        $tmpPath      = $_FILES['BannerImg']['tmp_name'];
+        $maxSizeBytes = 5 * 1024 * 1024; // 5MB limit
+
+        if ($_FILES['BannerImg']['size'] > $maxSizeBytes) {
+            echo "<p class='text-red-600 text-center mt-4'>Banner image is too large (max 5MB).</p>";
+        } elseif ($_FILES['BannerImg']['error'] !== UPLOAD_ERR_OK) {
+            echo "<p class='text-red-600 text-center mt-4'>Upload error code: " . (int)$_FILES['BannerImg']['error'] . "</p>";
+        } else {
+            $imageInfo = @getimagesize($tmpPath);
+            if ($imageInfo === false) {
+                echo "<p class='text-red-600 text-center mt-4'>Invalid image file.</p>";
+            } else {
+                $imageType = $imageInfo[2]; // IMAGETYPE_*
+
+                if (!in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) {
+                    echo "<p class='text-red-600 text-center mt-4'>Only JPEG and PNG banner images are allowed.</p>";
+                } else {
+                    $extension   = ($imageType === IMAGETYPE_JPEG) ? '.jpg' : '.png';
+                    $relativeDir = 'banners/';
+                    $absoluteDir = __DIR__ . '/../../' . $relativeDir;
+
+                    if (!is_dir($absoluteDir)) {
+                        mkdir($absoluteDir, 0755, true);
+                    }
+
+                    $filename     = (function_exists('guidv4') ? guidv4() : bin2hex(random_bytes(16))) . $extension;
+                    $relativePath = $relativeDir . $filename;
+                    $absolutePath = $absoluteDir . $filename;
+
+                    if (!move_uploaded_file($tmpPath, $absolutePath)) {
+                        echo "<p class='text-red-600 text-center mt-4'>Failed to move uploaded file.</p>";
+                    } else {
+                        try {
+                            $resizer = new ImageResizer();
+                            $resizer->load($absolutePath);
+                            // Wide banner shape, adjust if you like
+                            //$resizer->resizeAndPad(1200, 400);
+                            $resizer->save($absolutePath, $imageType, 85);
+
+                            // Delete old banner file if it existed
+                            if (!empty($bannerPath)) {
+                                $oldAbs = __DIR__ . '/../../' . $bannerPath;
+                                if (is_file($oldAbs)) {
+                                    @unlink($oldAbs);
+                                }
+                            }
+
+                            $bannerPath = $relativePath;
+                        } catch (Throwable $e) {
+                            if (is_file($absolutePath)) {
+                                @unlink($absolutePath);
+                            }
+                            echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
+                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . "</p>";
+                        }
+                    }
+                }
             }
         }
     }
 
+    // Update DB row
     $newsObj->updateById($id, [
         'Titel'       => $_POST['Titel'],
         'Text'        => $_POST['Text'],
@@ -84,7 +130,7 @@ $all = $newsObj->getAll();
                     <td class=" text-slate-800 p-3"><?= nl2br(politi($row['Text'])) ?></td>
                     <td class="p-3">
                         <?php if (!empty($row['BannerImg'])): ?>
-                            <img src="/<?= politi($row['BannerImg']) ?>" class="w-16 h-12 object-cover rounded" alt="">
+                            <img src="/<?= politi($row['BannerImg']) ?>" class="w-32 h-16 object-cover rounded" alt="">
                         <?php else: ?>
                             <span class="text-gray-400 italic">No image</span>
                         <?php endif; ?>
@@ -112,7 +158,7 @@ $all = $newsObj->getAll();
                                 <label class="block text-sm text-gray-700">Change Banner:</label>
                                 <input type="file" name="BannerImg" accept="image/*" class="border p-2 rounded w-full text-slate-800">
                                 <?php if (!empty($row['BannerImg'])): ?>
-                                    <img src="/<?= politi($row['BannerImg']) ?>" class="w-24 mt-2 rounded" alt="">
+                                    <img src="/<?= politi($row['BannerImg']) ?>" class="w-32 mt-2 rounded" alt="">
                                 <?php endif; ?>
                             </div>
 
@@ -129,7 +175,9 @@ $all = $newsObj->getAll();
 </div>
 
 <script>
-function toggleEdit(id){ document.getElementById('editRow'+id).classList.toggle('hidden'); }
+function toggleEdit(id){
+    document.getElementById('editRow'+id).classList.toggle('hidden');
+}
 </script>
 
 <?php include '../../components/footer.php'; ?>

@@ -1,11 +1,11 @@
 <?php
 include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/CompanyInfo.php';
+require_once __DIR__ . '/../../includes/ImageResizer.php';
 include '../../components/header.php';
 
 $companyModel = new CompanyInfo();
 
-// Handle delete
 if (isset($_GET['delete'])) {
     $companyModel->deleteCompanyInfo((int)$_GET['delete']);
     echo "<p class='text-red-600 text-center mt-4'>Company info deleted successfully.</p>";
@@ -13,19 +13,83 @@ if (isset($_GET['delete'])) {
 
 // Handle add/update
 if (isset($_POST['saveCompany'])) {
-    $posterPath = $_POST['oldLogo'] ?? ''; // Default old logo path
+    // Start with old logo path (if any)
+    $logoPath = $_POST['oldLogo'] ?? '';
 
-    if (!empty($_FILES['Logo']['tmp_name'])) {
-        $uploadDir = "../../logo/";
-        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+    // Handle new logo upload (optional)
+    if (!empty($_FILES['Logo']['tmp_name']) && is_uploaded_file($_FILES['Logo']['tmp_name'])) {
 
-        $fileName = guidv4();
-        $targetFile = $uploadDir . $fileName;
-        move_uploaded_file($_FILES['Logo']['tmp_name'], $targetFile);
-        $posterPath = "logo/" . $fileName;
+        $tmpPath      = $_FILES['Logo']['tmp_name'];
+        $maxSizeBytes = 5 * 1024 * 1024; // 5MB limit
+
+        if ($_FILES['Logo']['size'] > $maxSizeBytes) {
+            echo "<p class='text-red-600 text-center mt-4'>Logo file is too large (max 5MB).</p>";
+        } elseif ($_FILES['Logo']['error'] !== UPLOAD_ERR_OK) {
+            echo "<p class='text-red-600 text-center mt-4'>Upload error code: " . (int)$_FILES['Logo']['error'] . "</p>";
+        } else {
+            $imageInfo = @getimagesize($tmpPath);
+            if ($imageInfo === false) {
+                echo "<p class='text-red-600 text-center mt-4'>Invalid image file.</p>";
+            } else {
+                $imageType = $imageInfo[2];
+
+
+                if (!in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) {
+                    echo "<p class='text-red-600 text-center mt-4'>Only JPEG and PNG logo images are allowed.</p>";
+                } else {
+                    $extension   = ($imageType === IMAGETYPE_JPEG) ? '.jpg' : '.png';
+                    $relativeDir = 'logo/';
+                    $absoluteDir = __DIR__ . '/../../' . $relativeDir;
+
+                    if (!is_dir($absoluteDir)) {
+                        mkdir($absoluteDir, 0755, true);
+                    }
+
+                    $filename     = (function_exists('guidv4') ? guidv4() : bin2hex(random_bytes(16))) . $extension;
+                    $relativePath = $relativeDir . $filename;
+                    $absolutePath = $absoluteDir . $filename;
+
+                    if (!move_uploaded_file($tmpPath, $absolutePath)) {
+                        echo "<p class='text-red-600 text-center mt-4'>Failed to move uploaded logo file.</p>";
+                    } else {
+                        try {
+                            $resizer = new ImageResizer();
+                            $resizer->setMinimumSize(200, 200);
+                            $resizer->load($absolutePath);
+
+                            // Make it a neat square logo, e.g. 300x300
+                            //$resizer->resizeAndPad(300, 300);
+                            $resizer->save($absolutePath, $imageType, 90);
+
+                            // Delete old logo file if one existed
+                            if (!empty($logoPath)) {
+                                $oldAbs = __DIR__ . '/../../' . $logoPath;
+                                if (is_file($oldAbs)) {
+                                    @unlink($oldAbs);
+                                }
+                            }
+
+                            // Only update path if everything went fine
+                            $logoPath = $relativePath;
+                        } catch (Throwable $e) {
+                            // Clean up broken upload
+                            if (is_file($absolutePath)) {
+                                @unlink($absolutePath);
+                            }
+
+                            echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
+                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . "</p>";
+                            // On failure we keep old $logoPath (so you don't lose your existing logo)
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    $result = $companyModel->saveCompanyInfo($_POST, $posterPath);
+    // Save company info (text + logo path)
+    $result = $companyModel->saveCompanyInfo($_POST, $logoPath);
     if ($result === "updated") {
         echo "<p class='text-green-600 text-center mt-4'>Company info updated successfully!</p>";
     } else {
@@ -109,9 +173,9 @@ $info = $companyModel->getCompanyInfo();
 
             <div class="flex gap-4 mt-4">
                 <button onclick="toggleEdit()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Edit</button>
-                <a href="?delete=<?= $info['CompanyInfoID'] ?>" 
-                   onclick="return confirm('Are you sure you want to delete this info?');"
-                   class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</a>
+                <a href="?delete=<?= $info['CompanyInfoID'] ?>"
+                    onclick="return confirm('Are you sure you want to delete this info?');"
+                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</a>
             </div>
         </div>
     <?php else: ?>
@@ -150,9 +214,9 @@ $info = $companyModel->getCompanyInfo();
 </div>
 
 <script>
-function toggleEdit() {
-    document.getElementById('editForm').classList.toggle('hidden');
-}
+    function toggleEdit() {
+        document.getElementById('editForm').classList.toggle('hidden');
+    }
 </script>
 
 <?php include '../../components/footer.php'; ?>

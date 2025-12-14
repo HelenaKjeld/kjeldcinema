@@ -1,6 +1,7 @@
 <?php
 include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/News.php';
+require_once __DIR__ . '/../../includes/ImageResizer.php';
 include '../../components/header.php';
 
 $newsObj = new News();
@@ -10,23 +11,62 @@ if (isset($_POST['addNews'])) {
     $bannerRel = ''; // relative path saved to DB
 
     if (!empty($_FILES['BannerImg']['tmp_name']) && is_uploaded_file($_FILES['BannerImg']['tmp_name'])) {
-        $allowed = ['image/jpeg' => '.jpg', 'image/png' => '.png', 'image/webp' => '.webp'];
-        $mime = mime_content_type($_FILES['BannerImg']['tmp_name']);
-        if (isset($allowed[$mime])) {
-            $ext = $allowed[$mime];
-            $dirFs = realpath(__DIR__ . '/../../') . DIRECTORY_SEPARATOR . 'banners' . DIRECTORY_SEPARATOR;
-            if (!is_dir($dirFs)) {
-                mkdir($dirFs, 0777, true);
-            }
-            $filename = (function_exists('guidv4') ? guidv4() : bin2hex(random_bytes(16))) . $ext;
-            $fullPath = $dirFs . $filename;
 
-            if (move_uploaded_file($_FILES['BannerImg']['tmp_name'], $fullPath)) {
-                $bannerRel = "banners/" . $filename;
+        $tmpPath      = $_FILES['BannerImg']['tmp_name'];
+        $maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
+        if ($_FILES['BannerImg']['size'] > $maxSizeBytes) {
+            echo "<p class='text-red-600 text-center mt-4'>Banner image is too large (max 5MB).</p>";
+        } elseif ($_FILES['BannerImg']['error'] !== UPLOAD_ERR_OK) {
+            echo "<p class='text-red-600 text-center mt-4'>Upload error code: " . (int)$_FILES['BannerImg']['error'] . "</p>";
+        } else {
+            $imageInfo = @getimagesize($tmpPath);
+            if ($imageInfo === false) {
+                echo "<p class='text-red-600 text-center mt-4'>Invalid image file.</p>";
+            } else {
+                $imageType = $imageInfo[2];
+
+                if (!in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) {
+                    echo "<p class='text-red-600 text-center mt-4'>Only JPEG and PNG banner images are allowed.</p>";
+                } else {
+                    $extension   = ($imageType === IMAGETYPE_JPEG) ? '.jpg' : '.png';
+                    $relativeDir = 'banners/';
+                    $absoluteDir = __DIR__ . '/../../' . $relativeDir;
+
+                    if (!is_dir($absoluteDir)) {
+                        mkdir($absoluteDir, 0755, true);
+                    }
+
+                    $filename     = (function_exists('guidv4') ? guidv4() : bin2hex(random_bytes(16))) . $extension;
+                    $relativePath = $relativeDir . $filename;
+                    $absolutePath = $absoluteDir . $filename;
+
+                    if (!move_uploaded_file($tmpPath, $absolutePath)) {
+                        echo "<p class='text-red-600 text-center mt-4'>Failed to move uploaded file.</p>";
+                    } else {
+                        try {
+                            $resizer = new ImageResizer();
+                            $resizer->load($absolutePath);
+                            // Resize + pad to standard banner size
+                            //$resizer->resizeAndPad(1200, 400); // or adjust as needed ,1200, 400 for wide banner
+                            $resizer->save($absolutePath, $imageType, 85);
+
+                            $bannerRel = $relativePath;
+                        } catch (Throwable $e) {
+                            if (is_file($absolutePath)) {
+                                @unlink($absolutePath);
+                            }
+                            echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
+                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . "</p>";
+                        }
+                    }
+                }
             }
         }
     }
 
+    // Create the news row
     $newsObj->create([
         'Titel'       => $_POST['Titel'],
         'Text'        => $_POST['Text'],
@@ -35,7 +75,9 @@ if (isset($_POST['addNews'])) {
     ]);
 
     echo "<p class='text-green-600 text-center mt-4'>News added!</p>";
-    // Optionally redirect: header("Location: news_page.php"); exit;
+    // Or redirect:
+    // header("Location: news_page.php");
+    // exit;
 }
 ?>
 
