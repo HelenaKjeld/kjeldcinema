@@ -195,3 +195,24 @@ JOIN showroom sr
     ON sh.ShowroomID = sr.ShowroomID
 JOIN seating s 
     ON s.ShowroomID = sr.ShowroomID;
+
+
+CREATE TRIGGER trg_prevent_delete_paid_invoice
+BEFORE DELETE ON invoice
+FOR EACH ROW
+BEGIN
+  IF OLD.Status = 'paid' THEN
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Cannot delete a paid invoice';
+  END IF;
+END$$
+
+CREATE TRIGGER trg_prevent_delete_admin_user
+BEFORE DELETE ON `user`
+FOR EACH ROW
+BEGIN
+  IF OLD.Role = 'admin' THEN
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Cannot delete an admin account';
+  END IF;
+END$$
