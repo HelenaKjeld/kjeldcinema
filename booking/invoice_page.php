@@ -40,12 +40,14 @@ if (!empty($invoice['TicketID'])) {
 
     <div class="mx-auto max-w-4xl">
 
-        <!-- Back button -->
-        <a href="/User/profile_page.php" class="inline-block mb-6">
-            <button class="border border-amber-400 text-amber-400 px-6 py-2 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
-                ← Back to profile
-            </button>
-        </a>
+        <!-- Back button (only if logged in) -->
+        <?php if (is_logged_in()): ?>
+            <a href="/User/profile_page.php" class="inline-block mb-6">
+                <button class="border border-amber-400 text-amber-400 px-6 py-2 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">
+                    ← Back to profile
+                </button>
+            </a>
+        <?php endif; ?>
 
         <!-- Main card -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl shadow-2xl shadow-black/40 p-6 sm:p-8 space-y-6">
@@ -98,7 +100,7 @@ if (!empty($invoice['TicketID'])) {
                     <p class="text-sm text-slate-200 break-words">
                         <?= politi($invoice['MovieTitle'], ENT_QUOTES, 'UTF-8') ?>
                     </p>
-                    
+
                 </div>
 
                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
