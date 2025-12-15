@@ -81,34 +81,61 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
 
         <!-- Seat Map -->
         <div class="bg-slate-700 seat-map mb-8 p-4 rounded-lg">
-          <div class="grid grid-cols-10 gap-3" id="seats">
-            <?php if ($seats): ?>
-              <?php
-              // Group seats by row
-              $grouped = [];
-              foreach ($seats as $seat) {
-                $grouped[$seat['RowLetters']][] = $seat;
-              }
-              foreach ($grouped as $row => $rowSeats):
-                // Sort seats numerically by SeatNumber
+          <?php if ($seats): ?>
+            <?php
+            // Group seats by row letter
+            $grouped = [];
+            foreach ($seats as $seat) {
+              $grouped[$seat['RowLetters']][] = $seat;
+            }
+            ksort($grouped); // Ensure rows A, B, C...
+            ?>
+
+            <div id="seats" class="flex flex-col gap-3">
+              <?php foreach ($grouped as $rowLetter => $rowSeats): ?>
+                <?php
+                // Sort seats numerically within row
                 usort($rowSeats, function ($a, $b) {
-                  return $a['SeatNumber'] - $b['SeatNumber'];
+                  return (int)$a['SeatNumber'] <=> (int)$b['SeatNumber'];
                 });
-                foreach ($rowSeats as $seat):
-                  $seatId = $seat['SeatingID']; // numeric only
-              ?>
-                  <div
-                    class="seat w-10 h-10 flex items-center justify-center font-medium rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer select-none <?= $seat['IsTaken'] ? 'bg-red-500 text-white' : '' ?>"
-                    data-id="<?= $seatId ?>"
-                    title="Seat <?= $row ?>-<?= $seat['SeatNumber'] ?>">
-                    <?= $seat['SeatNumber'] ?>
+                ?>
+                <div class="flex items-center gap-3">
+                  <!-- Row label -->
+                  <div class="w-6 text-sm font-semibold text-slate-100">
+                    <?= politi($rowLetter) ?>
                   </div>
-              <?php endforeach;
-              endforeach; ?>
-            <?php else: ?>
-              <span class="text-gray-400">No seats found</span>
-            <?php endif; ?>
-          </div>
+
+                  <!-- Row seats (always fit in available width) -->
+                  <div
+                    class="flex-1 grid gap-1 sm:gap-2"
+                    style="grid-template-columns: repeat(<?= count($rowSeats) ?>, minmax(0, 1fr));"
+                  >
+                    <?php foreach ($rowSeats as $seat): ?>
+                      <?php
+                        $seatId   = (int)$seat['SeatingID'];
+                        $isBooked = !empty($seat['IsTaken']);
+                      ?>
+                      <div
+                        class="seat aspect-square w-full min-w-0 flex items-center justify-center rounded select-none
+                          text-[clamp(10px,1vw,14px)] font-semibold
+                          <?= $isBooked
+                                ? 'bg-red-500 text-white cursor-not-allowed pointer-events-none'
+                                : 'bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer'
+                          ?>"
+                        data-id="<?= $seatId ?>"
+                        title="Seat <?= politi($rowLetter) ?>-<?= politi($seat['SeatNumber']) ?>"
+                      >
+                        <?= politi($seat['SeatNumber']) ?>
+                      </div>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+
+          <?php else: ?>
+            <span class="text-gray-400">No seats found</span>
+          <?php endif; ?>
         </div>
 
         <!-- Legend -->
@@ -137,8 +164,8 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
 
         <!-- Total + Proceed -->
         <form id="booking-form" method="POST" action="/booking/confirm_booking_page.php">
-        <input type="hidden" name="showingID"  value="<?= politi($showingID) ?>">  
-        <input type="hidden" name="selected_seats[]" id="selected-seats-input" value="">
+          <input type="hidden" name="showingID" value="<?= politi($showingID) ?>">
+          <input type="hidden" name="selected_seats[]" id="selected-seats-input" value="">
           <div class="flex justify-between items-center">
             <div>
               <p class="text-gray-400">Total</p>

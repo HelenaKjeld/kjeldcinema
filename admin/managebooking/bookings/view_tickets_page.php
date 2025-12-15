@@ -94,6 +94,7 @@ $ticketsResult = $ticketsStmt->get_result();
 
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <title>Tickets for <?php echo politi($showing['MovieTitle']); ?></title>
@@ -120,8 +121,8 @@ $ticketsResult = $ticketsStmt->get_result();
                 <div class="w-32 h-48 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-lg shadow-black/50">
                     <?php if (!empty($showing['PosterImage'])): ?>
                         <img src="/<?php echo politi($showing['PosterImage']); ?>"
-                             alt="Poster"
-                             class="w-full h-full object-cover">
+                            alt="Poster"
+                            class="w-full h-full object-cover">
                     <?php else: ?>
                         <div class="w-full h-full flex items-center justify-center text-xs text-slate-500 px-2 text-center">
                             No poster
@@ -178,15 +179,16 @@ $ticketsResult = $ticketsStmt->get_result();
                                     <div class="w-6 text-sm font-semibold text-slate-100">
                                         <?php echo politi($rowLetter); ?>
                                     </div>
-                                    <!-- Row seats -->
-                                    <div class="grid grid-cols-10 gap-2 flex-1">
+
+                                    <!-- Row seats (always fit in available width) -->
+                                    <div
+                                        class="flex-1 grid gap-2 sm:gap-2"
+                                        style="grid-template-columns: repeat(<?php echo count($rowSeats); ?>, minmax(0, 1fr));">
                                         <?php foreach ($rowSeats as $seat): ?>
-                                            <?php
-                                            $isBooked = (bool)$seat['IsBooked'];
-                                            $extraClass = $isBooked ? 'booked' : 'standard';
-                                            ?>
+                                            <?php $isBooked = (bool)$seat['IsBooked']; ?>
                                             <div
-                                                class="seat w-10 h-10 flex items-center justify-center font-medium rounded text-sm
+                                                class="seat aspect-square w-full min-w-0 flex items-center justify-center rounded select-none
+                                                       text-[clamp(10px,1vw,14px)] font-semibold 
                                                        <?php echo $isBooked ? 'bg-red-500 text-white cursor-not-allowed' : 'bg-gray-200 text-black'; ?>"
                                                 title="Seat <?php echo politi($rowLetter); ?>-<?php echo politi($seat['SeatNumber']); ?>">
                                                 <?php echo politi($seat['SeatNumber']); ?>
@@ -298,6 +300,7 @@ $ticketsResult = $ticketsStmt->get_result();
         </div>
     </div>
 </body>
+
 </html>
 
 <?php

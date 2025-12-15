@@ -61,7 +61,7 @@ $info = $companyinfo->getCompanyInfo();
                     <li class="flex items-center text-gray-400">
                         <i data-feather="map-pin" class="mr-2 text-amber-400 transition"></i>
                         <a
-                            href="https://www.google.com/maps/search/<?php echo urlencode($info['Address'] ?? ''); ?>"
+                            href="https://www.google.com/maps/search/<?php echo urlencode(politi($info['Address']) ?? ''); ?>"
                             target="_blank"
                             class="text-gray-400 hover:text-amber-400 transition">
                             <?php echo politi($info['Address'] ?? 'N/A'); ?>
