@@ -79,4 +79,18 @@ class Showing extends BaseModel
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ?: null;
     }
+
+    public function getByDate(string $date): array
+    {
+        // Validates expected YYYY-MM-DD format
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+            return [];
+        }
+
+        // NOTE: your column is named `DATE` (reserved word), so keep backticks
+        $sql = "SELECT * FROM `showing` WHERE `DATE` = :d ORDER BY `Time` ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':d' => $date]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -6,39 +6,48 @@ class Movie extends BaseModel
     protected $table = 'movie';
     protected $primaryKey = 'MovieID';
 
-    public function getMoviesWithShowtimes($date): array
+    public function getMoviesWithShowtimesByDate(string $date): array
     {
-        $sql = "SELECT 
-                    m.MovieID, m.Titel, m.Description, m.Poster, m.ageRating, m.Duration,
-                    s.ShowingID, s.`DATE` AS ShowDate, s.`Time` AS ShowTime, s.Price
-                FROM movie m
-                INNER JOIN showing s ON m.MovieID = s.MovieID AND s.`DATE` = :date
-                ORDER BY m.MovieID DESC, s.`Time` ASC";
+        $sql = "
+            SELECT
+                m.MovieID,
+                m.Titel,
+                m.Poster,
+                m.Description,
+                m.ageRating,
+                m.Duration,
+                s.ShowingID,
+                s.Time
+            FROM movie m
+            JOIN showing s ON s.MovieID = m.MovieID
+            WHERE s.DATE = :d
+            ORDER BY m.Titel ASC, s.Time ASC
+        ";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(['date' => $date]);
+        $stmt->execute([':d' => $date]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Group rows into movies + Showtimes[]
         $movies = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $id = $row['MovieID'];
+        foreach ($rows as $r) {
+            $mid = (int)$r['MovieID'];
 
-            if (!isset($movies[$id])) {
-                $movies[$id] = [
-                    'MovieID'    => $row['MovieID'],
-                    'Titel'      => $row['Titel'],
-                    'Description'=> $row['Description'],
-                    'Poster'     => $row['Poster'],
-                    'ageRating'  => $row['ageRating'],
-                    'Duration'   => $row['Duration'],
-                    'Showtimes'  => []
+            if (!isset($movies[$mid])) {
+                $movies[$mid] = [
+                    'MovieID'     => $r['MovieID'],
+                    'Titel'       => $r['Titel'],
+                    'Poster'      => $r['Poster'],
+                    'Description' => $r['Description'],
+                    'ageRating'   => $r['ageRating'],
+                    'Duration'    => $r['Duration'],
+                    'Showtimes'   => []
                 ];
             }
 
-            $movies[$id]['Showtimes'][] = [
-                'ShowingID' => $row['ShowingID'],
-                'Date'      => $row['ShowDate'],
-                'Time'      => $row['ShowTime'],
-                'Price'     => $row['Price']
+            $movies[$mid]['Showtimes'][] = [
+                'ShowingID' => $r['ShowingID'],
+                'Time'      => $r['Time'],
             ];
         }
 
