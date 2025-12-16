@@ -1,6 +1,7 @@
 <?php
 include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/Database.php';
+require_once __DIR__ . '/../../OOP/classes/Movie.php';
 require_once __DIR__ . '/../../includes/ImageResizer.php';
 
 if (isset($_POST['addMovie'])) {
@@ -53,17 +54,13 @@ if (isset($_POST['addMovie'])) {
                             $resizer->save($absolutePath, $imageType, 85);
 
                             // Insert movie row
-                            $sql = "INSERT INTO movie (Titel, Description, Poster, ageRating, Duration)
-                                    VALUES (:Titel, :Description, :Poster, :ageRating, :Duration)";
-
-                            $database = Database::getInstance();
-                            $stmt = $database->getConnection()->prepare($sql);
-                            $stmt->execute([
-                                ':Titel'       => $_POST['Titel'],
-                                ':Description' => $_POST['Description'],
-                                ':Poster'      => $relativePath,
-                                ':ageRating'   => $_POST['ageRating'],
-                                ':Duration'    => $_POST['Duration']
+                            $movie = new Movie();
+                            $movie->create([
+                                'Titel'       => $_POST['Titel'],
+                                'Description' => $_POST['Description'],
+                                'Poster'      => $relativePath,
+                                'ageRating'   => $_POST['ageRating'],
+                                'Duration'    => $_POST['Duration']
                             ]);
 
                             redirect_to("movies_page.php");
@@ -97,14 +94,14 @@ include '../../components/header.php';
         <h3 class="text-xl font-semibold mb-4 text-slate-800">Add New Movie</h3>
         <input type="text" name="Titel" placeholder="Title" class="border p-2 w-full mb-3 text-slate-800" required>
         <textarea name="Description" placeholder="Description"
-                  class="border p-2 w-full mb-3 text-slate-800" required></textarea>
+            class="border p-2 w-full mb-3 text-slate-800" required></textarea>
         <input type="file" name="Poster" class="p-1 w-full mb-3 text-slate-800" accept="image/*" required>
         <input type="number" name="ageRating" placeholder="Age Rating"
-               class="border p-2 w-full mb-3 text-slate-800" required>
+            class="border p-2 w-full mb-3 text-slate-800" required>
         <input type="number" name="Duration" placeholder="Duration (minutes)"
-               class="border p-2 w-full mb-3 text-slate-800" required>
+            class="border p-2 w-full mb-3 text-slate-800" required>
         <button type="submit" name="addMovie"
-                class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded">
+            class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded">
             Add Movie
         </button>
     </form>

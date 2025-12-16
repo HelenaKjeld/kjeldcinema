@@ -112,7 +112,6 @@ CREATE TABLE seating (
 CREATE TABLE ticket_has_a_seating (
     TicketID INT NOT NULL,
     SeatingID INT NOT NULL,
-    IsAvailable BOOLEAN DEFAULT FALSE, -- is the seat available for booking
     PRIMARY KEY (TicketID, SeatingID),
     FOREIGN KEY (TicketID) REFERENCES ticket(TicketID),
     FOREIGN KEY (SeatingID) REFERENCES seating(SeatingID)
@@ -197,6 +196,8 @@ JOIN seating s
     ON s.ShowroomID = sr.ShowroomID;
 
 
+DELIMITER $$
+
 CREATE TRIGGER trg_prevent_delete_paid_invoice
 BEFORE DELETE ON invoice
 FOR EACH ROW
@@ -216,3 +217,4 @@ BEGIN
       SET MESSAGE_TEXT = 'Cannot delete an admin account';
   END IF;
 END$$
+DELIMITER ;

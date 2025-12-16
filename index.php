@@ -44,7 +44,7 @@ include 'components/news_section.php';
         <div class="mb-8">
             <div class="relative max-w-md">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <i data-feather="calendar" class="text-gray-400 w-5 h-5"></i>
+                    <!-- <i data-feather="calendar" class="text-gray-400 w-5 h-5"></i> -->
                 </div>
                 <input id="dateInput" class="bg-slate-800 text-white px-3 py-2 rounded-md mb-4"
                     placeholder="Select date">

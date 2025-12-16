@@ -43,7 +43,6 @@ $getUsers = $userObj->getAll();
                     <th class="p-3">UserID</th>
                     <th class="p-3">Name</th>
                     <th class="p-3">Email</th>
-                    <th class="p-3">Edit</th>
                     <th class="p-3">Delete</th>
                 </tr>
             </thead>
@@ -53,10 +52,6 @@ $getUsers = $userObj->getAll();
                         <td class="p-3 "><?= $user['UserID'] ?></td>
                         <td class="p-3"><?= politi($user['Firstname'] . ' ' . $user['Lastname']) ?></td>
                         <td class="p-3"><?= politi($user['Email']) ?></td>
-                        <td class="p-3">
-                            <a href="editUser.php?ID=<?= $user['UserID'] ?>" 
-                               class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</a>
-                        </td>
                         <td class="p-3">
                             <a href="?delete=<?= $user['UserID'] ?>" 
                                onclick="return confirm('Are you sure you want to delete this user?')"
