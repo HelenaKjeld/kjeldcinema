@@ -263,11 +263,11 @@ $ticketsResult = $ticketsStmt->get_result();
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <span class="font-medium text-slate-100">
-                                                <?php echo htmlspecialchars($buyerName ?: 'Guest'); ?>
+                                                <?php echo politi($buyerName ?: 'Guest'); ?>
                                             </span>
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap text-slate-200">
-                                            <?php echo htmlspecialchars($email ?: '—'); ?>
+                                            <?php echo politi($email ?: '—'); ?>
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <?php if ($isUserTicket): ?>
@@ -281,7 +281,7 @@ $ticketsResult = $ticketsStmt->get_result();
                                             <?php endif; ?>
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap text-slate-300">
-                                            <?php echo htmlspecialchars($purchaseDate ?: '—'); ?>
+                                            <?php echo politi($purchaseDate ?: '—'); ?>
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sky-300 font-semibold">
                                             <?php echo number_format((float)$t['TotalPrice'], 2); ?> DKK
@@ -304,7 +304,6 @@ $ticketsResult = $ticketsStmt->get_result();
 </html>
 
 <?php
-// Cleanup
 $ticketsStmt->close();
 $seatsStmt->close();
 $showingStmt->close();

@@ -75,7 +75,6 @@ require_once(__DIR__ . "/../includes/functions.php");
         <div class="container mx-auto px-6 py-20">
             <div class="flex flex-col space-y-8 text-center">
                 <a href="index" class="text-white text-2xl hover:text-amber-400 transition">Home</a>
-                <!-- <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Movies</a> -->
                 <a href="venues_page" class="text-white text-2xl hover:text-amber-400 transition">Venues</a>
                 <a href="#" class="text-white text-2xl hover:text-amber-400 transition">Contact</a>
                 <button class="bg-amber-500 hover:bg-amber-600 text-black px-6 py-3 rounded-full font-medium text-xl mx-auto w-48 transition">

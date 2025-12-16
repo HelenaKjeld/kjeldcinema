@@ -25,10 +25,6 @@ if ($res && $res->num_rows > 0) {
 }
 ?>
 
-
-
-
-
 <!-- Hero -->
 <section class="hero-gradient pt-32 pb-16 px-6">
   <div class="container mx-auto">
@@ -41,13 +37,6 @@ if ($res && $res->num_rows > 0) {
         <p class="text-gray-300 mt-6 max-w-2xl">
           <?= nl2br(politi($about['Herotext'], ENT_QUOTES, 'UTF-8')) ?>
         </p>
-        <!-- <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-            Welcome to <span class="text-amber-400">RowanCinema</span>
-          </h1>
-          <p class="text-gray-300 mt-6 max-w-2xl">
-            Your ultimate destination for premium cinematic experiences. From Dolby Atmos to reclining seats,
-            we deliver movies with maximum comfort—and a dash of Mr. Bean-style mischief.
-          </p> -->
         <div class="mt-8 flex flex-wrap gap-4">
           <a href="/" class="ticket-button px-8 py-3 rounded-full font-bold text-white">View Showtimes</a>
           <a href="contact_page.html" class="border border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-black transition">Contact Us</a>
@@ -75,15 +64,6 @@ if ($res && $res->num_rows > 0) {
       <p class="text-gray-300 leading-relaxed whitespace-pre-line">
         <?= nl2br(politi($about['AboutText'], ENT_QUOTES, 'UTF-8')) ?>
       </p>
-      <!-- <h2 class="text-3xl font-bold mb-4">Our Story</h2>
-      <p class="text-gray-300 leading-relaxed">
-        Born from a love of laughter, drama, and the occasional silent stare, RowanCinema started as a small screen
-        with big dreams. Today, we’re proud to host the best of cinema—blockbusters and indie gems—served with comfort and humor.
-      </p>
-      <p class="text-gray-300 mt-4">
-        Our mission is simple: make movie nights magical. And if Mr. Bean shows up and presses the wrong button again…
-        well, that’s just part of the charm.
-      </p> -->
     </div>
     <div class="bg-slate-700 rounded-xl p-6 shadow grid grid-cols-2 gap-6">
       <div>

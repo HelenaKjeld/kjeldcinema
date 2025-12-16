@@ -9,7 +9,7 @@ if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
 
 $movieObj = new Movie();
 
-// IMPORTANT: use a method that actually filters showings by date
+
 $movies = $movieObj->getMoviesWithShowtimesByDate($date);
 ?>
 
@@ -33,7 +33,8 @@ $movies = $movieObj->getMoviesWithShowtimesByDate($date);
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded"><?= politi($movie['ageRating']) ?>+</span><p>Age</p>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded"><?= politi($movie['ageRating']) ?>+</span>
+                        <p>Age</p>
                         <span class="text-xs bg-slate-700 px-2 py-1 rounded"><?= politi($movie['Duration']) ?> min</span>
                     </div>
 
@@ -46,7 +47,7 @@ $movies = $movieObj->getMoviesWithShowtimesByDate($date);
                             <div class="flex flex-wrap gap-3">
                                 <?php foreach ($movie['Showtimes'] as $show): ?>
                                     <a href="/booking_page.php?showing=<?= (int)$show['ShowingID'] ?>"
-                                       class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">
+                                        class="bg-slate-700 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-md transition">
                                         <?= date('H:i', strtotime($show['Time'])) ?>
                                     </a>
                                 <?php endforeach; ?>

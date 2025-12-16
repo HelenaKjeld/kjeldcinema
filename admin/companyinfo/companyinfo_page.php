@@ -78,7 +78,7 @@ if (isset($_POST['saveCompany'])) {
                             }
 
                             echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
-                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . politi($e->getMessage(), ENT_QUOTES, 'UTF-8')
                                 . "</p>";
                             // On failure we keep old $logoPath (so you don't lose your existing logo)
                         }

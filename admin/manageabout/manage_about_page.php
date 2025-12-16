@@ -2,6 +2,7 @@
 session_start();
 
 require_once __DIR__ . '/../../includes/constants.php';
+require_once __DIR__ . '/../../includes/functions.php';
 include __DIR__ . '../../../components/header.php';
 
 // TODO: protect this page so only admins can access it
@@ -17,10 +18,10 @@ $success = false;
 
 // --- Handle POST (update) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $heroTitle  = trim($_POST['HeroTitel'] ?? '');
-    $heroText   = trim($_POST['Herotext'] ?? '');
-    $aboutTitle = trim($_POST['AboutTitle'] ?? '');
-    $aboutText  = trim($_POST['AboutText'] ?? '');
+    $heroTitle  = politi($_POST['HeroTitel'] ?? '');
+    $heroText   = politi($_POST['Herotext'] ?? '');
+    $aboutTitle = politi($_POST['AboutTitle'] ?? '');
+    $aboutText  = politi($_POST['AboutText'] ?? '');
 
     if ($heroTitle === '')  { $errors[] = 'Hero title is required.'; }
     if ($heroText === '')   { $errors[] = 'Hero text is required.'; }
@@ -94,7 +95,7 @@ if ($res && $res->num_rows > 0) {
         <div class="mb-4 rounded-lg bg-red-900/40 border border-red-600 px-4 py-3 text-sm text-red-100">
             <ul class="list-disc list-inside">
                 <?php foreach ($errors as $e): ?>
-                    <li><?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8') ?></li>
+                    <li><?= politi($e, ENT_QUOTES, 'UTF-8') ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -112,7 +113,7 @@ if ($res && $res->num_rows > 0) {
                         id="HeroTitel"
                         name="HeroTitel"
                         class="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-slate-100"
-                        value="<?= htmlspecialchars($current['HeroTitel'], ENT_QUOTES, 'UTF-8') ?>"
+                        value="<?= politi($current['HeroTitel'], ENT_QUOTES, 'UTF-8') ?>"
                         required
                     >
                 </div>
@@ -125,7 +126,7 @@ if ($res && $res->num_rows > 0) {
                         rows="3"
                         class="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-slate-100"
                         required
-                    ><?= htmlspecialchars($current['Herotext'], ENT_QUOTES, 'UTF-8') ?></textarea>
+                    ><?= politi($current['Herotext'], ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
             </div>
         </div>
@@ -141,7 +142,7 @@ if ($res && $res->num_rows > 0) {
                         id="AboutTitle"
                         name="AboutTitle"
                         class="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-slate-100"
-                        value="<?= htmlspecialchars($current['AboutTitle'], ENT_QUOTES, 'UTF-8') ?>"
+                        value="<?= politi($current['AboutTitle'], ENT_QUOTES, 'UTF-8') ?>"
                         required
                     >
                 </div>
@@ -154,7 +155,7 @@ if ($res && $res->num_rows > 0) {
                         rows="6"
                         class="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-slate-100"
                         required
-                    ><?= htmlspecialchars($current['AboutText'], ENT_QUOTES, 'UTF-8') ?></textarea>
+                    ><?= politi($current['AboutText'], ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
             </div>
         </div>

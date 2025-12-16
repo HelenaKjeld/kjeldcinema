@@ -162,20 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
           </div>
-
-
-          <!-- <div class="flex gap-4 text-gray-400">
-            <a href="#" class="hover:text-amber-400"><i data-feather="facebook"></i></a>
-            <a href="#" class="hover:text-amber-400"><i data-feather="instagram"></i></a>
-            <a href="#" class="hover:text-amber-400"><i data-feather="twitter"></i></a>
-            <a href="#" class="hover:text-amber-400"><i data-feather="youtube"></i></a>
-          </div> -->
         </div>
-
-        <!-- Map Placeholder
-        <div class="mt-10 bg-slate-800 rounded-xl p-4 h-56 flex items-center justify-center text-gray-400 border border-slate-700">
-          Map coming soon…
-        </div>-->
       </div>
     </div>
   </section>

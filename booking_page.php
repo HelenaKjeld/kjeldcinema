@@ -108,23 +108,21 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
                   <!-- Row seats (always fit in available width) -->
                   <div
                     class="flex-1 grid gap-1 sm:gap-2"
-                    style="grid-template-columns: repeat(<?= count($rowSeats) ?>, minmax(0, 1fr));"
-                  >
+                    style="grid-template-columns: repeat(<?= count($rowSeats) ?>, minmax(0, 1fr));">
                     <?php foreach ($rowSeats as $seat): ?>
                       <?php
-                        $seatId   = (int)$seat['SeatingID'];
-                        $isBooked = !empty($seat['IsTaken']);
+                      $seatId   = (int)$seat['SeatingID'];
+                      $isBooked = !empty($seat['IsTaken']);
                       ?>
                       <div
                         class="seat aspect-square w-full min-w-0 flex items-center justify-center rounded select-none
                           text-[clamp(10px,1vw,14px)] font-semibold
                           <?= $isBooked
-                                ? 'bg-red-500 text-white cursor-not-allowed pointer-events-none'
-                                : 'bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer'
+                            ? 'bg-red-500 text-white cursor-not-allowed pointer-events-none'
+                            : 'bg-gray-200 text-black hover:bg-blue-500 hover:text-white cursor-pointer'
                           ?>"
                         data-id="<?= $seatId ?>"
-                        title="Seat <?= politi($rowLetter) ?>-<?= politi($seat['SeatNumber']) ?>"
-                      >
+                        title="Seat <?= politi($rowLetter) ?>-<?= politi($seat['SeatNumber']) ?>">
                         <?= politi($seat['SeatNumber']) ?>
                       </div>
                     <?php endforeach; ?>
@@ -153,14 +151,6 @@ $ticketPrice = (float)($showingDetails['Price'] ?? 0.0);
             <span>Booked</span>
           </div>
         </div>
-
-        <!-- Selected seats 
-        <div class="bg-slate-700 p-4 rounded-lg mb-6">
-          <h4 class="font-semibold mb-2">Selected Seats</h4>
-          <div id="selected-seats" class="flex flex-wrap gap-2">
-            <span class="text-gray-400">No seats selected</span>
-          </div>
-        </div>-->
 
         <!-- Total + Proceed -->
         <form id="booking-form" method="POST" action="/booking/confirm_booking_page.php">
