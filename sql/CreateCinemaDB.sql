@@ -46,7 +46,7 @@ CREATE TABLE user (
     Password VARCHAR(100) NOT NULL
     Role ENUM('user','admin') NOT NULL DEFAULT 'user';
   
-    -- Role ENUM('admin', 'customer') DEFAULT 'customer', maybe?!?!?
+    -- Role ENUM('admin', 'customer') DEFAULT 'customer',
 );
 
 UPDATE user
