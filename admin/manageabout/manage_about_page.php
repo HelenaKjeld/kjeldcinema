@@ -1,8 +1,8 @@
 <?php
-session_start();
-
 require_once __DIR__ . '/../../includes/constants.php';
 require_once __DIR__ . '/../../includes/functions.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();
 include __DIR__ . '../../../components/header.php';
 
 // TODO: protect this page so only admins can access it

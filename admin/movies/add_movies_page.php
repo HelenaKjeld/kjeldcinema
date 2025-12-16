@@ -3,6 +3,8 @@ include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/Database.php';
 require_once __DIR__ . '/../../OOP/classes/Movie.php';
 require_once __DIR__ . '/../../includes/ImageResizer.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();
 
 if (isset($_POST['addMovie'])) {
 
@@ -56,11 +58,11 @@ if (isset($_POST['addMovie'])) {
                             // Insert movie row
                             $movie = new Movie();
                             $movie->create([
-                                'Titel'       => $_POST['Titel'],
-                                'Description' => $_POST['Description'],
+                                'Titel'       => politi($_POST['Titel']),
+                                'Description' => politi($_POST['Description']),
                                 'Poster'      => $relativePath,
-                                'ageRating'   => $_POST['ageRating'],
-                                'Duration'    => $_POST['Duration']
+                                'ageRating'   => (int) $_POST['ageRating'],
+                                'Duration'    => (int) $_POST['Duration']
                             ]);
 
                             redirect_to("movies_page.php");
@@ -69,7 +71,7 @@ if (isset($_POST['addMovie'])) {
                                 @unlink($absolutePath);
                             }
                             echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
-                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . politi($e->getMessage(), ENT_QUOTES, 'UTF-8')
                                 . "</p>";
                         }
                     }

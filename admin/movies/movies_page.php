@@ -1,8 +1,10 @@
 <?php
 include '../../includes/functions.php';
-include '../../components/header.php';
 require_once __DIR__ . '/../../OOP/classes/Movie.php';
 require_once __DIR__ . '/../../includes/ImageResizer.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();
+include '../../components/header.php';
 
 $movie = new Movie();
 
@@ -78,7 +80,7 @@ if (isset($_POST['updateMovie'])) {
                                 @unlink($absolutePath);
                             }
                             echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
-                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . politi($e->getMessage(), ENT_QUOTES, 'UTF-8')
                                 . "</p>";
                         }
                     }
@@ -88,11 +90,11 @@ if (isset($_POST['updateMovie'])) {
     }
 
     $updateData = [
-        'Titel'       => $_POST['Titel'],
-        'Description' => $_POST['Description'],
+        'Titel'       => politi($_POST['Titel']),
+        'Description' => politi($_POST['Description']),
         'Poster'      => $posterPath,
-        'ageRating'   => $_POST['ageRating'],
-        'Duration'    => $_POST['Duration']
+        'ageRating'   => (int) $_POST['ageRating'],
+        'Duration'    => (int) $_POST['Duration']
     ];
 
     if ($movie->update($movieId, $updateData)) {
@@ -142,8 +144,8 @@ $movies = $movie->all();
                 <td class="p-3 text-slate-800"><?= $row['MovieID'] ?></td>
                 <td class="p-3 text-slate-800"><?= politi($row['Titel']) ?></td>
                 <td class="p-3 text-slate-800"><?= politi($row['Description']) ?></td>
-                <td class="p-3 text-slate-800"><?= $row['ageRating'] ?></td>
-                <td class="p-3 text-slate-800"><?= $row['Duration'] ?> min</td>
+                <td class="p-3 text-slate-800"><?= politi($row['ageRating']) ?></td>
+                <td class="p-3 text-slate-800"><?= politi($row['Duration']) ?> min</td>
                 <td class="p-3 text-slate-800">
                     <?php if (!empty($row['Poster'])): ?>
                         <img src="/<?= politi($row['Poster']) ?>" alt="poster" class="w-12 h-auto rounded">

@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../../OOP/classes/Showing.php';
 require_once __DIR__ . '/../../OOP/classes/Movie.php';
 require_once __DIR__ . '/../../OOP/classes/Showroom.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();
 include '../../components/header.php';
 
 $showing = new Showing();
@@ -11,11 +13,11 @@ $showroom = new Showroom();
 // Handle add
 if (isset($_POST['addShowing'])) {
     $showing->create([
-        'DATE' => $_POST['DATE'],
-         'Time' => $_POST['Time'],
-        'Price' => $_POST['Price'],
-        'MovieID' => $_POST['MovieID'],
-        'ShowroomID' => $_POST['ShowroomID']
+        'DATE' => politi($_POST['DATE']),
+         'Time' => politi($_POST['Time']),
+        'Price' => politi($_POST['Price']),
+        'MovieID' => politi($_POST['MovieID']),
+        'ShowroomID' => politi($_POST['ShowroomID'])
     ]);
     echo "<p class='text-green-600 text-center mt-4'>Showing added successfully!</p>";
 }

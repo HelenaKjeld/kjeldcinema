@@ -2,6 +2,8 @@
 include '../../includes/functions.php';
 require_once __DIR__ . '/../../OOP/classes/ComingSoon.php';
 require_once __DIR__ . '/../../OOP/classes/Movie.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();  
 $comingSoon = new ComingSoon();
 $movie = new Movie();
 

@@ -2,6 +2,8 @@
 include '../../includes/functions.php'; // guidv4, politi, etc.
 require_once __DIR__ . '/../../OOP/classes/News.php';
 require_once __DIR__ . '/../../includes/ImageResizer.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_admin();
 include '../../components/header.php';
 
 $newsObj = new News();
@@ -76,7 +78,7 @@ if (isset($_POST['updateNews'])) {
                                 @unlink($absolutePath);
                             }
                             echo "<p class='text-red-600 text-center mt-4'>Image processing failed: "
-                                . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8')
+                                . politi($e->getMessage(), ENT_QUOTES, 'UTF-8')
                                 . "</p>";
                         }
                     }
@@ -87,10 +89,10 @@ if (isset($_POST['updateNews'])) {
 
     // Update DB row
     $newsObj->updateById($id, [
-        'Titel'       => $_POST['Titel'],
-        'Text'        => $_POST['Text'],
+        'Titel'       => politi($_POST['Titel']),
+        'Text'        => politi($_POST['Text']),
         'BannerImg'   => $bannerPath,
-        'ReleaseDate' => $_POST['ReleaseDate'],
+        'ReleaseDate' => politi($_POST['ReleaseDate']),
     ]);
 
     echo "<p class='text-green-600 text-center mt-4'>News #{$id} updated.</p>";

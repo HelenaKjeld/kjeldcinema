@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../includes/constants.php';
 require_once __DIR__ . '/../../../includes/functions.php';
+require_once __DIR__ . '/../../../includes/session.php';
+require_admin();
 include '../../../components/header.php';
 
 $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
