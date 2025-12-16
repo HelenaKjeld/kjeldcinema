@@ -150,6 +150,5 @@ For a production-ready setup, use environment variables or a separate config fil
 
 ## Author
 
-Developed by **Helena Kjeld**  
-Supervisors: **Søren Spangsberg Jørgensen** and **Kim Thøisen**  
+Developed by **Helena Kjeld**   
 Hand-in date: **17-12-2025**
